@@ -27,7 +27,6 @@ class DropfileController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
         $judul = $request->judul;
         $slug = \Str::slug($judul);
         $jenis = Dokumen::where('id_jenis', $request->jenis)->first();
@@ -48,14 +47,6 @@ class DropfileController extends Controller
             'shlink' => $slug
         ]);
         return redirect()->route('upload.index');
-        // $data = [
-        //     'id_jenis' => $jenis->id_jenis,
-        //     'judul' => $judul,
-        //     'file_dokumen' => $jenis->nama_jenis.'/'.$slug,
-        //     'gambar' => $slug.'.'.$fileExtension,
-        //     'shlink' => $slug
-        // ];
-        // return $data;
     }
 
     public function show($fileTitle)
