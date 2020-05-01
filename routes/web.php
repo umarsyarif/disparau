@@ -20,3 +20,7 @@ Route::post('/dokumen', 'DokumenController@store')->name('dokumen.store');
 
 Route::get('/dokumen/upload', 'DropfileController@index')->name('upload.index');
 Route::post('/dokumen/upload', 'DropfileController@store')->name('upload.store');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
