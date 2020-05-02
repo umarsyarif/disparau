@@ -122,7 +122,7 @@
             </div>
         </li>
 
-        <li class="dropdown notification-list">
+        <li class="dropdown notification-list mr-3">
             <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                 <img src="{{asset('adminto/images/users/user-1')}}.jpg" alt="user-image" class="rounded-circle">
                 <span class="pro-user-name ml-1">
@@ -147,12 +147,6 @@
                     <span>Settings</span>
                 </a>
 
-                <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                    <i class="fe-lock"></i>
-                    <span>Lock Screen</span>
-                </a>
-
                 <div class="dropdown-divider"></div>
 
                 <!-- item-->
@@ -169,11 +163,11 @@
             </div>
         </li>
 
-        <li class="dropdown notification-list">
+        {{-- <li class="dropdown notification-list">
             <a href="javascript:void(0);" class="nav-link right-bar-toggle waves-effect">
                 <i class="fe-settings noti-icon"></i>
             </a>
-        </li>
+        </li> --}}
         @endif
 
     </ul>
@@ -182,8 +176,8 @@
     <div class="logo-box">
         <a href="{{route('home')}}" class="logo text-center">
             <span class="logo-lg">
-                <img src="{{asset('adminto/images/logo-dark.png')}}" alt="" height="16">
-                <!-- <span class="logo-lg-text-light">Xeria</span> -->
+                {{-- <img src="{{asset('adminto/images/logo-dark.png')}}" alt="" height="16"> --}}
+                <span class="logo-lg-text-dark">Disparau</span>
             </span>
             <span class="logo-sm">
                 <!-- <span class="logo-sm-text-dark">X</span> -->
@@ -200,7 +194,7 @@
         </li>
 
         <li>
-            <h4 class="page-title-main">Calendar</h4>
+            <h4 class="page-title-main">{{$title}}</h4>
         </li>
 
     </ul>

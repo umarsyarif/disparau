@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6">
-               2016 - 2019 &copy; Adminto theme by <a href="">Coderthemes</a>
+               {{date('Y') == 2020 ? '' : '2020 -'}}{{date('Y')}} &copy; Event Calendar by <a href="javascript:void(0);">Dinas Pariwisata dan Kebudayaan Riau</a>
             </div>
             <div class="col-md-6">
                 <div class="text-md-right footer-links d-none d-sm-block">
