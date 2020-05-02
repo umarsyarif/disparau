@@ -20,9 +20,11 @@
 <body>
     <div id="wrapper">
         @include('partials.navbar')
-        <main class="py-4">
-            @yield('content')
-        </main>
+        <div id="app">
+            <main class="py-4">
+                @yield('content')
+            </main>
+        </div>
     </div>
 </body>
 </html>
