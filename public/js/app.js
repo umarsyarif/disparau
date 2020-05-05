@@ -59051,7 +59051,8 @@ __webpack_require__.r(__webpack_exports__);
  */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"); // Filters
+
 
 Vue.filter('date', function (date) {
   return Object(_fullcalendar_core__WEBPACK_IMPORTED_MODULE_0__["formatDate"])(date, {
@@ -59064,7 +59065,7 @@ Vue.filter('date', function (date) {
 });
 Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue"));
 Vue.component('admin-calendar', function () {
-  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1)]).then(__webpack_require__.bind(null, /*! ./components/AdminCalendar.vue */ "./resources/js/components/AdminCalendar.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(0)]).then(__webpack_require__.bind(null, /*! ./components/AdminCalendar.vue */ "./resources/js/components/AdminCalendar.vue"));
 });
 Vue.component('organizer-component', function () {
   return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./components/Organizer.vue */ "./resources/js/components/Organizer.vue"));

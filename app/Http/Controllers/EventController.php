@@ -46,7 +46,7 @@ class EventController extends Controller
      */
     public function show($month)
     {
-        return Event::whereMonth('start', $month)->orderBy('start')->with('city')->get();
+        return Event::whereMonth('start', $month)->orWhereMonth('end', $month)->orderBy('start')->with('city')->get();
     }
 
     /**
