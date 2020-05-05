@@ -8,7 +8,7 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-
+// Filters
 import { formatDate } from "@fullcalendar/core";
 Vue.filter('date', function (date) {
     return formatDate(date, {

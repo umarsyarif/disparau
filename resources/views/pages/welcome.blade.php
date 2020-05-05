@@ -85,7 +85,7 @@
                 </div>
 
                 <div class="links">
-                    <a href="{{ route('dokumen.index') }}">Docs</a>
+                    <a href="">Docs</a>
                 </div>
             </div>
         </div>
