@@ -15,12 +15,13 @@ class CreateEventsTable extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nama');
-            $table->integer('penyelenggara_id');
-            $table->date('tanggal_mulai');
-            $table->date('tanggal_selesai');
-            $table->text('alamat');
-            $table->integer('cities_id');
+            $table->string('title');
+            $table->integer('organizer_id');
+            $table->date('start');
+            $table->date('end');
+            $table->text('address');
+            $table->integer('city_id');
+            $table->string('url')->nullable();
             $table->string('header')->nullable();
             $table->timestamps();
         });
