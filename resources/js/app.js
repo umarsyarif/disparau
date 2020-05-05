@@ -8,18 +8,23 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
 
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+import { formatDate } from "@fullcalendar/core";
+Vue.filter('date', function (date) {
+    return formatDate(date, {
+        month: "long",
+        year: "numeric",
+        day: "numeric",
+        weekday: "long",
+        locale: "id"
+    });
+})
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+
+
+Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('admin-calendar', () => import('./components/AdminCalendar.vue'));
+Vue.component('organizer-component', () => import('./components/Organizer.vue'));
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

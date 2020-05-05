@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Event;
+use App\Organizer;
 use Illuminate\Http\Request;
 
-class EventController extends Controller
+class OrganizerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        return Event::all();
+        return Organizer::all();
     }
 
     /**
@@ -22,7 +22,7 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //
     }
@@ -35,27 +35,29 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // return $request->form;
+        Organizer::updateOrCreate(['id' => optional($request->form)['id']], $request->form);
+        return $this->index();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Event  $event
+     * @param  \App\Organizer  $organizer
      * @return \Illuminate\Http\Response
      */
-    public function show($month)
+    public function show(Organizer $organizer)
     {
-        return Event::whereMonth('start', $month)->orderBy('start')->with('city')->get();
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Event  $event
+     * @param  \App\Organizer  $organizer
      * @return \Illuminate\Http\Response
      */
-    public function edit(Event $event)
+    public function edit(Organizer $organizer)
     {
         //
     }
@@ -64,10 +66,10 @@ class EventController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Event  $event
+     * @param  \App\Organizer  $organizer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Event $event)
+    public function update(Request $request, Organizer $organizer)
     {
         //
     }
@@ -75,11 +77,12 @@ class EventController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Event  $event
+     * @param  \App\Organizer  $organizer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Event $event)
+    public function destroy($id)
     {
-        //
+        Organizer::findOrFail($id)->delete();
+        return $this->index();
     }
 }

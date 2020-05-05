@@ -16,10 +16,18 @@ Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
 
 Auth::routes();
 
-Route::get('/dokumen', 'DokumenController@index')->name('dokumen.index');
-Route::post('/dokumen', 'DokumenController@store')->name('dokumen.store');
+// Events
+Route::prefix('event')->name('event.')->group(function () {
+    Route::get('/get', 'EventController@index')->name('index');
+    Route::post('/', 'EventController@store')->name('store');
+    Route::get('/{month?}', 'EventController@show')->name('show');
+});
 
-Route::get('/dokumen/upload', 'DropfileController@index')->name('upload.index');
-Route::post('/dokumen/upload', 'DropfileController@store')->name('upload.store');
+// Organizer
+Route::prefix('organizer')->name('organizer.')->group(function () {
+    Route::get('/get', 'OrganizerController@index')->name('index');
+    Route::post('/', 'OrganizerController@store')->name('store');
+    Route::delete('{id?}', 'OrganizerController@destroy')->name('destroy');
+});
 
 Route::get('/{page}', 'HomeController@pages')->name('pages');

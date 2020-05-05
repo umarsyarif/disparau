@@ -11,12 +11,11 @@
     <!-- Plugin css -->
     <link rel="stylesheet" type="text/css" href="{{asset('adminto/libs/fullcalendar/fullcalendar.min.css')}}">
     <!-- Styles -->
-    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
     <link rel="stylesheet" type="text/css" href="{{asset('adminto/css/bootstrap.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('adminto/css/icons.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('adminto/css/app.min.css')}}">
     <!-- Scripts -->
-    {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
+    <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 <body>
     <div id="wrapper">
@@ -25,7 +24,7 @@
         <div class="content-page">
             <div class="content">
                 <!-- Start Content-->
-                <div class="app">
+                <div id="app">
                     @yield('content')
                 </div> <!-- container-fluid -->
             </div> <!-- content -->
@@ -34,14 +33,6 @@
     </div>
     <!-- Script -->
     <script src="{{asset('adminto/js/vendor.min.js')}}"></script>
-    <!-- fullcalendar plugins -->
-    <script src="{{asset('adminto/libs/moment/moment.js')}}"></script>
-    <script src="{{asset('adminto/libs/jquery-ui/jquery-ui.min.js')}}"></script>
-    <script src="{{asset('adminto/libs/fullcalendar/fullcalendar.min.js')}}"></script>
-
-    <!-- fullcalendar js -->
-    <script src="{{asset('adminto/js/pages/fullcalendar.init.js')}}"></script>
-
     <script src="{{asset('adminto/js/app.min.js')}}"></script>
 </body>
 </html>
