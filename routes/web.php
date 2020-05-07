@@ -19,6 +19,7 @@ Auth::routes();
 // Events
 Route::prefix('event')->name('event.')->group(function () {
     Route::get('/get', 'EventController@index')->name('index');
+    Route::get('/cities', 'EventController@cities')->name('cities');
     Route::post('/', 'EventController@store')->name('store');
     Route::get('/{month?}', 'EventController@show')->name('show');
 });

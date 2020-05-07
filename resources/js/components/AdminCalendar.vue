@@ -3,40 +3,114 @@ import FullCalendar from "@fullcalendar/vue";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import idLocale from "@fullcalendar/core/locales/id";
-import { formatDate } from "@fullcalendar/core";
+import { id } from "vuejs-datepicker/dist/locale";
+import Datepicker from "vuejs-datepicker";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 export default {
   props: {
-    urlGetEvents: String,
+    urlGetOrganizers: String,
+    urlGetCities: String,
     urlEvent: String
   },
   components: {
-    "full-calendar": FullCalendar // make the <FullCalendar> tag available
+    "full-calendar": FullCalendar, // make the <FullCalendar> tag available
+    "date-picker": Datepicker
   },
   mounted: function() {
     this.loadData();
+    this.loadCities();
+    this.loadOrganizers();
+    this.getCurrentDate();
   },
   data: function() {
     return {
       locale: idLocale,
-      currentMonth: "",
+      pickerLocale: id,
+      editor: ClassicEditor,
+      editorConfig: {
+        // The configuration of the editor.
+      },
       calendarPlugins: [
-        // plugins must be defined in the JS
         dayGridPlugin,
         interactionPlugin // needed for dateClick
       ],
-      calendarEvents: [
-        // initial event data
-        { title: "Event Now", start: new Date() }
-      ]
+      currentDate: "",
+      currentMonth: "",
+      calendarEvents: [],
+      form: {},
+      organizers: {},
+      cities: {},
+      isCreate: false,
+      disabledDates: {
+        customPredictor: date => {
+          if (date < this.form.start) {
+            return true;
+          }
+        }
+      }
     };
   },
   methods: {
     loadData() {
-      axios.get(this.urlEvent + "/" + this.currentMonth).then(response => {
-        console.log(response.data);
-        this.calendarEvents = response.data;
-      });
+      axios
+        .get(this.urlEvent + "/" + this.currentMonth)
+        .then(response => {
+          this.calendarEvents = response.data;
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
+    loadOrganizers() {
+      axios
+        .get(this.urlGetOrganizers)
+        .then(response => {
+          this.organizers = response.data;
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
+    loadCities() {
+      axios
+        .get(this.urlGetCities)
+        .then(response => {
+          this.cities = response.data;
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
+    createData(date = null) {
+      this.form = {
+        organizer_id: "",
+        city_id: "",
+        start: this.currentDate,
+        end: this.currentDate
+      };
+      if (typeof date == "string") {
+        this.form.start = new Date(date);
+        this.form.end = new Date(date);
+      }
+      this.isCreate = !this.isCreate;
+    },
+    storeData() {
+      axios
+        .post(this.urlEvent, {
+          form: this.form
+        })
+        .then(response => {
+          this.isCreate = false;
+          this.loadData();
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
+    getCurrentDate() {
+      let calendarApi = this.$refs.fullCalendar.getApi();
+      this.currentDate = new Date(calendarApi.getDate());
     },
     handleMonthChange() {
       let calendarApi = this.$refs.fullCalendar.getApi();
@@ -45,21 +119,7 @@ export default {
       this.loadData();
     },
     handleDateClick(arg) {
-      if (
-        confirm(
-          "Would you like to add an event to " +
-            formatDate(arg.dateStr, this.format) +
-            " ?"
-        )
-      ) {
-        this.calendarEvents.push({
-          // add new event data
-          title: "New Event",
-          start: arg.date,
-          end: arg.date + 1,
-          allDay: arg.allDay
-        });
-      }
+      this.createData(arg.dateStr);
     }
   }
 };
@@ -93,12 +153,15 @@ export default {
   background: lightblue;
   color: grey;
 }
+.close:hover {
+  color: red;
+}
 </style>
 
 <template>
   <div class="container-fluid mt-3">
     <div class="row">
-      <div class="col-12">
+      <div class="col-12" v-if="!isCreate">
         <div class="row">
           <!-- end col-->
           <div class="col-lg-8">
@@ -124,10 +187,9 @@ export default {
             <div class="widget">
               <div class="widget-body">
                 <a
-                  href="#"
-                  data-toggle="modal"
-                  data-target="#add-category"
+                  href="javascript:void(0)"
                   class="btn btn-lg btn-success font-16 btn-block waves-effect waves-light"
+                  @click="createData"
                 >
                   <i class="fa fa-plus mr-1"></i> Event Baru
                 </a>
@@ -158,84 +220,71 @@ export default {
           <!-- end col -->
         </div>
         <!-- end row -->
-
-        <!-- BEGIN MODAL -->
-        <div class="modal fade none-border" id="event-modal">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h4 class="modal-title mt-0">
-                  <strong>Add New Event</strong>
-                </h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <div class="col-12" v-if="isCreate">
+        <div class="card-box">
+          <a href="javascript:void(0)" class="close" @click="createData">
+            <i class="mdi mdi-close float-right"></i>
+          </a>
+          <div class="card-header bg-white text-center">
+            <h5>Add new event</h5>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="organizer_id">Penyelenggara</label>
+              <select
+                type="text"
+                class="form-control"
+                v-model="form.organizer_id"
+                id="organizer_id"
+              >
+                <option value>Pilih..</option>
+                <option v-for="row in organizers" :key="row.id" :value="row.id">{{ row.name }}</option>
+              </select>
+              <small class="form-text text-muted">Penyelenggara event</small>
+            </div>
+            <div class="form-group">
+              <label for="title">Judul</label>
+              <input type="text" class="form-control" v-model="form.title" id="title" />
+              <small class="form-text text-muted">Judul event</small>
+            </div>
+            <div class="form-group">
+              <label for="title">Tanggal</label>
+              <div class="form-group d-flex py-auto">
+                <date-picker
+                  v-model="form.start"
+                  input-class="form-control"
+                  wrapper-class="col-6 pl-0"
+                  :language="pickerLocale"
+                />-
+                <date-picker
+                  v-model="form.end"
+                  input-class="form-control"
+                  wrapper-class="col-6 pr-0"
+                  :language="pickerLocale"
+                  :disabled-dates="disabledDates"
+                />
               </div>
-              <div class="modal-body"></div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-light waves-effect" data-dismiss="modal">Close</button>
-                <button
-                  type="button"
-                  class="btn btn-success save-event waves-effect waves-light"
-                >Create event</button>
-                <button
-                  type="button"
-                  class="btn btn-danger delete-event waves-effect waves-light"
-                  data-dismiss="modal"
-                >Delete</button>
-              </div>
+            </div>
+            <div class="form-group">
+              <label for="address">Alamat</label>
+              <input type="text" class="form-control" v-model="form.address" id="address" />
+              <small class="form-text text-muted">Alamat lengkap event</small>
+            </div>
+            <div class="form-group">
+              <select type="text" class="form-control" v-model="form.city_id" id="city_id">
+                <option value>Kota / Kabupaten</option>
+                <option v-for="row in cities" :key="row.id" :value="row.id">{{ row.name }}</option>
+              </select>
+            </div>
+            <div class="form-group mt-3">
+              <label for="description">Deskripsi</label>
+              <ckeditor :editor="editor" v-model="form.description" :config="editorConfig"></ckeditor>
+              <small class="form-text text-muted">Deskripsi event</small>
             </div>
           </div>
-        </div>
-
-        <!-- Modal Add Category -->
-        <div class="modal fade none-border" id="add-category">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h4 class="modal-title mt-0">
-                  <strong>Add a category</strong>
-                </h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              </div>
-              <div class="modal-body">
-                <form role="form">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <label class="control-label">Category Name</label>
-                      <input
-                        class="form-control form-white"
-                        placeholder="Enter name"
-                        type="text"
-                        name="category-name"
-                      />
-                    </div>
-                    <div class="col-md-6">
-                      <label class="control-label">Choose Category Color</label>
-                      <select
-                        class="form-control form-white"
-                        data-placeholder="Choose a color..."
-                        name="category-color"
-                      >
-                        <option value="success">Success</option>
-                        <option value="danger">Danger</option>
-                        <option value="info">Info</option>
-                        <option value="pink">Pink</option>
-                        <option value="primary">Primary</option>
-                        <option value="warning">Warning</option>
-                        <option value="inverse">Inverse</option>
-                      </select>
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-light waves-effect" data-dismiss="modal">Close</button>
-                <button
-                  type="button"
-                  class="btn btn-danger waves-effect waves-light save-category"
-                  data-dismiss="modal"
-                >Save</button>
-              </div>
-            </div>
+          <div class="card-footer bg-white mb-4">
+            <button class="btn btn-primary float-right" @click="storeData">Save</button>
           </div>
         </div>
       </div>

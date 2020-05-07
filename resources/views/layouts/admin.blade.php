@@ -21,6 +21,13 @@
     <div id="wrapper">
         @include('partials.topbar')
         @include('partials.sidebar')
+        <!-- Pre-loader -->
+        <div id="preloader">
+            <div id="status">
+            <div class="spinner">Loading...</div>
+            </div>
+        </div>
+        <!-- End Preloader-->
         <div class="content-page">
             <div class="content">
                 <!-- Start Content-->

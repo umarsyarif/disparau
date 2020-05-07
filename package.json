@@ -24,11 +24,14 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "@ckeditor/ckeditor5-build-classic": "^19.0.0",
+        "@ckeditor/ckeditor5-vue": "^1.0.1",
         "@fullcalendar/core": "^4.4.0",
         "@fullcalendar/daygrid": "^4.4.0",
         "@fullcalendar/interaction": "^4.4.0",
         "@fullcalendar/moment": "^4.4.0",
         "@fullcalendar/vue": "^4.4.0",
-        "moment": "^2.25.1"
+        "moment": "^2.25.1",
+        "vuejs-datepicker": "^1.6.2"
     }
 }
