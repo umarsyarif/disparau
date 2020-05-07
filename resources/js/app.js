@@ -8,6 +8,14 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+// CKEditor
+import CKEditor from '@ckeditor/ckeditor5-vue';
+Vue.use(CKEditor);
+// window.CKEditor = CKEditor;
+
+// Datepicker
+// window.Datepicker = Datepicker;
+
 // Filters
 import { formatDate } from "@fullcalendar/core";
 Vue.filter('date', function (date) {

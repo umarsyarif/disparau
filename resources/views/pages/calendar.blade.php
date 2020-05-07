@@ -7,7 +7,8 @@ $title = 'Kalender Event';
 
 @section('content')
     <admin-calendar
-    url-get-events="{{route('event.index')}}"
+    url-get-organizers="{{route('organizer.index')}}"
+    url-get-cities="{{route('event.cities')}}"
     url-event="{{route('event.store')}}"
     />
 @endsection
