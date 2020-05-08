@@ -93,9 +93,11 @@ class EventController extends Controller
      * @param  \App\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Event $event)
+    public function destroy($id)
     {
-        //
+        Event::findOrFail($id)->delete();
+        $data['message'] = 'Data berhasil dihapus!';
+        return $data;
     }
 
     public function cities()

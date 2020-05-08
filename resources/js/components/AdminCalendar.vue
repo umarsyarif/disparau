@@ -95,6 +95,15 @@ export default {
       }
       this.isCreate = !this.isCreate;
     },
+    actionModal(event) {
+      this.form = event;
+      $("#event-modal").modal("show");
+    },
+    editData(event) {
+      //   this.form = event;
+      $("#event-modal").modal("hide");
+      this.isCreate = !this.isCreate;
+    },
     storeData() {
       axios
         .post(this.urlEvent, {
@@ -111,6 +120,34 @@ export default {
         .catch(error => {
           console.error(error);
         });
+    },
+    deleteData(id) {
+      $("#event-modal").modal("hide");
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        cancelButtonColor: "#3085d6",
+        confirmButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(result => {
+        if (result.value) {
+          axios
+            .delete(this.urlEvent + "/" + id)
+            .then(response => {
+              this.loadData();
+              Toast.fire({
+                icon: "success",
+                title: response.data.message
+              });
+            })
+            .catch(error => {
+              console.error(error);
+            });
+          //   Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        }
+      });
     },
     getCurrentDate() {
       let calendarApi = this.$refs.fullCalendar.getApi();
@@ -206,7 +243,11 @@ export default {
                   </p>
                   <ul class="list-group mb-0" v-for="(row) in calendarEvents" :key="row.id">
                     <li class="list-group-item" v-if="row.id">
-                      <a href="javascript:void(0)" class="user-list-item row">
+                      <a
+                        href="javascript:void(0)"
+                        class="user-list-item row"
+                        @click="actionModal(row)"
+                      >
                         <div class="user-desc col-md-10 col-10">
                           <h5 class="name mt-0 mb-1">
                             {{ row.title }}
@@ -231,7 +272,7 @@ export default {
             <i class="mdi mdi-close float-right"></i>
           </a>
           <div class="card-header bg-white text-center">
-            <h5>Add new event</h5>
+            <h5>Form Event</h5>
           </div>
           <div class="card-body">
             <div class="form-group">
@@ -292,6 +333,45 @@ export default {
           </div>
         </div>
       </div>
+      <!-- Modal -->
+      <div
+        class="modal fade bd-example-modal-sm"
+        id="event-modal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="event-modal-label"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="event-modal-label">Detail Event</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h5 class="modal-title text-center" id="event-modal-label" v-if="form.title">
+                {{ form.title }}
+                <br />
+                <small class="text-muted" v-if="form.city.name">({{ form.city.name }})</small>
+              </h5>
+              <div class="text-center mt-3">
+                <button class="btn btn-warning btn-sm" @click="showData(form)">
+                  <i class="mdi mdi-information"></i>
+                </button>
+                <button class="btn btn-primary btn-sm" @click="editData(form)">
+                  <i class="mdi mdi-lead-pencil"></i>
+                </button>
+                <button class="btn btn-danger btn-sm" @click="deleteData(form.id)">
+                  <i class="mdi mdi-delete"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Modal -->
     </div>
   </div>
 </template>

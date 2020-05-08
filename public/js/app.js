@@ -62200,6 +62200,13 @@ window.Toast = sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.mixin({
     toast.addEventListener('mouseenter', sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.stopTimer);
     toast.addEventListener('mouseleave', sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.resumeTimer);
   }
+});
+window.swalWithBootstrapButtons = sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.mixin({
+  customClass: {
+    confirmButton: 'btn btn-danger',
+    cancelButton: 'btn btn-primary mr-2'
+  },
+  buttonsStyling: false
 }); // Filters
 
 
