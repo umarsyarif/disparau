@@ -114,6 +114,15 @@ __webpack_require__.r(__webpack_exports__);
 
       this.isCreate = !this.isCreate;
     },
+    actionModal: function actionModal(event) {
+      this.form = event;
+      $("#event-modal").modal("show");
+    },
+    editData: function editData(event) {
+      //   this.form = event;
+      $("#event-modal").modal("hide");
+      this.isCreate = !this.isCreate;
+    },
     storeData: function storeData() {
       var _this5 = this;
 
@@ -130,6 +139,33 @@ __webpack_require__.r(__webpack_exports__);
         });
       })["catch"](function (error) {
         console.error(error);
+      });
+    },
+    deleteData: function deleteData(id) {
+      var _this6 = this;
+
+      $("#event-modal").modal("hide");
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        cancelButtonColor: "#3085d6",
+        confirmButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(function (result) {
+        if (result.value) {
+          axios["delete"](_this6.urlEvent + "/" + id).then(function (response) {
+            _this6.loadData();
+
+            Toast.fire({
+              icon: "success",
+              title: response.data.message
+            });
+          })["catch"](function (error) {
+            console.error(error);
+          }); //   Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        }
       });
     },
     getCurrentDate: function getCurrentDate() {
@@ -291,7 +327,12 @@ var render = function() {
                                       "a",
                                       {
                                         staticClass: "user-list-item row",
-                                        attrs: { href: "javascript:void(0)" }
+                                        attrs: { href: "javascript:void(0)" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.actionModal(row)
+                                          }
+                                        }
                                       },
                                       [
                                         _c(
@@ -626,7 +667,102 @@ var render = function() {
               ])
             ])
           ])
-        : _vm._e()
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade bd-example-modal-sm",
+          attrs: {
+            id: "event-modal",
+            tabindex: "-1",
+            role: "dialog",
+            "aria-labelledby": "event-modal-label",
+            "aria-hidden": "true"
+          }
+        },
+        [
+          _c(
+            "div",
+            {
+              staticClass: "modal-dialog modal-dialog-centered modal-sm",
+              attrs: { role: "document" }
+            },
+            [
+              _c("div", { staticClass: "modal-content" }, [
+                _vm._m(2),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-body" }, [
+                  _vm.form.title
+                    ? _c(
+                        "h5",
+                        {
+                          staticClass: "modal-title text-center",
+                          attrs: { id: "event-modal-label" }
+                        },
+                        [
+                          _vm._v(
+                            "\n              " +
+                              _vm._s(_vm.form.title) +
+                              "\n              "
+                          ),
+                          _c("br"),
+                          _vm._v(" "),
+                          _vm.form.city.name
+                            ? _c("small", { staticClass: "text-muted" }, [
+                                _vm._v("(" + _vm._s(_vm.form.city.name) + ")")
+                              ])
+                            : _vm._e()
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "text-center mt-3" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-warning btn-sm",
+                        on: {
+                          click: function($event) {
+                            return _vm.showData(_vm.form)
+                          }
+                        }
+                      },
+                      [_c("i", { staticClass: "mdi mdi-information" })]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary btn-sm",
+                        on: {
+                          click: function($event) {
+                            return _vm.editData(_vm.form)
+                          }
+                        }
+                      },
+                      [_c("i", { staticClass: "mdi mdi-lead-pencil" })]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger btn-sm",
+                        on: {
+                          click: function($event) {
+                            return _vm.deleteData(_vm.form.id)
+                          }
+                        }
+                      },
+                      [_c("i", { staticClass: "mdi mdi-delete" })]
+                    )
+                  ])
+                ])
+              ])
+            ]
+          )
+        ]
+      )
     ])
   ])
 }
@@ -645,7 +781,32 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header bg-white text-center" }, [
-      _c("h5", [_vm._v("Add new event")])
+      _c("h5", [_vm._v("Form Event")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "event-modal-label" } },
+        [_vm._v("Detail Event")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
     ])
   }
 ]

@@ -26,6 +26,13 @@ window.Toast = Swal.mixin({
         toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
 })
+window.swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+        confirmButton: 'btn btn-danger',
+        cancelButton: 'btn btn-primary mr-2'
+    },
+    buttonsStyling: false
+})
 
 // Filters
 import { formatDate } from "@fullcalendar/core";
