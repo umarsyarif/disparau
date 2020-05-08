@@ -103,6 +103,10 @@ export default {
         .then(response => {
           this.isCreate = false;
           this.loadData();
+          Toast.fire({
+            icon: "success",
+            title: response.data.message
+          });
         })
         .catch(error => {
           console.error(error);
