@@ -75,7 +75,12 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       axios.get(this.urlEvent + "/" + this.currentMonth).then(function (response) {
-        _this2.calendarEvents = response.data;
+        var data = response.data;
+        _this2.calendarEvents = data.map(function (x) {
+          x.backgroundColor = x.city.color;
+          x.borderColor = x.city.color;
+          return x;
+        });
       })["catch"](function (error) {
         console.error(error);
       });
@@ -104,7 +109,10 @@ __webpack_require__.r(__webpack_exports__);
         organizer_id: "",
         city_id: "",
         start: this.currentDate,
-        end: this.currentDate
+        end: this.currentDate,
+        city: {
+          name: ""
+        }
       };
 
       if (typeof date == "string") {
@@ -164,7 +172,7 @@ __webpack_require__.r(__webpack_exports__);
             });
           })["catch"](function (error) {
             console.error(error);
-          }); //   Swal.fire("Deleted!", "Your file has been deleted.", "success");
+          });
         }
       });
     },
@@ -693,7 +701,7 @@ var render = function() {
                 _vm._m(2),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-body" }, [
-                  _vm.form.title
+                  _vm.form.title && !_vm.isCreate
                     ? _c(
                         "h5",
                         {
@@ -708,7 +716,7 @@ var render = function() {
                           ),
                           _c("br"),
                           _vm._v(" "),
-                          _vm.form.city.name
+                          !_vm.isCreate
                             ? _c("small", { staticClass: "text-muted" }, [
                                 _vm._v("(" + _vm._s(_vm.form.city.name) + ")")
                               ])

@@ -12,6 +12,10 @@ window.Vue = require('vue');
 import CKEditor from '@ckeditor/ckeditor5-vue';
 Vue.use(CKEditor);
 
+// Datatable
+import { VuejsDatatableFactory } from 'vuejs-datatable';
+Vue.use(VuejsDatatableFactory);
+
 // Sweetalert
 import Swal from 'sweetalert2';
 window.Swal = Swal;
@@ -51,6 +55,7 @@ Vue.filter('date', function (date) {
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('admin-calendar', () => import('./components/AdminCalendar.vue'));
 Vue.component('organizer-component', () => import('./components/Organizer.vue'));
+Vue.component('event-component', () => import('./components/Events.vue'));
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
