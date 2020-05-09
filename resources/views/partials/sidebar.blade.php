@@ -67,20 +67,25 @@
                 </li>
 
                 <li>
-                    <a href="{{route('pages', 'calendar')}}">
-                        <i class="mdi mdi-calendar"></i>
-                        <span> Calendar </span>
-                    </a>
-                </li>
-                
-                <li>
                     <a href="{{route('pages', 'organizer')}}">
                         <i class="mdi mdi-account-supervisor"></i>
-                        <span> Organizer </span>
+                        <span> Event Organizer </span>
                     </a>
                 </li>
 
                 <li>
+                    <a href="javascript:void(0);">
+                        <i class="mdi mdi-calendar"></i>
+                        <span> Events </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <ul class="nav-second-level" aria-expanded="false">
+                        <li><a href="{{route('pages', 'events')}}">Events Data</a></li>
+                        <li><a href="{{route('pages', 'calendar')}}">Events Calendar</a></li>
+                    </ul>
+                </li>
+
+                {{-- <li>
                     <a href="javascript: void(0);">
                         <i class="mdi mdi-invert-colors"></i>
                         <span> Dropdown Menu </span>
@@ -128,7 +133,7 @@
                             </ul>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
             </ul>
 
         </div>

@@ -56,7 +56,12 @@ export default {
       axios
         .get(this.urlEvent + "/" + this.currentMonth)
         .then(response => {
-          this.calendarEvents = response.data;
+          let data = response.data;
+          this.calendarEvents = data.map(x => {
+            x.backgroundColor = x.city.color;
+            x.borderColor = x.city.color;
+            return x;
+          });
         })
         .catch(error => {
           console.error(error);
@@ -87,7 +92,8 @@ export default {
         organizer_id: "",
         city_id: "",
         start: this.currentDate,
-        end: this.currentDate
+        end: this.currentDate,
+        city: { name: "" }
       };
       if (typeof date == "string") {
         this.form.start = new Date(date);
@@ -145,7 +151,6 @@ export default {
             .catch(error => {
               console.error(error);
             });
-          //   Swal.fire("Deleted!", "Your file has been deleted.", "success");
         }
       });
     },
@@ -351,10 +356,14 @@ export default {
               </button>
             </div>
             <div class="modal-body">
-              <h5 class="modal-title text-center" id="event-modal-label" v-if="form.title">
+              <h5
+                class="modal-title text-center"
+                id="event-modal-label"
+                v-if="form.title && !isCreate"
+              >
                 {{ form.title }}
                 <br />
-                <small class="text-muted" v-if="form.city.name">({{ form.city.name }})</small>
+                <small class="text-muted" v-if="!isCreate">({{ form.city.name }})</small>
               </h5>
               <div class="text-center mt-3">
                 <button class="btn btn-warning btn-sm" @click="showData(form)">
