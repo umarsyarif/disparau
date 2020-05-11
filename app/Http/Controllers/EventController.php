@@ -38,7 +38,7 @@ class EventController extends Controller
     {
         $data = $request->form;
         $start = date('Y-m-d', strtotime($data['start']));
-        $end = date('Y-m-d', strtotime($data['end']));
+        $end = date('Y-m-d', strtotime($data['end'] . "+1 days"));
         Event::updateOrCreate(['id' => optional($data)['id']], [
             'title' => $data['title'],
             'description' => $data['description'],

@@ -24,6 +24,7 @@
                 @yield('content')
             </main>
         </div>
+        @include('partials.footer')
     </div>
     <!-- Vendor js -->
     <script src="{{asset('adminto/js/vendor.min.js')}}"></script>

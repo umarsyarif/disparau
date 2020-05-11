@@ -106,6 +106,8 @@ export default {
     },
     editData(event) {
       $("#event-modal").modal("hide");
+      this.form.end = new Date(this.form.end);
+      this.form.end.setDate(this.form.end.getDate() - 1);
       this.isCreate = !this.isCreate;
     },
     storeData() {
@@ -265,7 +267,9 @@ export default {
                             {{ row.title }}
                             <small class="text-muted">({{ row.city.name }})</small>
                           </h5>
-                          <p class="desc text-muted mb-0 font-12">{{ row.start | date }}</p>
+                          <p
+                            class="desc text-muted mb-0 font-12"
+                          >{{ row.start | start }} - {{ row.end | end }}</p>
                         </div>
                       </a>
                     </li>
