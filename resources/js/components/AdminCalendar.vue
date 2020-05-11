@@ -1,11 +1,11 @@
 <script>
-import FullCalendar from "@fullcalendar/vue";
-import dayGridPlugin from "@fullcalendar/daygrid";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import interactionPlugin from "@fullcalendar/interaction";
 import idLocale from "@fullcalendar/core/locales/id";
+import dayGridPlugin from "@fullcalendar/daygrid";
 import { id } from "vuejs-datepicker/dist/locale";
+import FullCalendar from "@fullcalendar/vue";
 import Datepicker from "vuejs-datepicker";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 export default {
   props: {
@@ -56,8 +56,7 @@ export default {
       axios
         .get(this.urlEvent + "/" + this.currentMonth)
         .then(response => {
-          let data = response.data;
-          this.calendarEvents = data.map(x => {
+          this.calendarEvents = response.data.map(x => {
             x.backgroundColor = x.city.color;
             x.borderColor = x.city.color;
             return x;
@@ -106,7 +105,6 @@ export default {
       $("#event-modal").modal("show");
     },
     editData(event) {
-      //   this.form = event;
       $("#event-modal").modal("hide");
       this.isCreate = !this.isCreate;
     },
@@ -176,7 +174,7 @@ export default {
 // paths prefixed with ~ signify node_modules
 @import "~@fullcalendar/core/main.css";
 @import "~@fullcalendar/daygrid/main.css";
-// @import "~@fullcalendar/timegrid/main.css";
+
 .demo-app {
   font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
   font-size: 14px;

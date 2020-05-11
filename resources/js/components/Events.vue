@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid mt-3">
     <div class="row">
-      <div class="col-12">
+      <div class="col-12" v-if="!isCreate">
         <div class="card">
           <div class="card-body">
             <h4 class="heading-text text-center">Daftar Event</h4>
@@ -9,7 +9,7 @@
               <a
                 href="javascript:void(0)"
                 class="btn btn-primary float-right my-3"
-                @click="showModal"
+                @click="createData"
               >Add New Event</a>
             </div>
             <div class="responsive-table-plugin">
@@ -52,49 +52,70 @@
           </div>
         </div>
       </div>
-      <div
-        class="modal fade"
-        id="modal-organizer"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="modal-organizer-label"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="modal-organizer-label">Add New Event</h5>
-              <button
-                type="button"
-                class="close"
-                data-dismiss="modal"
-                aria-label="Close"
-                @click="resetModal"
+      <div class="col-12" v-if="isCreate">
+        <div class="card-box">
+          <a href="javascript:void(0)" class="close" @click="createData">
+            <i class="mdi mdi-close float-right"></i>
+          </a>
+          <div class="card-header bg-white text-center">
+            <h5>Form Event</h5>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="organizer_id">Penyelenggara</label>
+              <select
+                type="text"
+                class="form-control"
+                v-model="form.organizer_id"
+                id="organizer_id"
               >
-                <span aria-hidden="true">&times;</span>
-              </button>
+                <option value>Pilih..</option>
+                <option v-for="row in organizers" :key="row.id" :value="row.id">{{ row.name }}</option>
+              </select>
+              <small class="form-text text-muted">Penyelenggara event</small>
             </div>
-            <div class="modal-body">
-              <div class="form-group">
-                <label for="name">Nama</label>
-                <input type="text" class="form-control" v-model="form.name" id="name" />
-                <small class="form-text text-muted">Nama penyelenggara event</small>
+            <div class="form-group">
+              <label for="title">Judul</label>
+              <input type="text" class="form-control" v-model="form.title" id="title" />
+              <small class="form-text text-muted">Judul event</small>
+            </div>
+            <div class="form-group">
+              <label for="title">Tanggal</label>
+              <div class="form-group d-flex py-auto">
+                <date-picker
+                  v-model="form.start"
+                  input-class="form-control"
+                  wrapper-class="col-6 pl-0"
+                  :language="pickerLocale"
+                />-
+                <date-picker
+                  v-model="form.end"
+                  input-class="form-control"
+                  wrapper-class="col-6 pr-0"
+                  :language="pickerLocale"
+                  :disabled-dates="disabledDates"
+                />
               </div>
-              <div class="form-group">
-                <label for="contact">Kontak</label>
-                <input type="text" class="form-control" v-model="form.contact" id="contact" />
-                <small class="form-text text-muted">Nama penyelenggara event</small>
-              </div>
             </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-dismiss="modal"
-                @click="resetModal"
-              >Close</button>
-              <button type="button" class="btn btn-primary" @click="handleSubmit">Save changes</button>
+            <div class="form-group">
+              <label for="address">Alamat</label>
+              <input type="text" class="form-control" v-model="form.address" id="address" />
+              <small class="form-text text-muted">Alamat lengkap event</small>
             </div>
+            <div class="form-group">
+              <select type="text" class="form-control" v-model="form.city_id" id="city_id">
+                <option value>Kota / Kabupaten</option>
+                <option v-for="row in cities" :key="row.id" :value="row.id">{{ row.name }}</option>
+              </select>
+            </div>
+            <div class="form-group mt-3">
+              <label for="description">Deskripsi</label>
+              <ckeditor :editor="editor" v-model="form.description" :config="editorConfig"></ckeditor>
+              <small class="form-text text-muted">Deskripsi event</small>
+            </div>
+          </div>
+          <div class="card-footer bg-white mb-4">
+            <button class="btn btn-primary float-right" @click="storeData">Save</button>
           </div>
         </div>
       </div>
@@ -103,60 +124,126 @@
 </template>
 
 <script>
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { id } from "vuejs-datepicker/dist/locale";
+import Datepicker from "vuejs-datepicker";
+
 export default {
   props: {
+    urlGetOrganizers: String,
+    urlGetCities: String,
     urlGetEvents: String,
     urlEvent: String
   },
+  components: {
+    "date-picker": Datepicker
+  },
   mounted: function() {
     this.loadData();
+    this.loadOrganizers();
+    this.loadCities();
   },
   data: function() {
     return {
+      editor: ClassicEditor,
+      editorConfig: {},
+      pickerLocale: id,
       events: {},
-      form: {}
+      form: {},
+      organizers: {},
+      cities: {},
+      isCreate: false,
+      disabledDates: {
+        customPredictor: date => {
+          if (date < this.form.start) {
+            return true;
+          }
+        }
+      }
     };
   },
   methods: {
     loadData() {
-      axios.get(this.urlGetEvents).then(response => {
-        this.events = response.data;
-      });
+      axios
+        .get(this.urlGetEvents)
+        .then(response => {
+          this.events = response.data;
+        })
+        .catch(error => console.error(error));
     },
-    showModal(data = null) {
-      if (data != null) {
-        this.form = _.clone(data);
-      }
-      $("#modal-organizer").modal("show");
+    loadOrganizers() {
+      axios
+        .get(this.urlGetOrganizers)
+        .then(response => {
+          this.organizers = response.data;
+        })
+        .catch(error => {
+          console.error(error);
+        });
     },
-    resetModal() {
-      this.form = {};
-      $("#modal-organizer").modal("hide");
-      $("body").removeClass("modal-open");
-      $(".modal-backdrop").remove();
+    loadCities() {
+      axios
+        .get(this.urlGetCities)
+        .then(response => {
+          this.cities = response.data;
+        })
+        .catch(error => {
+          console.error(error);
+        });
     },
-    handleSubmit() {
+    createData() {
+      this.form = {
+        organizer_id: "",
+        city_id: "",
+        start: new Date(),
+        end: new Date(),
+        city: { name: "" }
+      };
+      this.isCreate = !this.isCreate;
+    },
+    storeData() {
+      console.log("asd");
       axios
         .post(this.urlEvent, {
           form: this.form
         })
         .then(response => {
-          this.events = response.data;
-          this.resetModal();
+          this.isCreate = false;
+          this.events = response.data.data;
+          Toast.fire({
+            icon: "success",
+            title: response.data.message
+          });
         })
         .catch(error => {
           console.error(error);
         });
     },
     deleteData(id) {
-      axios
-        .delete(this.urlEvent + "/" + id)
-        .then(response => {
-          this.events = response.data;
-        })
-        .catch(error => {
-          console.error(error);
-        });
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        cancelButtonColor: "#3085d6",
+        confirmButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(result => {
+        if (result.value) {
+          axios
+            .delete(this.urlEvent + "/" + id)
+            .then(response => {
+              this.events = response.data.data;
+              Toast.fire({
+                icon: "success",
+                title: response.data.message
+              });
+            })
+            .catch(error => {
+              console.error(error);
+            });
+        }
+      });
     }
   }
 };

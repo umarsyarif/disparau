@@ -393,7 +393,7 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _c("small", { staticClass: "form-text text-muted" }, [
-                      _vm._v("Nama penyelenggara event")
+                      _vm._v("No Telp / Whatsapp")
                     ])
                   ])
                 ]),

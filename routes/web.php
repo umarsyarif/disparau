@@ -16,11 +16,15 @@ Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
 
 Auth::routes();
 
+// Cities
+// Route::prefix('cities')->name('cities.')->group(function () { });
+
 // Events
 Route::prefix('event')->name('event.')->group(function () {
     Route::get('/get', 'EventController@index')->name('index');
     Route::get('/cities', 'EventController@cities')->name('cities');
     Route::post('/', 'EventController@store')->name('store');
+    Route::post('/color/{id?}', 'EventController@changeColor')->name('color');
     Route::delete('/{id?}', 'EventController@destroy')->name('destroy');
     Route::get('/{month?}', 'EventController@show')->name('show');
 });

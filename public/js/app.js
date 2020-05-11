@@ -10835,86 +10835,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log("Component mounted.");
@@ -50148,192 +50068,7 @@ var staticRenderFns = [
           _c("div", { staticClass: "card-box" }, [
             _c("div", { attrs: { id: "calendar" } })
           ])
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "modal fade none-border",
-            attrs: { id: "event-modal" }
-          },
-          [
-            _c("div", { staticClass: "modal-dialog" }, [
-              _c("div", { staticClass: "modal-content" }, [
-                _c("div", { staticClass: "modal-header" }, [
-                  _c("h4", { staticClass: "modal-title mt-0" }, [
-                    _c("strong", [_vm._v("Add New Event")])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "close",
-                      attrs: {
-                        type: "button",
-                        "data-dismiss": "modal",
-                        "aria-hidden": "true"
-                      }
-                    },
-                    [_vm._v("×")]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "modal-body" }),
-                _vm._v(" "),
-                _c("div", { staticClass: "modal-footer" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-light waves-effect",
-                      attrs: { type: "button", "data-dismiss": "modal" }
-                    },
-                    [_vm._v("Close")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass:
-                        "btn btn-success save-event waves-effect waves-light",
-                      attrs: { type: "button" }
-                    },
-                    [_vm._v("Create event")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass:
-                        "btn btn-danger delete-event waves-effect waves-light",
-                      attrs: { type: "button", "data-dismiss": "modal" }
-                    },
-                    [_vm._v("Delete")]
-                  )
-                ])
-              ])
-            ])
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "modal fade none-border",
-            attrs: { id: "add-category" }
-          },
-          [
-            _c("div", { staticClass: "modal-dialog" }, [
-              _c("div", { staticClass: "modal-content" }, [
-                _c("div", { staticClass: "modal-header" }, [
-                  _c("h4", { staticClass: "modal-title mt-0" }, [
-                    _c("strong", [_vm._v("Add a category")])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "close",
-                      attrs: {
-                        type: "button",
-                        "data-dismiss": "modal",
-                        "aria-hidden": "true"
-                      }
-                    },
-                    [_vm._v("×")]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "modal-body" }, [
-                  _c("form", { attrs: { role: "form" } }, [
-                    _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-md-6" }, [
-                        _c("label", { staticClass: "control-label" }, [
-                          _vm._v("Category Name")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          staticClass: "form-control form-white",
-                          attrs: {
-                            placeholder: "Enter name",
-                            type: "text",
-                            name: "category-name"
-                          }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-6" }, [
-                        _c("label", { staticClass: "control-label" }, [
-                          _vm._v("Choose Category Color")
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "select",
-                          {
-                            staticClass: "form-control form-white",
-                            attrs: {
-                              "data-placeholder": "Choose a color...",
-                              name: "category-color"
-                            }
-                          },
-                          [
-                            _c("option", { attrs: { value: "success" } }, [
-                              _vm._v("Success")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "danger" } }, [
-                              _vm._v("Danger")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "info" } }, [
-                              _vm._v("Info")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "pink" } }, [
-                              _vm._v("Pink")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "primary" } }, [
-                              _vm._v("Primary")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "warning" } }, [
-                              _vm._v("Warning")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "inverse" } }, [
-                              _vm._v("Inverse")
-                            ])
-                          ]
-                        )
-                      ])
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "modal-footer" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-light waves-effect",
-                      attrs: { type: "button", "data-dismiss": "modal" }
-                    },
-                    [_vm._v("Close")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass:
-                        "btn btn-danger waves-effect waves-light save-category",
-                      attrs: { type: "button", "data-dismiss": "modal" }
-                    },
-                    [_vm._v("Save")]
-                  )
-                ])
-              ])
-            ])
-          ]
-        )
+        ])
       ])
     ])
   }
@@ -63211,13 +62946,16 @@ Vue.filter('date', function (date) {
 });
 Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue"));
 Vue.component('admin-calendar', function () {
-  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1)]).then(__webpack_require__.bind(null, /*! ./components/AdminCalendar.vue */ "./resources/js/components/AdminCalendar.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ./components/AdminCalendar.vue */ "./resources/js/components/AdminCalendar.vue"));
 });
 Vue.component('organizer-component', function () {
   return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ./components/Organizer.vue */ "./resources/js/components/Organizer.vue"));
 });
 Vue.component('event-component', function () {
-  return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./components/Events.vue */ "./resources/js/components/Events.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ./components/Events.vue */ "./resources/js/components/Events.vue"));
+});
+Vue.component('cities-component', function () {
+  return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./components/Cities.vue */ "./resources/js/components/Cities.vue"));
 });
 /**
  * Next, we will create a fresh Vue application instance and attach it to
