@@ -1,5 +1,5 @@
 <?php
-$title = 'Kota / Kabupateen';
+$title = 'Kota/Kabupaten';
 ?>
 @extends('layouts.admin')
 
