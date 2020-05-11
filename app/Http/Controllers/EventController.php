@@ -49,7 +49,10 @@ class EventController extends Controller
             'end' => $end,
             'url' => $data['url'] ?? 'calendar'
         ]);
-        $data['message'] = 'Data berhasil disimpan!';
+        $data = [
+            'message' => 'Data berhasil disimpan!',
+            'data' => $this->index()
+        ];
         return $data;
     }
 
@@ -82,9 +85,15 @@ class EventController extends Controller
      * @param  \App\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Event $event)
+    public function changeColor(Request $request, $id)
     {
-        //
+        $city = City::findOrFail($id);
+        $city->update(['color' => $request->color]);
+        $data = [
+            'message' => 'Data berhasil disimpan!',
+            'data' => $this->cities()
+        ];
+        return $data;
     }
 
     /**
@@ -96,7 +105,10 @@ class EventController extends Controller
     public function destroy($id)
     {
         Event::findOrFail($id)->delete();
-        $data['message'] = 'Data berhasil dihapus!';
+        $data = [
+            'message' => 'Data berhasil dihapus!',
+            'data' => $this->index()
+        ];
         return $data;
     }
 

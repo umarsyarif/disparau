@@ -56,6 +56,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue'))
 Vue.component('admin-calendar', () => import('./components/AdminCalendar.vue'));
 Vue.component('organizer-component', () => import('./components/Organizer.vue'));
 Vue.component('event-component', () => import('./components/Events.vue'));
+Vue.component('cities-component', () => import('./components/Cities.vue'));
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

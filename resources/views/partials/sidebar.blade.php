@@ -67,6 +67,13 @@
                 </li>
 
                 <li>
+                    <a href="{{route('pages', 'cities')}}">
+                        <i class="mdi mdi-map-marker"></i>
+                        <span> Kota/Kabupaten </span>
+                    </a>
+                </li>
+
+                <li>
                     <a href="{{route('pages', 'organizer')}}">
                         <i class="mdi mdi-account-supervisor"></i>
                         <span> Event Organizer </span>

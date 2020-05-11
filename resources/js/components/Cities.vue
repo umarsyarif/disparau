@@ -4,13 +4,13 @@
       <div class="col-12">
         <div class="card">
           <div class="card-body">
-            <h4 class="heading-text text-center">Penyelenggara Event</h4>
+            <h4 class="heading-text text-center">Kota / Kabupaten</h4>
             <div class="clear-fix">
               <a
                 href="javascript:void(0)"
-                class="btn btn-primary float-right my-3"
+                class="btn btn-primary float-right my-3 disabled"
                 @click="showModal"
-              >Add New Organizer</a>
+              >Tambah Kota/Kabupaten</a>
             </div>
             <div class="responsive-table-plugin">
               <div class="table-rep-plugin">
@@ -23,20 +23,31 @@
                       <tr>
                         <th>#</th>
                         <th>Nama</th>
-                        <th>Kontak</th>
+                        <th>Warna</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(row, index) in organizers" :key="row.id">
+                      <tr v-for="(row, index) in cities" :key="row.id">
                         <td>{{index+1}}</td>
                         <td>{{row.name}}</td>
-                        <td>{{row.contact}}</td>
                         <td>
-                          <button @click="showModal(row)" class="btn btn-sm btn-info">
+                          <input
+                            class="form-control"
+                            type="color"
+                            v-model="row.color"
+                            @change="changeColor(row.id, $event)"
+                          />
+                        </td>
+                        <td>
+                          <button @click="showModal(row)" class="btn btn-sm btn-info" disabled>
                             <i class="mdi mdi-lead-pencil"></i>
                           </button>
-                          <button @click="deleteData(row.id)" class="btn btn-sm btn-danger">
+                          <button
+                            @click="deleteData(row.id)"
+                            class="btn btn-sm btn-danger"
+                            disabled
+                          >
                             <i class="mdi mdi-delete"></i>
                           </button>
                         </td>
@@ -102,23 +113,37 @@
 <script>
 export default {
   props: {
-    urlGetOrganizers: String,
-    urlOrganizer: String
+    urlGetCities: String,
+    urlColor: String
   },
   mounted: function() {
     this.loadData();
   },
   data: function() {
     return {
-      organizers: {},
+      cities: {},
       form: {}
     };
   },
   methods: {
     loadData() {
-      axios.get(this.urlGetOrganizers).then(response => {
-        this.organizers = response.data;
+      axios.get(this.urlGetCities).then(response => {
+        this.cities = response.data;
       });
+    },
+    changeColor(id, event) {
+      console.log(event.target.value);
+      axios
+        .post(this.urlColor + "/" + id, {
+          color: event.target.value
+        })
+        .then(response => {
+          this.cities = response.data.data;
+          Toast.fire({
+            icon: "success",
+            title: response.data.message
+          });
+        });
     },
     showModal(data = null) {
       if (data != null) {
@@ -132,22 +157,22 @@ export default {
       $("body").removeClass("modal-open");
       $(".modal-backdrop").remove();
     },
-    handleSubmit() {
-      axios
-        .post(this.urlOrganizer, {
-          form: this.form
-        })
-        .then(response => {
-          this.organizers = response.data;
-          this.resetModal();
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    },
+    // handleSubmit() {
+    //   axios
+    //     .post(this.urlOrganizer, {
+    //       form: this.form
+    //     })
+    //     .then(response => {
+    //       this.organizers = response.data;
+    //       this.resetModal();
+    //     })
+    //     .catch(error => {
+    //       console.error(error);
+    //     });
+    // },
     deleteData(id) {
       axios
-        .delete(this.urlOrganizer + "/" + id)
+        .delete(this.urlCity + "/" + id)
         .then(response => {
           this.organizers = response.data;
         })
