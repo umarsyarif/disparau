@@ -62935,7 +62935,17 @@ window.swalWithBootstrapButtons = sweetalert2__WEBPACK_IMPORTED_MODULE_2___defau
 }); // Filters
 
 
-Vue.filter('date', function (date) {
+Vue.filter('start', function (date) {
+  return Object(_fullcalendar_core__WEBPACK_IMPORTED_MODULE_3__["formatDate"])(date, {
+    month: "long",
+    day: "numeric",
+    weekday: "long",
+    locale: "id"
+  });
+});
+Vue.filter('end', function (date) {
+  date = new Date(date);
+  date.setDate(date.getDate() - 1);
   return Object(_fullcalendar_core__WEBPACK_IMPORTED_MODULE_3__["formatDate"])(date, {
     month: "long",
     year: "numeric",
@@ -62946,16 +62956,19 @@ Vue.filter('date', function (date) {
 });
 Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue"));
 Vue.component('admin-calendar', function () {
-  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2), __webpack_require__.e(1)]).then(__webpack_require__.bind(null, /*! ./components/AdminCalendar.vue */ "./resources/js/components/AdminCalendar.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! ./components/AdminCalendar.vue */ "./resources/js/components/AdminCalendar.vue"));
+});
+Vue.component('user-calendar', function () {
+  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ./components/UserCalendar.vue */ "./resources/js/components/UserCalendar.vue"));
 });
 Vue.component('organizer-component', function () {
-  return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./components/Organizer.vue */ "./resources/js/components/Organizer.vue"));
+  return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ./components/Organizer.vue */ "./resources/js/components/Organizer.vue"));
 });
 Vue.component('event-component', function () {
-  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ./components/Events.vue */ "./resources/js/components/Events.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ./components/Events.vue */ "./resources/js/components/Events.vue"));
 });
 Vue.component('cities-component', function () {
-  return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ./components/Cities.vue */ "./resources/js/components/Cities.vue"));
+  return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./components/Cities.vue */ "./resources/js/components/Cities.vue"));
 });
 /**
  * Next, we will create a fresh Vue application instance and attach it to

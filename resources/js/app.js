@@ -40,7 +40,17 @@ window.swalWithBootstrapButtons = Swal.mixin({
 
 // Filters
 import { formatDate } from "@fullcalendar/core";
-Vue.filter('date', function (date) {
+Vue.filter('start', function (date) {
+    return formatDate(date, {
+        month: "long",
+        day: "numeric",
+        weekday: "long",
+        locale: "id"
+    });
+})
+Vue.filter('end', function (date) {
+    date = new Date(date);
+    date.setDate(date.getDate() - 1);
     return formatDate(date, {
         month: "long",
         year: "numeric",
@@ -54,6 +64,7 @@ Vue.filter('date', function (date) {
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('admin-calendar', () => import('./components/AdminCalendar.vue'));
+Vue.component('user-calendar', () => import('./components/UserCalendar.vue'));
 Vue.component('organizer-component', () => import('./components/Organizer.vue'));
 Vue.component('event-component', () => import('./components/Events.vue'));
 Vue.component('cities-component', () => import('./components/Cities.vue'));
