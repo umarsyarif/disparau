@@ -225,6 +225,15 @@ export default {
                 @dateClick="handleDateClick"
                 @datesRender="handleMonthChange"
               />
+              <div class="card-footer bg-white mt-2 pl-0">
+                <ul>
+                  <li style="list-style-type:none" v-for="row in cities" :key="row.id">
+                    <!-- <input class="form-control col-1" type="color" :value="row.color" disabled /> -->
+                    <span class="badge" :style="{'background-color': row.color}">&nbsp;</span>
+                    {{ row.name }}
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
           <div class="col-lg-4">

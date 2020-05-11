@@ -9,7 +9,6 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
     <!-- Styles -->
-    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
     <link rel="stylesheet" type="text/css" href="{{asset('adminto/css/bootstrap.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('adminto/css/icons.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('adminto/css/app.min.css')}}">
@@ -26,5 +25,9 @@
             </main>
         </div>
     </div>
+    <!-- Vendor js -->
+    <script src="{{asset('adminto/js/vendor.min.js')}}"></script>
+    <!-- App js -->
+    <script src="{{asset('adminto/js/app.min.js')}}"></script>
 </body>
 </html>

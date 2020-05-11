@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[3],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Organizer.vue?vue&type=script&lang=js&":
-/*!********************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Organizer.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Cities.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Cities.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -110,17 +110,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
-    urlGetOrganizers: String,
-    urlOrganizer: String
+    urlGetCities: String,
+    urlColor: String
   },
   mounted: function mounted() {
     this.loadData();
   },
   data: function data() {
     return {
-      organizers: {},
+      cities: {},
       form: {}
     };
   },
@@ -128,8 +139,22 @@ __webpack_require__.r(__webpack_exports__);
     loadData: function loadData() {
       var _this = this;
 
-      axios.get(this.urlGetOrganizers).then(function (response) {
-        _this.organizers = response.data;
+      axios.get(this.urlGetCities).then(function (response) {
+        _this.cities = response.data;
+      });
+    },
+    changeColor: function changeColor(id, event) {
+      var _this2 = this;
+
+      console.log(event.target.value);
+      axios.post(this.urlColor + "/" + id, {
+        color: event.target.value
+      }).then(function (response) {
+        _this2.cities = response.data.data;
+        Toast.fire({
+          icon: "success",
+          title: response.data.message
+        });
       });
     },
     showModal: function showModal() {
@@ -147,23 +172,23 @@ __webpack_require__.r(__webpack_exports__);
       $("body").removeClass("modal-open");
       $(".modal-backdrop").remove();
     },
-    handleSubmit: function handleSubmit() {
-      var _this2 = this;
-
-      axios.post(this.urlOrganizer, {
-        form: this.form
-      }).then(function (response) {
-        _this2.organizers = response.data;
-
-        _this2.resetModal();
-      })["catch"](function (error) {
-        console.error(error);
-      });
-    },
+    // handleSubmit() {
+    //   axios
+    //     .post(this.urlOrganizer, {
+    //       form: this.form
+    //     })
+    //     .then(response => {
+    //       this.organizers = response.data;
+    //       this.resetModal();
+    //     })
+    //     .catch(error => {
+    //       console.error(error);
+    //     });
+    // },
     deleteData: function deleteData(id) {
       var _this3 = this;
 
-      axios["delete"](this.urlOrganizer + "/" + id).then(function (response) {
+      axios["delete"](this.urlCity + "/" + id).then(function (response) {
         _this3.organizers = response.data;
       })["catch"](function (error) {
         console.error(error);
@@ -174,10 +199,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Organizer.vue?vue&type=template&id=927da458&":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Organizer.vue?vue&type=template&id=927da458& ***!
-  \************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Cities.vue?vue&type=template&id=3a449cf4&":
+/*!*********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Cities.vue?vue&type=template&id=3a449cf4& ***!
+  \*********************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -195,18 +220,18 @@ var render = function() {
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-body" }, [
             _c("h4", { staticClass: "heading-text text-center" }, [
-              _vm._v("Penyelenggara Event")
+              _vm._v("Kota / Kabupaten")
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "clear-fix" }, [
               _c(
                 "a",
                 {
-                  staticClass: "btn btn-primary float-right my-3",
+                  staticClass: "btn btn-primary float-right my-3 disabled",
                   attrs: { href: "javascript:void(0)" },
                   on: { click: _vm.showModal }
                 },
-                [_vm._v("Add New Organizer")]
+                [_vm._v("Tambah Kota/Kabupaten")]
               )
             ]),
             _vm._v(" "),
@@ -231,19 +256,49 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "tbody",
-                          _vm._l(_vm.organizers, function(row, index) {
+                          _vm._l(_vm.cities, function(row, index) {
                             return _c("tr", { key: row.id }, [
                               _c("td", [_vm._v(_vm._s(index + 1))]),
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(row.name))]),
                               _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(row.contact))]),
+                              _c("td", [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: row.color,
+                                      expression: "row.color"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: { type: "color" },
+                                  domProps: { value: row.color },
+                                  on: {
+                                    change: function($event) {
+                                      return _vm.changeColor(row.id, $event)
+                                    },
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        row,
+                                        "color",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ]),
                               _vm._v(" "),
                               _c("td", [
                                 _c(
                                   "button",
                                   {
                                     staticClass: "btn btn-sm btn-info",
+                                    attrs: { disabled: "" },
                                     on: {
                                       click: function($event) {
                                         return _vm.showModal(row)
@@ -261,6 +316,7 @@ var render = function() {
                                   "button",
                                   {
                                     staticClass: "btn btn-sm btn-danger",
+                                    attrs: { disabled: "" },
                                     on: {
                                       click: function($event) {
                                         return _vm.deleteData(row.id)
@@ -442,7 +498,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Nama")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Kontak")]),
+        _c("th", [_vm._v("Warna")]),
         _vm._v(" "),
         _c("th", [_vm._v("Actions")])
       ])
@@ -455,17 +511,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/Organizer.vue":
-/*!***********************************************!*\
-  !*** ./resources/js/components/Organizer.vue ***!
-  \***********************************************/
+/***/ "./resources/js/components/Cities.vue":
+/*!********************************************!*\
+  !*** ./resources/js/components/Cities.vue ***!
+  \********************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Organizer_vue_vue_type_template_id_927da458___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Organizer.vue?vue&type=template&id=927da458& */ "./resources/js/components/Organizer.vue?vue&type=template&id=927da458&");
-/* harmony import */ var _Organizer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Organizer.vue?vue&type=script&lang=js& */ "./resources/js/components/Organizer.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Cities_vue_vue_type_template_id_3a449cf4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Cities.vue?vue&type=template&id=3a449cf4& */ "./resources/js/components/Cities.vue?vue&type=template&id=3a449cf4&");
+/* harmony import */ var _Cities_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Cities.vue?vue&type=script&lang=js& */ "./resources/js/components/Cities.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -475,9 +531,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Organizer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Organizer_vue_vue_type_template_id_927da458___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Organizer_vue_vue_type_template_id_927da458___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Cities_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Cities_vue_vue_type_template_id_3a449cf4___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Cities_vue_vue_type_template_id_3a449cf4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -487,38 +543,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/Organizer.vue"
+component.options.__file = "resources/js/components/Cities.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/Organizer.vue?vue&type=script&lang=js&":
-/*!************************************************************************!*\
-  !*** ./resources/js/components/Organizer.vue?vue&type=script&lang=js& ***!
-  \************************************************************************/
+/***/ "./resources/js/components/Cities.vue?vue&type=script&lang=js&":
+/*!*********************************************************************!*\
+  !*** ./resources/js/components/Cities.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Organizer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Organizer.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Organizer.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Organizer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Cities_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Cities.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Cities.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Cities_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/Organizer.vue?vue&type=template&id=927da458&":
-/*!******************************************************************************!*\
-  !*** ./resources/js/components/Organizer.vue?vue&type=template&id=927da458& ***!
-  \******************************************************************************/
+/***/ "./resources/js/components/Cities.vue?vue&type=template&id=3a449cf4&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/Cities.vue?vue&type=template&id=3a449cf4& ***!
+  \***************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Organizer_vue_vue_type_template_id_927da458___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Organizer.vue?vue&type=template&id=927da458& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Organizer.vue?vue&type=template&id=927da458&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Organizer_vue_vue_type_template_id_927da458___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Cities_vue_vue_type_template_id_3a449cf4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Cities.vue?vue&type=template&id=3a449cf4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Cities.vue?vue&type=template&id=3a449cf4&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Cities_vue_vue_type_template_id_3a449cf4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Organizer_vue_vue_type_template_id_927da458___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Cities_vue_vue_type_template_id_3a449cf4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
