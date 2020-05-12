@@ -1,11 +1,8 @@
 <script>
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import interactionPlugin from "@fullcalendar/interaction";
 import idLocale from "@fullcalendar/core/locales/id";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import { id } from "vuejs-datepicker/dist/locale";
 import FullCalendar from "@fullcalendar/vue";
-import Datepicker from "vuejs-datepicker";
 
 export default {
   props: {
@@ -69,7 +66,8 @@ export default {
       this.loadData();
     },
     handleDateClick(arg) {
-      this.createData(arg.dateStr);
+      alert(arg.dateStr);
+      window.location = "/event/" + arg.dateStr;
     }
   }
 };
@@ -125,6 +123,7 @@ export default {
                 :locale="locale"
                 :plugins="calendarPlugins"
                 :events="calendarEvents"
+                @dateClick="handleDateClick"
                 @datesRender="handleMonthChange"
               />
               <div class="card-footer bg-white mt-2 pl-0">

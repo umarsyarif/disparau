@@ -68,6 +68,7 @@ Vue.component('user-calendar', require('./components/UserCalendar.vue').default)
 Vue.component('organizer-component', require('./components/Organizer.vue').default);
 Vue.component('event-component', require('./components/Events.vue').default);
 Vue.component('cities-component', require('./components/Cities.vue').default);
+Vue.component('day-component', require('./components/Day.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
