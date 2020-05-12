@@ -62,12 +62,12 @@ Vue.filter('end', function (date) {
 
 
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
-Vue.component('admin-calendar', () => import('./components/AdminCalendar.vue'));
-Vue.component('user-calendar', () => import('./components/UserCalendar.vue'));
-Vue.component('organizer-component', () => import('./components/Organizer.vue'));
-Vue.component('event-component', () => import('./components/Events.vue'));
-Vue.component('cities-component', () => import('./components/Cities.vue'));
+Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('admin-calendar', require('./components/AdminCalendar.vue').default);
+Vue.component('user-calendar', require('./components/UserCalendar.vue').default);
+Vue.component('organizer-component', require('./components/Organizer.vue').default);
+Vue.component('event-component', require('./components/Events.vue').default);
+Vue.component('cities-component', require('./components/Cities.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
