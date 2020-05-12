@@ -19,6 +19,13 @@
 <body>
     <div id="wrapper">
         @include('partials.navbar')
+        <!-- Pre-loader -->
+        <div id="preloader">
+            <div id="status">
+            <div class="spinner">Loading...</div>
+            </div>
+        </div>
+        <!-- End Preloader-->
         <div id="app">
             <main class="py-4">
                 @yield('content')

@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
+    private $month;
+
+    public function __construct()
+    {
+        //
+    }
     /**
      * Display a listing of the resource.
      *
@@ -38,7 +44,7 @@ class EventController extends Controller
     {
         $data = $request->form;
         $start = date('Y-m-d', strtotime($data['start']));
-        $end = date('Y-m-d', strtotime($data['end'] . "+1 days"));
+        $end = date('Y-m-d', strtotime($data['end'] . '+1 days'));
         Event::updateOrCreate(['id' => optional($data)['id']], [
             'title' => $data['title'],
             'description' => $data['description'],
@@ -64,7 +70,8 @@ class EventController extends Controller
      */
     public function show($month)
     {
-        return Event::whereMonth('start', $month)->orWhereMonth('end', $month)->orderBy('start')->with('city')->get();
+        return Event::whereMonth('start', $month)->orWhereMonth('end', $month)
+            ->orderBy('start')->with('city')->get();
     }
 
     /**
