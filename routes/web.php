@@ -26,7 +26,9 @@ Route::prefix('event')->name('event.')->group(function () {
     Route::post('/', 'EventController@store')->name('store');
     Route::post('/color/{id?}', 'EventController@changeColor')->name('color');
     Route::delete('/{id?}', 'EventController@destroy')->name('destroy');
-    Route::get('/{month?}', 'EventController@show')->name('show');
+    Route::get('/detail/{event?}', 'EventController@show')->name('show');
+    Route::get('/{date?}', 'EventController@showPerDay')->name('show.day');
+    Route::get('/get/{date?}', 'EventController@showPerMonth')->name('show.month');
 });
 
 // Organizer

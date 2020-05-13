@@ -1,59 +1,99 @@
 <template>
-  <div class="container">
+  <div class="container py-4">
     <div class="row">
-      <div class="col-lg-3">
-        <div class="widget">
-          <div class="widget-body">
-            <a
-              href="#"
-              data-toggle="modal"
-              data-target="#add-category"
-              class="btn btn-lg btn-success font-16 btn-block waves-effect waves-light"
-            >
-              <i class="fa fa-plus mr-1"></i> Event Baru
+      <div class="col-12">
+        <div class="card-box">
+          <div class="card-header bg-white">
+            <a href="javascript:void(0)" class="close float-left" @click="back">
+              <i class="mdi mdi-arrow-left"></i>
             </a>
-            <div id="external-events" class="mt-3">
-              <h5>List Kategori</h5>
-              <p>
-                <small>Drag and drop kategori atau klik pada kalender</small>
-              </p>
-              <div class="external-event bg-primary" data-class="bg-primary">
-                <i class="mdi mdi-checkbox-blank-circle mr-2 vertical-middle"></i>Wisata
-              </div>
-              <div class="external-event bg-pink" data-class="bg-pink">
-                <i class="mdi mdi-checkbox-blank-circle mr-2 vertical-middle"></i>Budaya
-              </div>
-              <div class="external-event bg-warning" data-class="bg-warning">
-                <i class="mdi mdi-checkbox-blank-circle mr-2 vertical-middle"></i>Event Baru
-              </div>
-              <div class="external-event bg-purple" data-class="bg-purple">
-                <i class="mdi mdi-checkbox-blank-circle mr-2 vertical-middle"></i>Expo
-              </div>
-            </div>
+            <h1 class="text-center">
+              <i class="mdi mdi-calendar"></i>
+            </h1>
+            <br />
+            <h2 class="text-center">
+              <span class="label label-danger">Event Tanggal : {{date | date}}</span>
+            </h2>
+          </div>
+          <div class="card-body px-0" v-if="listEvent.length > 0">
+            <div class="row">
+              <div class="col-lg-4 col-md-6 py-2" v-for="row in listEvent" :key="row.id">
+                <div class="text-center card h-100 pb-3 shadow">
+                  <div class="item-img item-img-card bg--gradient-50">
+                    <div style="background-position: center; background-size: cover;">
+                      <img :src="header" alt class="w-100" />
+                    </div>
+                  </div>
+                  <div class="px-3 pt-2">
+                    <p class="text-muted font-13 mb-3">
+                      <strong>{{ row.title }}</strong>
+                    </p>
 
-            <!-- checkbox -->
-            <div class="custom-control custom-checkbox mt-3">
-              <input type="checkbox" class="custom-control-input" id="drop-remove" />
-              <label class="custom-control-label" for="drop-remove">Remove after drop</label>
+                    <div class="text-left">
+                      <p class="text-muted font-13">
+                        <i class="mdi mdi-map-marker-radius"></i>
+                        <span class="ml-2">{{ row.city.name | sentence }}</span>
+                      </p>
+                      <p class="text-muted font-13">
+                        <i class="mdi mdi-calendar"></i>
+                        <span class="ml-2">{{ row.start | start }} - {{ row.end | end }}</span>
+                      </p>
+                      <p class="text-muted font-13">
+                        <i class="mdi mdi-account"></i>
+                        <span class="ml-2">{{ row.organizer.name | sentence }}</span>
+                      </p>
+                      <p class="text-muted font-13">
+                        <i class="mdi mdi-map-search"></i>
+                        <span class="ml-2">{{ row.address }}</span>
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    class="btn btn-pink btn-rounded waves-effect waves-light mt-auto mx-2"
+                    @click="detail(row.url)"
+                  >Lihat rincian</button>
+                </div>
+              </div>
             </div>
           </div>
+          <p class="text muted text-center" v-else>Tidak ada event hari ini</p>
         </div>
       </div>
-      <!-- end col-->
-      <div class="col-lg-9">
-        <div class="card-box">
-          <div id="calendar"></div>
-        </div>
-      </div>
-      <!-- end col -->
     </div>
   </div>
 </template>
 
+<style lang='scss'>
+.close:hover {
+  color: cornflowerblue;
+}
+</style>
+
 <script>
 export default {
+  props: {
+    date: String,
+    events: String
+  },
+  data: function() {
+    return {
+      listEvent: {},
+      header: "/images/selatpanjang_4.jpeg"
+    };
+  },
   mounted() {
-    console.log("Component mounted.");
+    this.loadData();
+  },
+  methods: {
+    loadData() {
+      this.listEvent = JSON.parse(this.events);
+    },
+    back() {
+      window.history.back();
+    },
+    detail(url) {
+      window.location = url;
+    }
   }
 };
 </script>

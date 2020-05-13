@@ -12,4 +12,9 @@ class Event extends Model
     {
         return $this->belongsTo('App\City');
     }
+
+    public function organizer()
+    {
+        return $this->belongsTo('App\Organizer');
+    }
 }

@@ -9,6 +9,7 @@ $title = 'Kalender Event';
     <admin-calendar
     url-get-organizers="{{route('organizer.index')}}"
     url-get-cities="{{route('event.cities')}}"
+    url-get-event="{{route('event.index')}}"
     url-event="{{route('event.store')}}"
     />
 @endsection

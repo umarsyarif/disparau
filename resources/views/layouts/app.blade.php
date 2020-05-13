@@ -27,11 +27,11 @@
         </div>
         <!-- End Preloader-->
         <div id="app">
-            <main class="py-4">
+            <main class="">
                 @yield('content')
             </main>
         </div>
-        @include('partials.footer')
+        @include('partials.big-footer')
     </div>
     <!-- Vendor js -->
     <script src="{{asset('adminto/js/vendor.min.js')}}"></script>
