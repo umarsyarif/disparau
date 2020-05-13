@@ -11,6 +11,7 @@ export default {
   props: {
     urlGetOrganizers: String,
     urlGetCities: String,
+    urlGetEvent: String,
     urlEvent: String
   },
   components: {
@@ -21,7 +22,6 @@ export default {
     this.loadData();
     this.loadCities();
     this.loadOrganizers();
-    this.getCurrentDate();
   },
   data: function() {
     return {
@@ -54,11 +54,13 @@ export default {
   methods: {
     loadData() {
       axios
-        .get(this.urlEvent + "/" + this.currentMonth)
+        .get(this.urlGetEvent + "/" + this.currentDate)
         .then(response => {
           this.calendarEvents = response.data.map(x => {
             x.backgroundColor = x.city.color;
             x.borderColor = x.city.color;
+            // x.end = new Date(x.end);
+            // x.end.setDate(x.end.getDate() - 1);
             return x;
           });
         })
@@ -154,14 +156,10 @@ export default {
         }
       });
     },
-    getCurrentDate() {
-      let calendarApi = this.$refs.fullCalendar.getApi();
-      this.currentDate = new Date(calendarApi.getDate());
-    },
     handleMonthChange() {
       let calendarApi = this.$refs.fullCalendar.getApi();
       var date = new Date(calendarApi.getDate());
-      this.currentMonth = date.getMonth() + 1;
+      this.currentDate = date.toDateString();
       this.loadData();
     },
     handleDateClick(arg) {

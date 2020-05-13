@@ -33,7 +33,7 @@
                         <td>{{index+1}}</td>
                         <td>{{row.title}}</td>
                         <td>{{row.city.name}}</td>
-                        <td>{{row.start | date}} - {{row.end | date}}</td>
+                        <td>{{row.start | date}} - {{row.end | end}}</td>
                         <td>
                           <button @click="editData(row)" class="btn btn-sm btn-info">
                             <i class="mdi mdi-lead-pencil"></i>

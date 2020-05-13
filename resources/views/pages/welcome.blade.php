@@ -9,6 +9,6 @@ $title = 'Home';
     <user-calendar
     url-get-organizers="{{route('organizer.index')}}"
     url-get-cities="{{route('event.cities')}}"
-    url-event="{{route('event.store')}}"
+    url-get-event="{{route('event.index')}}"
     />
 @endsection

@@ -6,6 +6,8 @@ $title = 'Event Harian';
 @section('title', $title)
 
 @section('content')
-    <day-component
-    />
+<day-component
+    date="{{$date}}"
+    events="{{$events}}"
+/>
 @endsection

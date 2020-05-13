@@ -8,7 +8,7 @@ export default {
   props: {
     urlGetOrganizers: String,
     urlGetCities: String,
-    urlEvent: String
+    urlGetEvent: String
   },
   components: {
     "full-calendar": FullCalendar
@@ -33,11 +33,13 @@ export default {
   methods: {
     loadData() {
       axios
-        .get(this.urlEvent + "/" + this.currentMonth)
+        .get(this.urlGetEvent + "/" + this.currentDate)
         .then(response => {
           this.calendarEvents = response.data.map(x => {
             x.backgroundColor = x.city.color;
             x.borderColor = x.city.color;
+            // x.end = new Date(x.end);
+            // x.end.setDate(x.end.getDate() - 1);
             return x;
           });
         })
@@ -55,18 +57,13 @@ export default {
           console.error(error);
         });
     },
-    getCurrentDate() {
-      let calendarApi = this.$refs.fullCalendar.getApi();
-      this.currentDate = new Date(calendarApi.getDate());
-    },
     handleMonthChange() {
       let calendarApi = this.$refs.fullCalendar.getApi();
       var date = new Date(calendarApi.getDate());
-      this.currentMonth = date.getMonth() + 1;
+      this.currentDate = date.toDateString();
       this.loadData();
     },
     handleDateClick(arg) {
-      alert(arg.dateStr);
       window.location = "/event/" + arg.dateStr;
     }
   }
@@ -104,7 +101,7 @@ export default {
 </style>
 
 <template>
-  <div class="container-fluid mt-3">
+  <div class="container-fluid mt-3 py-4">
     <div class="row">
       <div class="col-12">
         <div class="row">

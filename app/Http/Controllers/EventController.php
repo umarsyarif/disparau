@@ -45,7 +45,7 @@ class EventController extends Controller
         $data = $request->form;
         $start = date('Y-m-d', strtotime($data['start']));
         $end = date('Y-m-d', strtotime($data['end'] . '+1 days'));
-        Event::updateOrCreate(['id' => optional($data)['id']], [
+        $event = Event::updateOrCreate(['id' => optional($data)['id']], [
             'title' => $data['title'],
             'description' => $data['description'],
             'organizer_id' => $data['organizer_id'],
@@ -53,8 +53,8 @@ class EventController extends Controller
             'address' => $data['address'],
             'start' => $start,
             'end' => $end,
-            'url' => $data['url'] ?? 'calendar'
         ]);
+        $event->update(['url' => route('event.show', $event->id)]);
         $data = [
             'message' => 'Data berhasil disimpan!',
             'data' => $this->index()
@@ -68,10 +68,34 @@ class EventController extends Controller
      * @param  \App\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function show($month)
+    public function show(Event $event)
     {
-        return Event::whereMonth('start', $month)->orWhereMonth('end', $month)
+        $event = Event::find($event->id);
+        $data = [
+            'event' => $event,
+            'city' => $event->city,
+            'organizer' => $event->organizer,
+        ];
+        return view('event.detail', $data);
+    }
+
+    public function showPerMonth($date)
+    {
+        $year = date('Y', strtotime($date));
+        $month = date('n', strtotime($date));
+        return Event::whereYear('start', $year)->whereMonth('start', $month)
+            ->orWhereYear('end', $year)->whereMonth('end', $month)
             ->orderBy('start')->with('city')->get();
+    }
+
+    public function showPerDay($date)
+    {
+        $date = date('Y-m-d', strtotime($date));
+        $events = Event::whereDate('start', '<=', $date)
+            ->whereDate('end', '>', $date)
+            ->orderBy('start')->with('city', 'organizer')->get();
+        // $date = date('d F Y', strtotime($date));
+        return view('event.day', compact('events', 'date'));
     }
 
     /**
