@@ -12,6 +12,10 @@ window.Vue = require('vue');
 import CKEditor from '@ckeditor/ckeditor5-vue';
 Vue.use(CKEditor);
 
+// Dropify
+// import Dropify from 'dropify';
+// Vue.use(Dropify);
+
 // Datatable
 import { VuejsDatatableFactory } from 'vuejs-datatable';
 Vue.use(VuejsDatatableFactory);
@@ -68,21 +72,49 @@ Vue.filter('end', function (date) {
         locale: "id"
     });
 })
+Vue.filter('kotaSentence', function (value) {
+    value = value.toLowerCase();
+    value = value.replace('kabupaten', '');
+    value = value.replace('kota', '');
+    return value.replace(/(?:^|\s|-)\S/g, x => x.toUpperCase());
+})
 Vue.filter('sentence', function (value) {
     value = value.toLowerCase();
     return value.replace(/(?:^|\s|-)\S/g, x => x.toUpperCase());
 })
 
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import locale from 'dayjs/locale/id';
+Vue.filter('diffForHumans', function (date) {
+    dayjs.extend(relativeTime);
+    dayjs.locale('id');
+    if (!date) {
+        return null;
+    }
+    let formatted = dayjs(date).fromNow();
+    return 'dimulai ' + formatted;
+});
 
+import * as  VueGoogleMaps from 'vue2-google-maps';
+Vue.use(VueGoogleMaps, {
+    load: {
+        key: "AIzaSyCAvEGtGWIJdgmc7UYZYziQsrr3eY2Qie8",
+        libraries: "places" // necessary for places input
+    }
+});
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('welcome-component', require('./components/WelcomeComponent.vue').default);
+Vue.component('dashboard-component', require('./components/DashboardComponent.vue').default);
 Vue.component('admin-calendar', require('./components/AdminCalendar.vue').default);
 Vue.component('user-calendar', require('./components/UserCalendar.vue').default);
 Vue.component('organizer-component', require('./components/Organizer.vue').default);
 Vue.component('event-component', require('./components/Events.vue').default);
 Vue.component('detail-event', require('./components/EventDetail.vue').default);
 Vue.component('cities-component', require('./components/Cities.vue').default);
+Vue.component('city-detail', require('./components/CityDetail.vue').default);
 Vue.component('day-component', require('./components/Day.vue').default);
+Vue.component('search-component', require('./components/SearchComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -1,22 +1,28 @@
 <template>
-  <div class="col-12 py-4">
+  <div class="container">
     <div class="col-12">
-      <div class="card-box">
-        <a href="javascript:void(0)" class="btn btn-purple btn-back float-left" @click="back">
-          <i class="mdi mdi-arrow-left logo-back"></i>
-        </a>
-        <div class="card-header bg-white">
-          <h1 class="text-center">
-            <i class="mdi mdi-calendar"></i>
-          </h1>
-          <br />
-          <h2 class="text-center">
-            <span class="label label-danger">Event Tanggal : {{date | date}}</span>
-          </h2>
+      <div class="container h-100 mt-5 mb-2">
+        <div class="d-flex justify-content-center h-100">
+          <div class="searchbar">
+            <input
+              class="search_input"
+              type="text"
+              v-model="q"
+              placeholder="Apa yang anda cari...?"
+            />
+            <a href="javascript:void(0)" class="search_icon" @click="loadSearch">
+              <i class="fas fa-search"></i>
+            </a>
+          </div>
         </div>
-        <div class="card-body px-0" v-if="listEvent.length > 0">
+      </div>
+      <div class="card-box">
+        <div class="card-body px-0" v-if="result.length > 0">
+          <p class="text-muted text-left">
+            <em>Menampilkan {{result.length}} hasil pencarian</em>
+          </p>
           <div class="row">
-            <div class="col-lg-4 col-md-6 py-2" v-for="row in listEvent" :key="row.id">
+            <div class="col-lg-6 col-md-6 py-2" v-for="row in result" :key="row.id">
               <div class="text-center card h-100 pb-3 shadow">
                 <div class="item-img item-img-card bg--gradient-50">
                   <div style="background-position: center; background-size: cover;">
@@ -55,17 +61,15 @@
             </div>
           </div>
         </div>
-        <p class="text muted text-center" v-else>Tidak ada event hari ini</p>
+        <p class="text-muted text-center" v-if="result.length == 0">Tidak ada event yang sesuai</p>
       </div>
-    </div>
-    <div class="col-12">
       <div class="card-box">
         <h5 class="header-title mt-0 float-left">
           <i class="mdi mdi-map-clock"></i> Event yang akan datang
         </h5>
         <div class="card-body pl-0">
           <div class="row">
-            <div class="col-lg-4 col-md-6 py-2" v-for="row in incomingEvents" :key="row.id">
+            <div class="col-lg-4 col-md-6 py-2" v-for="row in incoming" :key="row.id">
               <div class="text-center card pb-3 shadow">
                 <div class="item-img item-img-card bg--gradient-50">
                   <div style="background-position: center; background-size: cover;">
@@ -76,8 +80,13 @@
                   <p class="text-dark font-13 mb-0">
                     <strong>{{ row.title }}</strong>
                   </p>
-                  <p class="text-muted">{{row.city.name}}</p>
+                  <h6 class="font-13 mb-0">{{ row.start | start }} - {{ row.end | end }}</h6>
+                  <p class="text-muted">{{row.city.name | sentence}}</p>
                 </div>
+                <button
+                  class="btn btn-purple btn-rounded waves-effect waves-light mt-auto mx-2"
+                  @click="detail(row.url)"
+                >Lihat rincian</button>
               </div>
             </div>
           </div>
@@ -87,45 +96,52 @@
   </div>
 </template>
 
-<style lang='scss'>
-.btn-back {
-  border-color: white;
-  opacity: 0.8;
-}
-
-.btn-back:hover {
-  background-color: white;
-  opacity: 1;
-}
-.btn-back:hover > .logo-back {
-  color: purple;
-}
-</style>
-
 <script>
 export default {
   props: {
-    date: String,
-    events: String,
-    incoming: String
+    query: String,
+    urlSearch: String
   },
-  data: function() {
+  data() {
     return {
-      listEvent: {},
-      incomingEvents: {},
+      q: "",
+      result: {},
+      incoming: {},
       header: "/images/selatpanjang_4.jpeg"
     };
   },
   mounted() {
-    this.loadData();
+    this.search(this.query);
   },
   methods: {
-    loadData() {
-      this.listEvent = JSON.parse(this.events);
-      this.incomingEvents = JSON.parse(this.incoming);
+    loadSearch() {
+      if (this.q == "") {
+        Toast.fire({
+          icon: "error",
+          title: "Masukkan kata kunci!"
+        });
+        return;
+      }
+      window.location = this.urlSearch + "?q=" + this.q;
     },
-    back() {
-      window.history.back();
+    search(q) {
+      axios
+        .post(this.urlSearch, {
+          q: q
+        })
+        .then(response => {
+          if (response.data.status) {
+            this.result = response.data.data.result;
+            this.incoming = response.data.data.incoming;
+          }
+        })
+        .catch(error => {
+          Toast.fire({
+            icon: "error",
+            title: response.data.data.message
+          });
+        });
+      this.q = q;
     },
     detail(url) {
       window.location = url;

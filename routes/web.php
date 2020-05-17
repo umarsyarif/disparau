@@ -14,19 +14,26 @@
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 // Cities
-// Route::prefix('cities')->name('cities.')->group(function () { });
+Route::prefix('city')->name('cities.')->group(function () {
+    Route::get('/get', 'CityController@index')->name('index');
+    Route::get('/with-events', 'CityController@showWithEvents')->name('events');
+    Route::get('/{city?}', 'CityController@show')->name('show');
+});
 
 // Events
 Route::prefix('event')->name('event.')->group(function () {
     Route::get('/get', 'EventController@index')->name('index');
     Route::get('/cities', 'EventController@cities')->name('cities');
     Route::post('/', 'EventController@store')->name('store');
+    Route::get('/search', 'EventController@search')->name('search');
+    Route::post('/search', 'EventController@searchResult')->name('search-result');
     Route::post('/color/{id?}', 'EventController@changeColor')->name('color');
     Route::delete('/{id?}', 'EventController@destroy')->name('destroy');
     Route::get('/detail/{event?}', 'EventController@show')->name('show');
+    Route::get('/incoming', 'EventController@incomingEvents')->name('show.incoming');
     Route::get('/{date?}', 'EventController@showPerDay')->name('show.day');
     Route::get('/get/{date?}', 'EventController@showPerMonth')->name('show.month');
 });
@@ -38,4 +45,4 @@ Route::prefix('organizer')->name('organizer.')->group(function () {
     Route::delete('{id?}', 'OrganizerController@destroy')->name('destroy');
 });
 
-Route::get('/{page}', 'HomeController@pages')->name('pages');
+Route::get('/{page}', 'HomeController@pages')->name('pages')->middleware('auth');

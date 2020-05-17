@@ -10,7 +10,7 @@
                 href="javascript:void(0)"
                 class="btn btn-primary float-right my-3"
                 @click="createData"
-              >Add New Event</a>
+              >Tambah Event</a>
             </div>
             <div class="responsive-table-plugin">
               <div class="table-rep-plugin">
@@ -54,7 +54,7 @@
       </div>
       <div class="col-12" v-if="isCreate">
         <div class="card-box">
-          <a href="javascript:void(0)" class="close" @click="createData">
+          <a href="javascript:void(0)" class="close text-muted" @click="createData">
             <i class="mdi mdi-close float-right"></i>
           </a>
           <div class="card-header bg-white text-center">
@@ -69,7 +69,7 @@
                 v-model="form.organizer_id"
                 id="organizer_id"
               >
-                <option value>Pilih..</option>
+                <option value>Pilih Penyelenggara</option>
                 <option v-for="row in organizers" :key="row.id" :value="row.id">{{ row.name }}</option>
               </select>
               <small class="form-text text-muted">Penyelenggara event</small>
@@ -104,9 +104,28 @@
             </div>
             <div class="form-group">
               <select type="text" class="form-control" v-model="form.city_id" id="city_id">
-                <option value>Kota / Kabupaten</option>
+                <option value>Pilih Kota / Kabupaten</option>
                 <option v-for="row in cities" :key="row.id" :value="row.id">{{ row.name }}</option>
               </select>
+            </div>
+            <div class="form-group mt-3">
+              <label for="file_input">Foto Header</label>
+              <br />
+              <button
+                class="btn btn-primary btn-sm mb-2"
+                @click="changePhoto"
+                v-if="form.header != '' && form.header != null"
+              >Ubah Foto</button>
+              <div>
+                <input
+                  type="file"
+                  id="file_input"
+                  class="form-control"
+                  @change="handleFileChange"
+                  v-if="form.header == '' || form.header == null"
+                />
+                <img :src="fileUrl" width="250rem" v-else />
+              </div>
             </div>
             <div class="form-group mt-3">
               <label for="description">Deskripsi</label>
@@ -127,6 +146,7 @@
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { id } from "vuejs-datepicker/dist/locale";
 import Datepicker from "vuejs-datepicker";
+// import VueDropify from "vue-dropify";
 
 export default {
   props: {
@@ -197,6 +217,7 @@ export default {
         city_id: "",
         start: new Date(),
         end: new Date(),
+        header: "",
         city: { name: "" }
       };
       this.isCreate = !this.isCreate;
@@ -206,10 +227,15 @@ export default {
       this.isCreate = !this.isCreate;
     },
     storeData() {
-      console.log("asd");
+      let file = this.form.header;
+      let form = new FormData();
+      form.append("data", JSON.stringify(this.form));
+      form.append("file", file, file.name);
       axios
-        .post(this.urlEvent, {
-          form: this.form
+        .post(this.urlEvent, form, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
         })
         .then(response => {
           this.isCreate = false;
@@ -248,6 +274,24 @@ export default {
             });
         }
       });
+    },
+    handleFileChange(e) {
+      console.log(e.target.files[0]);
+      this.form.header = e.target.files[0];
+    },
+    changePhoto() {
+      this.form.header = "";
+    }
+  },
+  computed: {
+    fileUrl() {
+      let file = this.form.header;
+      let type = typeof file;
+      if (type == "file" || type == "object") {
+        return URL.createObjectURL(file);
+      } else {
+        return file;
+      }
     }
   }
 };

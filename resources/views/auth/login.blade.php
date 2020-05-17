@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
+{{-- @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -70,4 +68,111 @@
         </div>
     </div>
 </div>
-@endsection
+@endsection --}}
+<?php
+$title = 'Login';
+?>
+<!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- CSRF Token -->
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+
+        <title>{{ config('app.name', 'Laravel') }}</title>
+        <!-- Styles -->
+        <link rel="stylesheet" type="text/css" href="{{asset('adminto/css/bootstrap.min.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{asset('adminto/css/icons.min.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{asset('adminto/css/app.min.css')}}">
+
+    </head>
+
+
+    <body class="authentication-bg">
+
+        @include('partials.navbar')
+        <div class="account-pages mt-5 mb-5">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8 col-lg-6 col-xl-5">
+                        <div class="text-center">
+                            <a href="{{route('home')}}" class="logo">
+                                <span class="logo-lg">
+                                    <img src="{{asset('images/logo-Riau-The-homeland.png')}}" alt="" height="200px">
+                                    {{-- <span class="logo-lg-text-dark">Disparau</span> --}}
+                                </span>
+                            </a>
+                            <p class="text-muted mt-2 mb-4">Dinas Pariwisata Prov.Riau</p>
+                        </div>
+                        <div class="card">
+
+                            <div class="card-body p-4">
+
+                                <div class="text-center mb-4">
+                                    <h4 class="text-uppercase mt-0">Sign In</h4>
+                                </div>
+
+                                <form action="{{ route('login') }}" method="POST">
+                                    @csrf
+                                    <div class="form-group mb-3">
+                                        <label for="email">{{ __('E-Mail Address') }}</label>
+                                        <div>
+                                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Enter your email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+
+                                            @error('email')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group mb-3">
+                                        <label for="password">{{ __('Password') }}</label>
+                                        <div>
+                                            <input id="password" type="password" class="form-control  @error('password') is-invalid @enderror" placeholder="Enter your password" name="password" required autocomplete="current-password">
+
+                                            @error('password')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group mb-3">
+                                        <div class="custom-control custom-checkbox">
+                                            <input class="custom-control-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                            <label class="custom-control-label" for="remember">
+                                                {{ __('Remember Me') }}
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group mb-0 text-center">
+                                        <button class="btn btn-primary btn-block" type="submit"> Log In </button>
+                                    </div>
+
+                                </form>
+
+                            </div> <!-- end card-body -->
+                        </div>
+                        <!-- end card -->
+
+                    </div> <!-- end col -->
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- end container -->
+        </div>
+        <!-- end page -->
+        @include('partials.big-footer')
+
+        <!-- Vendor js -->
+        <script src="{{asset('adminto/js/vendor.min.js')}}"></script>
+        <!-- App js -->
+        <script src="{{asset('adminto/js/app.min.js')}}"></script>
+    </body>
+</html>

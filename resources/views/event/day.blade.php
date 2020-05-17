@@ -9,5 +9,6 @@ $title = 'Event Harian';
 <day-component
     date="{{$date}}"
     events="{{$events}}"
+    incoming="{{$incomingEvents}}"
 />
 @endsection

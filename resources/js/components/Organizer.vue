@@ -10,7 +10,7 @@
                 href="javascript:void(0)"
                 class="btn btn-primary float-right my-3"
                 @click="showModal"
-              >Add New Organizer</a>
+              >Tambah Penyelenggara</a>
             </div>
             <div class="responsive-table-plugin">
               <div class="table-rep-plugin">

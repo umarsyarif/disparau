@@ -59,8 +59,6 @@ export default {
           this.calendarEvents = response.data.map(x => {
             x.backgroundColor = x.city.color;
             x.borderColor = x.city.color;
-            // x.end = new Date(x.end);
-            // x.end.setDate(x.end.getDate() - 1);
             return x;
           });
         })
@@ -129,6 +127,9 @@ export default {
           console.error(error);
         });
     },
+    showData(url) {
+      window.location = url;
+    },
     deleteData(id) {
       $("#event-modal").modal("hide");
       Swal.fire({
@@ -164,6 +165,31 @@ export default {
     },
     handleDateClick(arg) {
       this.createData(arg.dateStr);
+    },
+    dayRender: function(info) {
+      var element = info.el;
+      var date = new Date(info.date);
+      date.setDate(date.getDate() + 1);
+      var currentDate = date.toISOString().substring(0, 10);
+      var hoverDivs =
+        '<div class="fc-day-hover-container">' +
+        '   <div class="fc-day-hover-button"><i class="far fa-calendar-plus"></i></div>' +
+        '   <div class="fc-day-hover-helper"></div>' +
+        "</div>";
+
+      // Change background of a date cell upon hover and add a centralized "+" icon
+      $("td")
+        .find('[data-date="' + currentDate + '"]')
+        .hover(
+          function() {
+            $('td [data-date="' + currentDate + '"]').addClass("fc-day-hover"); // Monthly view
+            $(element).append(hoverDivs);
+          },
+          function() {
+            $('[data-date="' + currentDate + '"]').removeClass("fc-day-hover");
+            $(".fc-day-hover-container").remove();
+          }
+        );
     }
   }
 };
@@ -197,8 +223,32 @@ export default {
   background: lightblue;
   color: grey;
 }
-.close:hover {
-  color: red;
+
+#fcYearly .fc-day-hover {
+  /* triggered when hovering over calendar date cells */
+  background-color: rgba(0, 0, 0, 0.05);
+}
+#fcYearly .fc-day-hover .fc-day-hover-container {
+  background-color: rgba(20, 20, 20, 0.1);
+  width: 100%;
+  height: 100%;
+  border-radius: 1rem;
+  color: #9b9b9b;
+  font-size: 20pt;
+  cursor: pointer;
+  text-align: center;
+}
+#fcYearly .fc-day-hover .fc-day-hover-container .fc-day-hover-button {
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  white-space: normal;
+  padding-left: 5px;
+}
+#fcYearly .fc-day-hover .fc-day-hover-container .fc-day-hover-helper {
+  display: inline-block;
+  vertical-align: middle;
+  height: 100%;
 }
 </style>
 
@@ -224,13 +274,15 @@ export default {
                 :events="calendarEvents"
                 @dateClick="handleDateClick"
                 @datesRender="handleMonthChange"
+                @dayRender="dayRender"
               />
+              <h6 class="text-danger">*Klik tanggal untuk membuat event baru</h6>
               <div class="card-footer bg-white mt-2 pl-0">
-                <ul>
+                <h5>Keterangan warna :</h5>
+                <ul class="pl-0">
                   <li style="list-style-type:none" v-for="row in cities" :key="row.id">
-                    <!-- <input class="form-control col-1" type="color" :value="row.color" disabled /> -->
                     <span class="badge" :style="{'background-color': row.color}">&nbsp;</span>
-                    {{ row.name }}
+                    {{ row.name | sentence}}
                   </li>
                 </ul>
               </div>
@@ -248,7 +300,7 @@ export default {
                 </a>
                 <div class="card-box mt-2">
                   <h4 class="header-title mt-0 mb-3">
-                    <i class="mdi mdi-trophy mr-1"></i> Event Bulan Ini
+                    <i class="mdi mdi-calendar-clock mr-1"></i> Event Bulan Ini
                   </h4>
                   <p class="card-text text-center" v-if="!calendarEvents.length">
                     <small class="text-muted">Tidak ada data</small>
@@ -282,7 +334,7 @@ export default {
       </div>
       <div class="col-12" v-if="isCreate">
         <div class="card-box">
-          <a href="javascript:void(0)" class="close" @click="createData">
+          <a href="javascript:void(0)" class="close text-muted" @click="createData">
             <i class="mdi mdi-close float-right"></i>
           </a>
           <div class="card-header bg-white text-center">
@@ -297,7 +349,7 @@ export default {
                 v-model="form.organizer_id"
                 id="organizer_id"
               >
-                <option value>Pilih..</option>
+                <option value>Pilih Penyelenggara</option>
                 <option v-for="row in organizers" :key="row.id" :value="row.id">{{ row.name }}</option>
               </select>
               <small class="form-text text-muted">Penyelenggara event</small>
@@ -332,7 +384,7 @@ export default {
             </div>
             <div class="form-group">
               <select type="text" class="form-control" v-model="form.city_id" id="city_id">
-                <option value>Kota / Kabupaten</option>
+                <option value>Pilih Kota / Kabupaten</option>
                 <option v-for="row in cities" :key="row.id" :value="row.id">{{ row.name }}</option>
               </select>
             </div>
@@ -375,7 +427,7 @@ export default {
                 <small class="text-muted" v-if="!isCreate">({{ form.city.name }})</small>
               </h5>
               <div class="text-center mt-3">
-                <button class="btn btn-warning btn-sm" @click="showData(form)">
+                <button class="btn btn-warning btn-sm" @click="showData(form.url)">
                   <i class="mdi mdi-information"></i>
                 </button>
                 <button class="btn btn-primary btn-sm" @click="editData(form)">

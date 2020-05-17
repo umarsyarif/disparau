@@ -2,39 +2,79 @@
   <div class="container py-4">
     <div class="row">
       <div class="col-12">
-        <div class="card-box px-0 pt-0">
-          <div class="item-img item-img-card bg--gradient-50">
-            <div class="container px-0">
-              <img :src="header" alt class height="623rem" style="opacity: 0.7" />
-              <a href="javascript:void(0)" class="close top-left" @click="back">
-                <i class="mdi mdi-arrow-left"></i>
-              </a>
+        <div class="card-box card-height mb-6">
+          <a
+            href="javascript:void(0)"
+            class="btn btn-purple btn-back float-left ml-2 mt-2"
+            @click="back"
+          >
+            <i class="mdi mdi-arrow-left logo-back"></i>
+          </a>
+          <div
+            class="jumbotron jumbotron-fluid py-2"
+            :style="{'background-image': 'url(' + [event.header != null ? event.header : header] + ')', 'background-size': 'cover', 'min-height': '22.5rem', 'width': '100%'}"
+          >
+            <div class="container"></div>
+          </div>
+          <div class="card-header bg-white">
+            <br />
+            <h2 class="text-center">
+              <span class="label label-danger">{{event.title}}</span>
+            </h2>
+          </div>
+          <div class="card-body text-left text-muted">
+            <p class="text-muted font-15">
+              <i class="mdi mdi-map-marker-radius"></i>
+              <span class="ml-2">
+                <strong>{{ city.name | sentence }}</strong>
+              </span>
+            </p>
+            <p class="text-muted font-15">
+              <i class="mdi mdi-calendar"></i>
+              <span class="ml-2">
+                <strong>{{ event.start | start }} - {{ event.end | end }}</strong>
+              </span>
+            </p>
+            <!-- <p class="text-muted font-13 ml-4"> -->
+            <span class="text-muted font-13" v-html="event.description"></span>
+            <!-- </p> -->
+            <div class="col-12 mt-5">
+              <gmap-map :center="center" :zoom="12" style="width:100%;  height: 400px;">
+                <gmap-marker
+                  :key="index"
+                  v-for="(m, index) in markers"
+                  :position="m.position"
+                  @click="center=m.position"
+                ></gmap-marker>
+              </gmap-map>
             </div>
           </div>
-          <div class="col-12 centered">
-            <div class="card-box card-height mb-6">
-              <div class="card-header bg-white">
-                <br />
-                <h2 class="text-center">
-                  <span class="label label-danger">{{event.title}}</span>
-                </h2>
-              </div>
-              <div class="card-body text-left text-muted">
-                <p class="text-muted font-15">
-                  <i class="mdi mdi-map-marker-radius"></i>
-                  <span class="ml-2">
-                    <strong>{{ city.name | sentence }}</strong>
-                  </span>
-                </p>
-                <p class="text-muted font-15">
-                  <i class="mdi mdi-calendar"></i>
-                  <span class="ml-2">
-                    <strong>{{ event.start | start }} - {{ event.end | end }}</strong>
-                  </span>
-                </p>
-                <!-- <p class="text-muted font-13 ml-4"> -->
-                <span class="text-muted font-13" v-html="event.description"></span>
-                <!-- </p> -->
+        </div>
+        <div class="card-box">
+          <h5 class="header-title mt-0 float-left">
+            <i class="mdi mdi-map-clock"></i> Event yang akan datang
+          </h5>
+          <div class="card-body pl-0">
+            <div class="row">
+              <div class="card-event col-lg-4 col-md-6 py-2" v-for="row in incoming" :key="row.id">
+                <div class="text-center card pb-3 shadow">
+                  <div class="item-img item-img-card bg--gradient-50">
+                    <div style="background-position: center; background-size: cover;">
+                      <img :src="[row.header != null ? row.header : header]" alt class="w-100" />
+                    </div>
+                  </div>
+                  <div class="px-3 pt-2">
+                    <p class="text-dark font-13 mb-0">
+                      <strong>{{ row.title }}</strong>
+                    </p>
+                    <h6 class="font-13 mb-0">{{ row.start | start }} - {{ row.end | end }}</h6>
+                    <p class="text-muted">{{row.city.name | sentence}}</p>
+                  </div>
+                  <button
+                    class="btn btn-purple btn-rounded waves-effect waves-light mt-auto mx-2"
+                    @click="detail(row.url)"
+                  >Lihat rincian</button>
+                </div>
               </div>
             </div>
           </div>
@@ -65,6 +105,10 @@
 .card-height {
   min-height: 500px;
 }
+.close {
+  color: white;
+  margin-left: 32px;
+}
 .close:hover {
   color: cornflowerblue;
 }
@@ -72,30 +116,50 @@
 
 <script>
 export default {
+  name: "GoogleMap",
   props: {
     dataEvent: String,
     dataCity: String,
-    dataOrganizer: String
+    dataOrganizer: String,
+    dataIncoming: String
   },
   data: function() {
     return {
       event: {},
       city: { name: "" },
       organizer: {},
-      header: "/images/selatpanjang_4.jpeg"
+      incoming: {},
+      header: "/images/selatpanjang_4.jpeg",
+      center: { lat: 0.5070677, lng: 101.4477793 },
+      markers: [],
+      places: [],
+      currentPlace: null
     };
   },
   mounted() {
     this.loadData();
+    this.geolocate();
   },
   methods: {
     loadData() {
       this.event = JSON.parse(this.dataEvent);
       this.city = JSON.parse(this.dataCity);
       this.organizer = JSON.parse(this.dataOrganizer);
+      this.incoming = JSON.parse(this.dataIncoming);
     },
     back() {
       window.history.back();
+    },
+    detail(url) {
+      window.location = url;
+    },
+    geolocate: function() {
+      navigator.geolocation.getCurrentPosition(position => {
+        this.center = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+      });
     }
   }
 };

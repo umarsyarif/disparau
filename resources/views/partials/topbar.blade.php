@@ -132,20 +132,8 @@
             <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
                 <!-- item-->
                 <div class="dropdown-header noti-title">
-                    <h6 class="text-overflow m-0">Welcome !</h6>
+                    <h6 class="text-overflow m-0">Welcome {{ Auth::user()->name }} !</h6>
                 </div>
-
-                <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                    <i class="fe-user"></i>
-                    <span>My Account</span>
-                </a>
-
-                <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                    <i class="fe-settings"></i>
-                    <span>Settings</span>
-                </a>
 
                 <div class="dropdown-divider"></div>
 
@@ -162,12 +150,6 @@
                 </form>
             </div>
         </li>
-
-        {{-- <li class="dropdown notification-list">
-            <a href="javascript:void(0);" class="nav-link right-bar-toggle waves-effect">
-                <i class="fe-settings noti-icon"></i>
-            </a>
-        </li> --}}
         @endif
 
     </ul>
@@ -181,7 +163,7 @@
             </span>
             <span class="logo-sm">
                 <!-- <span class="logo-sm-text-dark">X</span> -->
-                <img src="{{asset('adminto/images/logo-sm.png')}}" alt="" height="24">
+                <img src="{{asset('images/logo-Riau-The-homeland.png')}}" alt="" height="24">
             </span>
         </a>
     </div>

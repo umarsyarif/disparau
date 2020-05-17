@@ -17,6 +17,7 @@ class CreateCitiesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('color')->nullable();
+            $table->string('meta');
             $table->timestamps();
         });
     }

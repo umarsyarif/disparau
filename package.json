@@ -31,8 +31,10 @@
         "@fullcalendar/interaction": "^4.4.0",
         "@fullcalendar/moment": "^4.4.0",
         "@fullcalendar/vue": "^4.4.0",
-        "moment": "^2.25.1",
+        "dayjs": "^1.8.27",
         "sweetalert2": "^9.10.12",
+        "vue-dropify": "^0.4.1",
+        "vue2-google-maps": "^0.10.7",
         "vuejs-datatable": "^2.0.0-alpha.7",
         "vuejs-datepicker": "^1.6.2"
     }

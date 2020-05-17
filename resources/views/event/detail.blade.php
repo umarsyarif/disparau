@@ -10,5 +10,6 @@ $title = 'Detail Event';
     data-event="{{$event}}"
     data-city="{{$city}}"
     data-organizer="{{$organizer}}"
+    data-incoming="{{$incoming}}"
 />
 @endsection
