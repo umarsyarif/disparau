@@ -27,6 +27,8 @@ Route::prefix('city')->name('cities.')->group(function () {
 Route::prefix('event')->name('event.')->group(function () {
     Route::get('/get', 'EventController@index')->name('index');
     Route::get('/cities', 'EventController@cities')->name('cities');
+    Route::get('/year', 'EventController@getYear')->name('year');
+    Route::post('/year', 'EventController@showPerYear')->name('show.year');
     Route::post('/', 'EventController@store')->name('store');
     Route::get('/search', 'EventController@search')->name('search');
     Route::post('/search', 'EventController@searchResult')->name('search-result');

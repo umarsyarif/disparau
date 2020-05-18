@@ -31,7 +31,7 @@
                 </div>
             </form>
         </li>
-        <li class="dropdown notification-list">
+        {{-- <li class="dropdown notification-list">
             <a class="nav-link dropdown-toggle  waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                 <i class="fe-bell noti-icon"></i>
                 <span class="badge badge-danger rounded-circle noti-icon-badge">9</span>
@@ -120,7 +120,7 @@
                 </a>
 
             </div>
-        </li>
+        </li> --}}
 
         <li class="dropdown notification-list mr-3">
             <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">

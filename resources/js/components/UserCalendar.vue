@@ -204,7 +204,7 @@ export default {
                 <div class="widget-body">
                   <div class="card-box">
                     <h4 class="header-title mt-0 mb-3">
-                      <i class="mdi mdi-trophy mr-1"></i> Event Bulan Ini
+                      <i class="mdi mdi-calendar mr-1"></i> Event Bulan Ini
                     </h4>
                     <p class="card-text text-center" v-if="!calendarEvents.length">
                       <small class="text-muted">Tidak ada data</small>

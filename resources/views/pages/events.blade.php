@@ -10,6 +10,7 @@ $title = 'Events Data';
     url-get-organizers="{{route('organizer.index')}}"
     url-get-cities="{{route('event.cities')}}"
     url-get-events="{{route('event.index')}}"
+    url-get-years="{{route('event.year')}}"
     url-event="{{route('event.store')}}"
     />
 @endsection

@@ -6,6 +6,19 @@
           <div class="card-body">
             <h4 class="heading-text text-center">Daftar Event</h4>
             <div class="clear-fix">
+              <div class="col-12 col-md-2 float-left my-3">
+                <label for="tahun">Tahun Event</label>
+                <select
+                  class="form-control custom-select"
+                  name="tahun"
+                  id="tahun"
+                  v-model="currentYear"
+                  @change="changeYear"
+                >
+                  <option value>All</option>
+                  <option v-for="row in years" :key="row" :value="row">{{row}}</option>
+                </select>
+              </div>
               <a
                 href="javascript:void(0)"
                 class="btn btn-primary float-right my-3"
@@ -132,6 +145,25 @@
               <ckeditor :editor="editor" v-model="form.description" :config="editorConfig"></ckeditor>
               <small class="form-text text-muted">Deskripsi event</small>
             </div>
+            <div class="form-group mt-3">
+              <label for>
+                G-Maps
+                <small class="text-muted">(Optional)</small>
+              </label>
+              <div class="row px-2">
+                <gmap-autocomplete class="form-control col-10 mr-2" @place_changed="setPlace"></gmap-autocomplete>
+                <button class="btn btn-primary" @click.prevent="addMarker">Add</button>
+              </div>
+              <br />
+              <gmap-map :center="center" :zoom="15" style="width:100%;  height: 400px;">
+                <gmap-marker
+                  :key="index"
+                  v-for="(m, index) in markers"
+                  :position="m.position"
+                  @click="center=m.position"
+                ></gmap-marker>
+              </gmap-map>
+            </div>
           </div>
           <div class="card-footer bg-white mb-4">
             <button class="btn btn-primary float-right" @click="storeData">Save</button>
@@ -153,15 +185,17 @@ export default {
     urlGetOrganizers: String,
     urlGetCities: String,
     urlGetEvents: String,
+    urlGetYears: String,
     urlEvent: String
   },
   components: {
     "date-picker": Datepicker
   },
   mounted: function() {
-    this.loadData();
     this.loadOrganizers();
     this.loadCities();
+    this.loadYears();
+    this.geolocate();
   },
   data: function() {
     return {
@@ -172,7 +206,13 @@ export default {
       form: {},
       organizers: {},
       cities: {},
+      years: [],
+      currentYear: "",
       isCreate: false,
+      center: { lat: 0.5070677, lng: 101.4477793 },
+      markers: [],
+      places: [],
+      currentPlace: null,
       disabledDates: {
         customPredictor: date => {
           if (date < this.form.start) {
@@ -190,6 +230,17 @@ export default {
           this.events = response.data;
         })
         .catch(error => console.error(error));
+    },
+    loadYears() {
+      axios
+        .get(this.urlGetYears)
+        .then(response => {
+          console.log(response);
+          this.years = response.data;
+        })
+        .catch(error => console.error(error));
+      this.currentYear = new Date().getFullYear();
+      this.changeYear();
     },
     loadOrganizers() {
       axios
@@ -281,6 +332,47 @@ export default {
     },
     changePhoto() {
       this.form.header = "";
+    },
+    changeYear() {
+      axios
+        .post(this.urlGetYears, {
+          year: this.currentYear
+        })
+        .then(response => {
+          this.events = response.data;
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
+    setPlace(place) {
+      this.currentPlace = place;
+    },
+    addMarker() {
+      if (this.currentPlace) {
+        const marker = {
+          lat: this.currentPlace.geometry.location.lat(),
+          lng: this.currentPlace.geometry.location.lng()
+        };
+        this.markers.push({ position: marker });
+        this.markers.shift();
+        this.places.push(this.currentPlace);
+        this.center = marker;
+        this.form.meta = JSON.stringify(marker);
+      }
+    },
+    geolocate: function() {
+      navigator.geolocation.getCurrentPosition(position => {
+        this.center = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+      });
+      const marker = {
+        lat: this.center.lat,
+        lng: this.center.lng
+      };
+      this.markers.push({ position: marker });
     }
   },
   computed: {

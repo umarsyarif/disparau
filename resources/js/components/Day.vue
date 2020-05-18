@@ -76,8 +76,13 @@
                   <p class="text-dark font-13 mb-0">
                     <strong>{{ row.title }}</strong>
                   </p>
+                  <h6 class="font-13 mb-0">{{ row.start | start }} - {{ row.end | end }}</h6>
                   <p class="text-muted">{{row.city.name}}</p>
                 </div>
+                <button
+                  class="btn btn-purple btn-rounded waves-effect waves-light mt-auto mx-2"
+                  @click="detail(row.url)"
+                >Lihat rincian</button>
               </div>
             </div>
           </div>

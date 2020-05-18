@@ -24,6 +24,7 @@ class CreateEventsTable extends Migration
             $table->integer('city_id');
             $table->string('url')->nullable();
             $table->string('header')->nullable();
+            $table->string('meta')->nullable();
             $table->timestamps();
         });
     }

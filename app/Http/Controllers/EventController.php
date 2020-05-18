@@ -32,9 +32,16 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function getYear()
     {
-        //
+        $year = Event::select('start', 'end')->distinct()->get();
+        $x = [];
+        foreach ($year as $row) {
+            array_push($x, date('Y', strtotime($row->start)));
+            array_push($x, date('Y', strtotime($row->end)));
+        }
+        $years = array_unique($x);
+        return $years;
     }
 
     /**
@@ -45,7 +52,6 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        // return dump($data->start);
         $data = json_decode($request->data);
         $start = date('Y-m-d', strtotime($data->start));
         $end = date('Y-m-d', strtotime($data->end . '+1 days'));
@@ -57,9 +63,13 @@ class EventController extends Controller
             'address' => $data->address,
             'start' => $start,
             'end' => $end,
+            'meta' => $data->meta
         ]);
         $file = $request->file;
         if (!!$file) {
+            if ($event->header != null) {
+                //
+            }
             $path = $this->strorageStore($file, $event);
             if ($path == '') {
                 return $data['message'] = 'File tidak sesuai';
@@ -134,6 +144,20 @@ class EventController extends Controller
             'incomingEvents' => $incomingEvents,
         ];
         return view('event.day', $data);
+    }
+
+    public function showPerYear(Request $request)
+    {
+        $year = $request->year;
+        if (is_null($year)) {
+            $yearEvents = Event::with('city', 'organizer')
+                ->orderBy('start')->get();
+        } else {
+            $yearEvents = Event::with('city', 'organizer')->whereYear('start', $year)
+                ->orWhereYear('end', $year)
+                ->orderBy('start')->get();
+        }
+        return $yearEvents;
     }
 
     public function incomingEvents()

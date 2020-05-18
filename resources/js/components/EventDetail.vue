@@ -12,7 +12,7 @@
           </a>
           <div
             class="jumbotron jumbotron-fluid py-2"
-            :style="{'background-image': 'url(' + [event.header != null ? event.header : header] + ')', 'background-size': 'cover', 'min-height': '22.5rem', 'width': '100%'}"
+            :style="{'background-image': 'url(' + [event.header != null ? event.header : header] + ')', 'background-size': 'cover', 'min-height': '22.5rem', 'width': '100%', 'background-position': 'center'}"
           >
             <div class="container"></div>
           </div>
@@ -132,8 +132,7 @@ export default {
       header: "/images/selatpanjang_4.jpeg",
       center: { lat: 0.5070677, lng: 101.4477793 },
       markers: [],
-      places: [],
-      currentPlace: null
+      places: []
     };
   },
   mounted() {
@@ -153,13 +152,28 @@ export default {
     detail(url) {
       window.location = url;
     },
-    geolocate: function() {
-      navigator.geolocation.getCurrentPosition(position => {
-        this.center = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
+    addMarker() {
+      if (this.currentPlace) {
+        const marker = {
+          lat: this.currentPlace.lat(),
+          lng: this.currentPlace.lng()
         };
-      });
+        this.markers.push({ position: marker });
+        this.places.push(this.currentPlace);
+        this.center = marker;
+      }
+    },
+    geolocate: function() {
+      //   this.center = {
+      //     lat: this.city.lat,
+      //     lng: this.city.lng
+      //   };
+      this.addMarker();
+    }
+  },
+  computed: {
+    currentPlace() {
+      return this.event.meta ?? this.city.meta;
     }
   }
 };

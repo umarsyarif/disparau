@@ -15747,6 +15747,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     date: String,
@@ -15926,8 +15931,7 @@ __webpack_require__.r(__webpack_exports__);
         lng: 101.4477793
       },
       markers: [],
-      places: [],
-      currentPlace: null
+      places: []
     };
   },
   mounted: function mounted() {
@@ -15947,15 +15951,32 @@ __webpack_require__.r(__webpack_exports__);
     detail: function detail(url) {
       window.location = url;
     },
-    geolocate: function geolocate() {
-      var _this = this;
-
-      navigator.geolocation.getCurrentPosition(function (position) {
-        _this.center = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
+    addMarker: function addMarker() {
+      if (this.currentPlace) {
+        var marker = {
+          lat: this.currentPlace.lat(),
+          lng: this.currentPlace.lng()
         };
-      });
+        this.markers.push({
+          position: marker
+        });
+        this.places.push(this.currentPlace);
+        this.center = marker;
+      }
+    },
+    geolocate: function geolocate() {
+      //   this.center = {
+      //     lat: this.city.lat,
+      //     lng: this.city.lng
+      //   };
+      this.addMarker();
+    }
+  },
+  computed: {
+    currentPlace: function currentPlace() {
+      var _this$event$meta;
+
+      return (_this$event$meta = this.event.meta) !== null && _this$event$meta !== void 0 ? _this$event$meta : this.city.meta;
     }
   }
 });
@@ -16122,6 +16143,38 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
  // import VueDropify from "vue-dropify";
@@ -16131,15 +16184,17 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     urlGetOrganizers: String,
     urlGetCities: String,
     urlGetEvents: String,
+    urlGetYears: String,
     urlEvent: String
   },
   components: {
     "date-picker": vuejs_datepicker__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   mounted: function mounted() {
-    this.loadData();
     this.loadOrganizers();
     this.loadCities();
+    this.loadYears();
+    this.geolocate();
   },
   data: function data() {
     var _this = this;
@@ -16152,7 +16207,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       form: {},
       organizers: {},
       cities: {},
+      years: [],
+      currentYear: "",
       isCreate: false,
+      center: {
+        lat: 0.5070677,
+        lng: 101.4477793
+      },
+      markers: [],
+      places: [],
+      currentPlace: null,
       disabledDates: {
         customPredictor: function customPredictor(date) {
           if (date < _this.form.start) {
@@ -16172,20 +16236,32 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         return console.error(error);
       });
     },
-    loadOrganizers: function loadOrganizers() {
+    loadYears: function loadYears() {
       var _this3 = this;
 
+      axios.get(this.urlGetYears).then(function (response) {
+        console.log(response);
+        _this3.years = response.data;
+      })["catch"](function (error) {
+        return console.error(error);
+      });
+      this.currentYear = new Date().getFullYear();
+      this.changeYear();
+    },
+    loadOrganizers: function loadOrganizers() {
+      var _this4 = this;
+
       axios.get(this.urlGetOrganizers).then(function (response) {
-        _this3.organizers = response.data;
+        _this4.organizers = response.data;
       })["catch"](function (error) {
         console.error(error);
       });
     },
     loadCities: function loadCities() {
-      var _this4 = this;
+      var _this5 = this;
 
       axios.get(this.urlGetCities).then(function (response) {
-        _this4.cities = response.data;
+        _this5.cities = response.data;
       })["catch"](function (error) {
         console.error(error);
       });
@@ -16208,7 +16284,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       this.isCreate = !this.isCreate;
     },
     storeData: function storeData() {
-      var _this5 = this;
+      var _this6 = this;
 
       var file = this.form.header;
       var form = new FormData();
@@ -16219,8 +16295,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           "Content-Type": "multipart/form-data"
         }
       }).then(function (response) {
-        _this5.isCreate = false;
-        _this5.events = response.data.data;
+        _this6.isCreate = false;
+        _this6.events = response.data.data;
         Toast.fire({
           icon: "success",
           title: response.data.message
@@ -16230,7 +16306,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       });
     },
     deleteData: function deleteData(id) {
-      var _this6 = this;
+      var _this7 = this;
 
       Swal.fire({
         title: "Are you sure?",
@@ -16242,8 +16318,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         confirmButtonText: "Yes, delete it!"
       }).then(function (result) {
         if (result.value) {
-          axios["delete"](_this6.urlEvent + "/" + id).then(function (response) {
-            _this6.events = response.data.data;
+          axios["delete"](_this7.urlEvent + "/" + id).then(function (response) {
+            _this7.events = response.data.data;
             Toast.fire({
               icon: "success",
               title: response.data.message
@@ -16260,6 +16336,52 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     },
     changePhoto: function changePhoto() {
       this.form.header = "";
+    },
+    changeYear: function changeYear() {
+      var _this8 = this;
+
+      axios.post(this.urlGetYears, {
+        year: this.currentYear
+      }).then(function (response) {
+        _this8.events = response.data;
+      })["catch"](function (error) {
+        console.error(error);
+      });
+    },
+    setPlace: function setPlace(place) {
+      this.currentPlace = place;
+    },
+    addMarker: function addMarker() {
+      if (this.currentPlace) {
+        var marker = {
+          lat: this.currentPlace.geometry.location.lat(),
+          lng: this.currentPlace.geometry.location.lng()
+        };
+        this.markers.push({
+          position: marker
+        });
+        this.markers.shift();
+        this.places.push(this.currentPlace);
+        this.center = marker;
+        this.form.meta = JSON.stringify(marker);
+      }
+    },
+    geolocate: function geolocate() {
+      var _this9 = this;
+
+      navigator.geolocation.getCurrentPosition(function (position) {
+        _this9.center = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+      });
+      var marker = {
+        lat: this.center.lat,
+        lng: this.center.lng
+      };
+      this.markers.push({
+        position: marker
+      });
     }
   },
   computed: {
@@ -65787,10 +65909,32 @@ var render = function() {
                         _c("strong", [_vm._v(_vm._s(row.title))])
                       ]),
                       _vm._v(" "),
+                      _c("h6", { staticClass: "font-13 mb-0" }, [
+                        _vm._v(
+                          _vm._s(_vm._f("start")(row.start)) +
+                            " - " +
+                            _vm._s(_vm._f("end")(row.end))
+                        )
+                      ]),
+                      _vm._v(" "),
                       _c("p", { staticClass: "text-muted" }, [
                         _vm._v(_vm._s(row.city.name))
                       ])
-                    ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "btn btn-purple btn-rounded waves-effect waves-light mt-auto mx-2",
+                        on: {
+                          click: function($event) {
+                            return _vm.detail(row.url)
+                          }
+                        }
+                      },
+                      [_vm._v("Lihat rincian")]
+                    )
                   ])
                 ]
               )
@@ -65867,7 +66011,8 @@ var render = function() {
                   ")",
                 "background-size": "cover",
                 "min-height": "22.5rem",
-                width: "100%"
+                width: "100%",
+                "background-position": "center"
               }
             },
             [_c("div", { staticClass: "container" })]
@@ -66073,6 +66218,64 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "clear-fix" }, [
+                  _c(
+                    "div",
+                    { staticClass: "col-12 col-md-2 float-left my-3" },
+                    [
+                      _c("label", { attrs: { for: "tahun" } }, [
+                        _vm._v("Tahun Event")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.currentYear,
+                              expression: "currentYear"
+                            }
+                          ],
+                          staticClass: "form-control custom-select",
+                          attrs: { name: "tahun", id: "tahun" },
+                          on: {
+                            change: [
+                              function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.currentYear = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              },
+                              _vm.changeYear
+                            ]
+                          }
+                        },
+                        [
+                          _c("option", { attrs: { value: "" } }, [
+                            _vm._v("All")
+                          ]),
+                          _vm._v(" "),
+                          _vm._l(_vm.years, function(row) {
+                            return _c(
+                              "option",
+                              { key: row, domProps: { value: row } },
+                              [_vm._v(_vm._s(row))]
+                            )
+                          })
+                        ],
+                        2
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
                   _c(
                     "a",
                     {
@@ -66456,6 +66659,63 @@ var render = function() {
                     ])
                   ],
                   1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "form-group mt-3" },
+                  [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "row px-2" },
+                      [
+                        _c("gmap-autocomplete", {
+                          staticClass: "form-control col-10 mr-2",
+                          on: { place_changed: _vm.setPlace }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.addMarker($event)
+                              }
+                            }
+                          },
+                          [_vm._v("Add")]
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c(
+                      "gmap-map",
+                      {
+                        staticStyle: { width: "100%", height: "400px" },
+                        attrs: { center: _vm.center, zoom: 15 }
+                      },
+                      _vm._l(_vm.markers, function(m, index) {
+                        return _c("gmap-marker", {
+                          key: index,
+                          attrs: { position: m.position },
+                          on: {
+                            click: function($event) {
+                              _vm.center = m.position
+                            }
+                          }
+                        })
+                      }),
+                      1
+                    )
+                  ],
+                  1
                 )
               ]),
               _vm._v(" "),
@@ -66500,6 +66760,15 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header bg-white text-center" }, [
       _c("h5", [_vm._v("Form Event")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "" } }, [
+      _vm._v("\n              G-Maps\n              "),
+      _c("small", { staticClass: "text-muted" }, [_vm._v("(Optional)")])
     ])
   }
 ]
@@ -67306,7 +67575,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("h4", { staticClass: "header-title mt-0 mb-3" }, [
-      _c("i", { staticClass: "mdi mdi-trophy mr-1" }),
+      _c("i", { staticClass: "mdi mdi-calendar mr-1" }),
       _vm._v(" Event Bulan Ini\n                  ")
     ])
   }
@@ -85392,7 +85661,7 @@ Vue.filter('diffForHumans', function (date) {
 
 Vue.use(vue2_google_maps__WEBPACK_IMPORTED_MODULE_7__, {
   load: {
-    key: "AIzaSyCAvEGtGWIJdgmc7UYZYziQsrr3eY2Qie8",
+    key: "AIzaSyAgCs5smMBQelYWalrKoNXED_E55AsLU4o",
     libraries: "places" // necessary for places input
 
   }

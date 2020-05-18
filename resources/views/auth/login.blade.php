@@ -93,10 +93,10 @@ $title = 'Login';
     <body class="authentication-bg">
 
         @include('partials.navbar')
-        <div class="account-pages mt-5 mb-5">
+        <div class="account-pages mt-3 mb-5">
             <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-md-8 col-lg-6 col-xl-5">
+                <div class="row">
+                    <div class="col-md-8 col-lg-6 col-xl-5 ml-auto">
                         <div class="text-center">
                             <a href="{{route('home')}}" class="logo">
                                 <span class="logo-lg">
@@ -104,7 +104,7 @@ $title = 'Login';
                                     {{-- <span class="logo-lg-text-dark">Disparau</span> --}}
                                 </span>
                             </a>
-                            <p class="text-muted mt-2 mb-4">Dinas Pariwisata Prov.Riau</p>
+                            <p class="text-white mt-2 mb-4">Dinas Pariwisata Prov.Riau</p>
                         </div>
                         <div class="card">
 

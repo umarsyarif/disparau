@@ -99,7 +99,7 @@ Vue.filter('diffForHumans', function (date) {
 import * as  VueGoogleMaps from 'vue2-google-maps';
 Vue.use(VueGoogleMaps, {
     load: {
-        key: "AIzaSyCAvEGtGWIJdgmc7UYZYziQsrr3eY2Qie8",
+        key: "AIzaSyAgCs5smMBQelYWalrKoNXED_E55AsLU4o",
         libraries: "places" // necessary for places input
     }
 });
