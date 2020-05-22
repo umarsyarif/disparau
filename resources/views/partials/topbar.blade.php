@@ -120,11 +120,7 @@
                 </a>
 
             </div>
-<<<<<<< HEAD
         </li> --}}
-=======
-        </li>
->>>>>>> e6cd8121d00abff36fa40847587f1edba87acce5
 
         <li class="dropdown notification-list mr-3">
             <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
@@ -136,27 +132,9 @@
             <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
                 <!-- item-->
                 <div class="dropdown-header noti-title">
-<<<<<<< HEAD
                     <h6 class="text-overflow m-0">Welcome {{ Auth::user()->name }} !</h6>
                 </div>
 
-=======
-                    <h6 class="text-overflow m-0">Welcome !</h6>
-                </div>
-
-                <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                    <i class="fe-user"></i>
-                    <span>My Account</span>
-                </a>
-
-                <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                    <i class="fe-settings"></i>
-                    <span>Settings</span>
-                </a>
-
->>>>>>> e6cd8121d00abff36fa40847587f1edba87acce5
                 <div class="dropdown-divider"></div>
 
                 <!-- item-->
@@ -172,15 +150,6 @@
                 </form>
             </div>
         </li>
-<<<<<<< HEAD
-=======
-
-        {{-- <li class="dropdown notification-list">
-            <a href="javascript:void(0);" class="nav-link right-bar-toggle waves-effect">
-                <i class="fe-settings noti-icon"></i>
-            </a>
-        </li> --}}
->>>>>>> e6cd8121d00abff36fa40847587f1edba87acce5
         @endif
 
     </ul>
@@ -194,11 +163,7 @@
             </span>
             <span class="logo-sm">
                 <!-- <span class="logo-sm-text-dark">X</span> -->
-<<<<<<< HEAD
                 <img src="{{asset('images/logo-Riau-The-homeland.png')}}" alt="" height="24">
-=======
-                <img src="{{asset('adminto/images/logo-sm.png')}}" alt="" height="24">
->>>>>>> e6cd8121d00abff36fa40847587f1edba87acce5
             </span>
         </a>
     </div>
