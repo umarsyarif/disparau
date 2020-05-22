@@ -47,4 +47,4 @@ Route::prefix('organizer')->name('organizer.')->group(function () {
     Route::delete('{id?}', 'OrganizerController@destroy')->name('destroy');
 });
 
-Route::get('/{page}', 'HomeController@pages')->name('pages')->middleware('auth');
+Route::get('/{page}', 'HomeController@pages')->name('pages');
