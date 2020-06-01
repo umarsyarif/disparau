@@ -13,6 +13,11 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::prefix('/artisan')->name('artisan.')->group(function () {
+    Route::get('cache', 'HomeController@cache')->name('cache');
+    Route::get('clear', 'HomeController@clear')->name('clear');
 });
