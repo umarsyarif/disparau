@@ -157,7 +157,7 @@ export default {
   },
   computed: {
     currentPlace() {
-      return JSON.parse(this.event.meta) ?? this.city.meta;
+      return JSON.parse(this.event.meta) ?? JSON.parse(this.city.meta);
     }
   }
 };

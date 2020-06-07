@@ -15960,7 +15960,7 @@ __webpack_require__.r(__webpack_exports__);
     currentPlace: function currentPlace() {
       var _JSON$parse;
 
-      return (_JSON$parse = JSON.parse(this.event.meta)) !== null && _JSON$parse !== void 0 ? _JSON$parse : this.city.meta;
+      return (_JSON$parse = JSON.parse(this.event.meta)) !== null && _JSON$parse !== void 0 ? _JSON$parse : JSON.parse(this.city.meta);
     }
   }
 });
