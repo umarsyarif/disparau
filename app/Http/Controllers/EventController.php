@@ -85,7 +85,7 @@ class EventController extends Controller
 
     public function strorageStore($file, $event)
     {
-        $folder = 'Header';
+        $folder = 'header';
         $name = Str::slug($event->title, '-');
         $extension = $file->getClientOriginalExtension();
         $mimeType = $file->getClientMimeType();

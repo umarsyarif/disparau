@@ -39,13 +39,8 @@
             <span class="text-muted font-13" v-html="event.description"></span>
             <!-- </p> -->
             <div class="col-12 mt-5">
-              <gmap-map :center="center" :zoom="12" style="width:100%;  height: 400px;">
-                <gmap-marker
-                  :key="index"
-                  v-for="(m, index) in markers"
-                  :position="m.position"
-                  @click="center=m.position"
-                ></gmap-marker>
+              <gmap-map :center="center" :zoom="15" style="width:100%;  height: 400px;">
+                <gmap-marker :position="marker.position" @click="center=marker.position"></gmap-marker>
               </gmap-map>
             </div>
           </div>
@@ -130,14 +125,14 @@ export default {
       organizer: {},
       incoming: {},
       header: "/images/selatpanjang_4.jpeg",
-      center: { lat: 0.5070677, lng: 101.4477793 },
-      markers: [],
+      center: { lat: 10, lng: 10 },
+      marker: {},
       places: []
     };
   },
   mounted() {
     this.loadData();
-    this.geolocate();
+    this.setPosition();
   },
   methods: {
     loadData() {
@@ -152,28 +147,17 @@ export default {
     detail(url) {
       window.location = url;
     },
-    addMarker() {
+    setPosition() {
       if (this.currentPlace) {
-        const marker = {
-          lat: this.currentPlace.lat(),
-          lng: this.currentPlace.lng()
-        };
-        this.markers.push({ position: marker });
-        this.places.push(this.currentPlace);
-        this.center = marker;
+        const marker = this.currentPlace;
+        this.marker = { position: marker };
+        this.center = this.marker.position;
       }
-    },
-    geolocate: function() {
-      //   this.center = {
-      //     lat: this.city.lat,
-      //     lng: this.city.lng
-      //   };
-      this.addMarker();
     }
   },
   computed: {
     currentPlace() {
-      return this.event.meta ?? this.city.meta;
+      return JSON.parse(this.event.meta) ?? this.city.meta;
     }
   }
 };
