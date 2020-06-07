@@ -4,12 +4,6 @@
 
         @guest
             <li class="dropdown notification-list">
-                <a class="nav-link waves-effect" href="{{route('register')}}">
-                    <i class="dripicons-user"></i>
-                    <span class="pro-user-name ml-1"> Daftar</span>
-                </a>
-            </li>
-            <li class="dropdown notification-list">
                 <a class="nav-link waves-effect" href="{{route('login')}}">
                     <i class="dripicons-enter"></i>
                     <span class="pro-user-name ml-1"> Login</span>

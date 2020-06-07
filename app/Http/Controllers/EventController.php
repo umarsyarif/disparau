@@ -202,7 +202,7 @@ class EventController extends Controller
         if ($query == null) {
             return redirect()->route('home');
         }
-        return view('pages.search', compact('query'));
+        return view('event.search', compact('query'));
     }
 
     public function searchResult(Request $request)
@@ -216,7 +216,7 @@ class EventController extends Controller
             return $data;
         }
         $date = date('Y-m-d');
-        $result = Event::where('title', 'like', $query)->with('city', 'organizer')->get();
+        $result = Event::where('title', 'like', '%' . $query . '%')->with('city', 'organizer')->get();
         $incomingEvents = Event::whereDate('start', '>=', $date)
             ->whereDate('end', '>', $date)
             ->orderBy('start')->limit(3)->with('city', 'organizer')->get();
