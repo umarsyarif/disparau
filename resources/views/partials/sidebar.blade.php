@@ -92,6 +92,13 @@
                     </ul>
                 </li>
 
+                <li>
+                    <a href="{{route('pages', 'wisata')}}">
+                        <i class="mdi mdi-account-supervisor"></i>
+                        <span> Pariwisata </span>
+                    </a>
+                </li>
+
                 {{-- <li>
                     <a href="javascript: void(0);">
                         <i class="mdi mdi-invert-colors"></i>
