@@ -23,6 +23,11 @@ Route::prefix('city')->name('cities.')->group(function () {
     Route::get('/{city?}', 'CityController@show')->name('show');
 });
 
+// Pariwisata
+Route::prefix('wisata')->name('wisata.')->group(function () {
+    Route::get('/', 'WisataController@page')->name('page');
+});
+
 // Events
 Route::prefix('event')->name('event.')->group(function () {
     Route::get('/get', 'EventController@index')->name('index');

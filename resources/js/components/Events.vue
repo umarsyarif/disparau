@@ -265,6 +265,9 @@ export default {
         city: { name: "" }
       };
       this.isCreate = !this.isCreate;
+      this.center = { lat: 0.5070677, lng: 101.4477793 };
+      this.marker = {};
+      this.currentPlace = null;
     },
     editData(event) {
       this.form = event;
@@ -375,6 +378,7 @@ export default {
         this.marker = { position: marker };
         this.center = marker;
       }
+      this.marker;
     }
   },
   computed: {

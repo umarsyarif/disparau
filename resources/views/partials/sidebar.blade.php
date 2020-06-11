@@ -93,8 +93,8 @@
                 </li>
 
                 <li>
-                    <a href="{{route('pages', 'wisata')}}">
-                        <i class="mdi mdi-account-supervisor"></i>
+                    <a href="{{route('wisata.page')}}">
+                        <i class="mdi mdi-wallet-travel"></i>
                         <span> Pariwisata </span>
                     </a>
                 </li>

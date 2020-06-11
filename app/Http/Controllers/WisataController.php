@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class WisataController extends Controller
 {
+    public function page()
+    {
+        return view('wisata.index');
+    }
     /**
      * Display a listing of the resource.
      *
