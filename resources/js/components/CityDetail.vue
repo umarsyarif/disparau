@@ -2,7 +2,7 @@
   <div>
     <div
       class="jumbotron bg-success mb-2"
-      style="height: 480px; background-image: url('/images/Kuansing-Pacu-Jalur.jpg'); background-size: 1350px; background-position: center; opacity: 0.8"
+      :style="{'height': '480px', 'background-image': 'url(' +[city.header != null ? city.header : header] + ')', 'background-size': '1350px', 'background-position': 'center', 'opacity': '0.8'}"
     >
       <div class="container">
         <a href="javascript:void(0)" class="btn btn-purple btn-back float-left" @click="back">
@@ -98,7 +98,7 @@ export default {
       city: {},
       events: {},
       others: {},
-      header: "/images/selatpanjang_4.jpeg"
+      header: "/images/Kuansing-Pacu-Jalur.jpg"
     };
   },
   mounted() {

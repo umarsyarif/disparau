@@ -15467,7 +15467,7 @@ __webpack_require__.r(__webpack_exports__);
       city: {},
       events: {},
       others: {},
-      header: "/images/selatpanjang_4.jpeg"
+      header: "/images/Kuansing-Pacu-Jalur.jpg"
     };
   },
   mounted: function mounted() {
@@ -65187,9 +65187,12 @@ var render = function() {
       "div",
       {
         staticClass: "jumbotron bg-success mb-2",
-        staticStyle: {
+        style: {
           height: "480px",
-          "background-image": "url('/images/Kuansing-Pacu-Jalur.jpg')",
+          "background-image":
+            "url(" +
+            [_vm.city.header != null ? _vm.city.header : _vm.header] +
+            ")",
           "background-size": "1350px",
           "background-position": "center",
           opacity: "0.8"
