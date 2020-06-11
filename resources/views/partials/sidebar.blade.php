@@ -81,6 +81,13 @@
                 </li>
 
                 <li>
+                    <a href="{{route('pages', 'events')}}">
+                        <i class="mdi mdi-calendar"></i>
+                        <span> Data Event </span>
+                    </a>
+                </li>
+
+                {{-- <li>
                     <a href="javascript:void(0);">
                         <i class="mdi mdi-calendar"></i>
                         <span> Events </span>
@@ -90,7 +97,7 @@
                         <li><a href="{{route('pages', 'events')}}">Events Data</a></li>
                         <li><a href="{{route('pages', 'calendar')}}">Events Calendar</a></li>
                     </ul>
-                </li>
+                </li> --}}
 
                 <li>
                     <a href="{{route('wisata.page')}}">

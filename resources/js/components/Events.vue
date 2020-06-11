@@ -21,9 +21,11 @@
               </div>
               <a
                 href="javascript:void(0)"
-                class="btn btn-primary float-right my-3"
+                class="btn btn-success float-right my-3"
                 @click="createData"
-              >Tambah Event</a>
+              >
+                <i class="fa fa-plus mr-1"></i> Event Baru
+              </a>
             </div>
             <div class="responsive-table-plugin">
               <div class="table-rep-plugin">
@@ -112,8 +114,13 @@
             </div>
             <div class="form-group">
               <label for="address">Alamat</label>
-              <input type="text" class="form-control" v-model="form.address" id="address" />
-              <small class="form-text text-muted">Alamat lengkap event</small>
+              <input
+                type="text"
+                class="form-control"
+                v-model="form.address"
+                id="address"
+                placeholder="nama jalan, gedung, atau lokasi spesifik"
+              />
             </div>
             <div class="form-group">
               <select type="text" class="form-control" v-model="form.city_id" id="city_id">
@@ -130,13 +137,15 @@
                 v-if="form.header != '' && form.header != null"
               >Ubah Foto</button>
               <div>
-                <input
-                  type="file"
-                  id="file_input"
-                  class="form-control"
-                  @change="handleFileChange"
-                  v-if="form.header == '' || form.header == null"
-                />
+                <div class="custom-file" v-if="form.header == '' || form.header == null">
+                  <input
+                    type="file"
+                    id="file_input"
+                    class="custom-file-input"
+                    @change="handleFileChange"
+                  />
+                  <label class="custom-file-label" for="customFile">Pilih foto...</label>
+                </div>
                 <img :src="fileUrl" width="250rem" v-else />
               </div>
             </div>
@@ -150,8 +159,8 @@
                 G-Maps
                 <small class="text-muted">(Optional)</small>
               </label>
-              <div class="row px-2">
-                <gmap-autocomplete class="form-control col-10 mr-2" @place_changed="setPlace"></gmap-autocomplete>
+              <div class="input-group">
+                <gmap-autocomplete class="form-control col-12 mr-2" @place_changed="setPlace"></gmap-autocomplete>
                 <button class="btn btn-primary" @click.prevent="addMarker">Add</button>
               </div>
               <br />

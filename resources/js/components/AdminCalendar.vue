@@ -255,7 +255,7 @@ export default {
 <template>
   <div class="container-fluid mt-3">
     <div class="row">
-      <div class="col-12" v-if="!isCreate">
+      <div class="col-12">
         <div class="row">
           <!-- end col-->
           <div class="col-lg-8">
@@ -331,73 +331,6 @@ export default {
           <!-- end col -->
         </div>
         <!-- end row -->
-      </div>
-      <div class="col-12" v-if="isCreate">
-        <div class="card-box">
-          <a href="javascript:void(0)" class="close text-muted" @click="createData">
-            <i class="mdi mdi-close float-right"></i>
-          </a>
-          <div class="card-header bg-white text-center">
-            <h5>Form Event</h5>
-          </div>
-          <div class="card-body">
-            <div class="form-group">
-              <label for="organizer_id">Penyelenggara</label>
-              <select
-                type="text"
-                class="form-control"
-                v-model="form.organizer_id"
-                id="organizer_id"
-              >
-                <option value>Pilih Penyelenggara</option>
-                <option v-for="row in organizers" :key="row.id" :value="row.id">{{ row.name }}</option>
-              </select>
-              <small class="form-text text-muted">Penyelenggara event</small>
-            </div>
-            <div class="form-group">
-              <label for="title">Judul</label>
-              <input type="text" class="form-control" v-model="form.title" id="title" />
-              <small class="form-text text-muted">Judul event</small>
-            </div>
-            <div class="form-group">
-              <label for="title">Tanggal</label>
-              <div class="form-group d-flex py-auto">
-                <date-picker
-                  v-model="form.start"
-                  input-class="form-control"
-                  wrapper-class="col-6 pl-0"
-                  :language="pickerLocale"
-                />-
-                <date-picker
-                  v-model="form.end"
-                  input-class="form-control"
-                  wrapper-class="col-6 pr-0"
-                  :language="pickerLocale"
-                  :disabled-dates="disabledDates"
-                />
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="address">Alamat</label>
-              <input type="text" class="form-control" v-model="form.address" id="address" />
-              <small class="form-text text-muted">Alamat lengkap event</small>
-            </div>
-            <div class="form-group">
-              <select type="text" class="form-control" v-model="form.city_id" id="city_id">
-                <option value>Pilih Kota / Kabupaten</option>
-                <option v-for="row in cities" :key="row.id" :value="row.id">{{ row.name }}</option>
-              </select>
-            </div>
-            <div class="form-group mt-3">
-              <label for="description">Deskripsi</label>
-              <ckeditor :editor="editor" v-model="form.description" :config="editorConfig"></ckeditor>
-              <small class="form-text text-muted">Deskripsi event</small>
-            </div>
-          </div>
-          <div class="card-footer bg-white mb-4">
-            <button class="btn btn-primary float-right" @click="storeData">Save</button>
-          </div>
-        </div>
       </div>
       <!-- Modal -->
       <div

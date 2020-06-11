@@ -18,9 +18,12 @@ Auth::routes(['register' => false]);
 
 // Cities
 Route::prefix('city')->name('cities.')->group(function () {
+    Route::post('/', 'CityController@store')->name('store');
     Route::get('/get', 'CityController@index')->name('index');
+    Route::post('/color/{id?}', 'EventController@changeColor')->name('color');
     Route::get('/with-events', 'CityController@showWithEvents')->name('events');
     Route::get('/{city?}', 'CityController@show')->name('show');
+    Route::delete('/{id?}', 'CityController@destroy')->name('destroy');
 });
 
 // Pariwisata
@@ -37,7 +40,6 @@ Route::prefix('event')->name('event.')->group(function () {
     Route::post('/', 'EventController@store')->name('store');
     Route::get('/search', 'EventController@search')->name('search');
     Route::post('/search', 'EventController@searchResult')->name('search-result');
-    Route::post('/color/{id?}', 'EventController@changeColor')->name('color');
     Route::delete('/{id?}', 'EventController@destroy')->name('destroy');
     Route::get('/detail/{event?}', 'EventController@show')->name('show');
     Route::get('/incoming', 'EventController@incomingEvents')->name('show.incoming');

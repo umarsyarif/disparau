@@ -8,9 +8,11 @@
             <div class="clear-fix">
               <a
                 href="javascript:void(0)"
-                class="btn btn-primary float-right my-3"
+                class="btn btn-success float-right my-3"
                 @click="showModal"
-              >Tambah Penyelenggara</a>
+              >
+                <i class="fa fa-plus mr-1"></i> Penyelenggara Baru
+              </a>
             </div>
             <div class="responsive-table-plugin">
               <div class="table-rep-plugin">
@@ -90,7 +92,7 @@
                 data-dismiss="modal"
                 @click="resetModal"
               >Close</button>
-              <button type="button" class="btn btn-primary" @click="handleSubmit()">Save changes</button>
+              <button type="button" class="btn btn-primary" @click="handleSubmit()">Simpan</button>
             </div>
           </div>
         </div>

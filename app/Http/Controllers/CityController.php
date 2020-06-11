@@ -36,7 +36,8 @@ class CityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        City::updateOrCreate(['id' => optional($request)->id], $request->form);
+        return $this->index();
     }
 
     /**
@@ -104,6 +105,11 @@ class CityController extends Controller
      */
     public function destroy(City $city)
     {
-        //
+        City::findOrFail($city)->delete();
+        $data = [
+            'message' => 'Data berhasil dihapus!',
+            'data' => $this->index()
+        ];
+        return $data;
     }
 }

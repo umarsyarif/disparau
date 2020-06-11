@@ -8,6 +8,7 @@ $title = 'Kota/Kabupaten';
 @section('content')
     <cities-component
     url-get-cities="{{route('event.cities')}}"
-    url-color="{{route('event.color')}}"
+    url-city="{{route('cities.store')}}"
+    url-color="{{route('cities.color')}}"
     />
 @endsection

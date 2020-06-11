@@ -5,7 +5,15 @@
         <div class="card">
           <div class="card-body">
             <h4 class="heading-text text-center">Kota / Kabupaten</h4>
-            <div class="clear-fix"></div>
+            <div class="clear-fix">
+              <a
+                href="javascript:void(0)"
+                class="btn btn-success float-right my-3"
+                @click="showModal"
+              >
+                <i class="fa fa-plus mr-1"></i> Kabupaten Baru
+              </a>
+            </div>
             <div class="responsive-table-plugin mt-5">
               <div class="table-rep-plugin">
                 <div class="table-responsive" data-pattern="priority-columns">
@@ -18,6 +26,7 @@
                         <th>#</th>
                         <th>Nama</th>
                         <th>Warna</th>
+                        <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -32,11 +41,85 @@
                             @change="changeColor(row.id, $event)"
                           />
                         </td>
+                        <td>
+                          <button @click="showModal(row)" class="btn btn-sm btn-info">
+                            <i class="mdi mdi-lead-pencil"></i>
+                          </button>
+                          <button @click="deleteData(row.id)" class="btn btn-sm btn-danger">
+                            <i class="mdi mdi-delete"></i>
+                          </button>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="modal fade"
+        id="modal-create"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="modal-create-label"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modal-create-label">Tambah kota/kabupaten baru</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+                @click="resetModal"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="name">Nama</label>
+                <input type="text" class="form-control" v-model="form.name" id="name" />
+                <small class="form-text text-muted">
+                  format inputan
+                  <strong>[Kabupaten/Kota] [nama]</strong>, cth:
+                  <strong>Kota Pekanbaru</strong>
+                </small>
+              </div>
+              <div class="form-group">
+                <label for="color">Warna</label>
+                <input type="color" class="form-control" v-model="form.color" id="color" />
+                <small class="form-text text-muted">warna penanda pada calendar event</small>
+              </div>
+              <div class="form-group">
+                <label for="meta">Lokasi</label>
+                <div class="input-group">
+                  <gmap-autocomplete class="form-control col-10 mr-2" @place_changed="setPlace"></gmap-autocomplete>
+                  <button class="btn btn-primary" @click.prevent="addMarker">Add</button>
+                </div>
+                <small class="form-text text-muted">lokasi google maps</small>
+                <gmap-map
+                  :center="center"
+                  :zoom="15"
+                  style="width:100%;  height: 400px;"
+                  class="mt-3"
+                >
+                  <gmap-marker :position="marker.position" @click="center=marker.position"></gmap-marker>
+                </gmap-map>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+                @click="resetModal"
+              >Close</button>
+              <button type="button" class="btn btn-primary" @click="handleSubmit()">Simpan</button>
             </div>
           </div>
         </div>
@@ -49,6 +132,7 @@
 export default {
   props: {
     urlGetCities: String,
+    urlCity: String,
     urlColor: String
   },
   mounted: function() {
@@ -57,7 +141,10 @@ export default {
   data: function() {
     return {
       cities: {},
-      form: {}
+      form: {},
+      marker: {},
+      center: { lat: 0.5070677, lng: 101.4477793 },
+      currentPlace: null
     };
   },
   methods: {
@@ -65,6 +152,44 @@ export default {
       axios.get(this.urlGetCities).then(response => {
         this.cities = response.data;
       });
+    },
+    showModal(data = null) {
+      if (data != null) {
+        this.form = _.clone(data);
+        this.geolocate();
+      }
+      $("#modal-create").modal("show");
+    },
+    resetModal() {
+      this.form = {};
+      $("#modal-create").modal("hide");
+      $("body").removeClass("modal-open");
+      $(".modal-backdrop").remove();
+      this.center = { lat: 0.5070677, lng: 101.4477793 };
+      this.marker = {};
+      this.currentPlace = null;
+    },
+    setPlace(place) {
+      this.currentPlace = place;
+    },
+    addMarker() {
+      if (this.currentPlace) {
+        const marker = {
+          lat: this.currentPlace.geometry.location.lat(),
+          lng: this.currentPlace.geometry.location.lng()
+        };
+        this.marker = { position: marker };
+        this.center = marker;
+        this.form.meta = JSON.stringify(marker);
+      }
+    },
+    geolocate: function() {
+      if (this.form.meta) {
+        const marker = JSON.parse(this.form.meta);
+        this.marker = { position: marker };
+        this.center = marker;
+      }
+      this.marker;
     },
     changeColor(id, event) {
       console.log(event.target.value);
@@ -78,6 +203,29 @@ export default {
             icon: "success",
             title: response.data.message
           });
+        });
+    },
+    handleSubmit() {
+      axios
+        .post(this.urlCity, {
+          form: this.form
+        })
+        .then(response => {
+          this.organizers = response.data;
+          this.resetModal();
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
+    deleteData(id) {
+      axios
+        .delete(this.urlCity + "/" + id)
+        .then(response => {
+          this.organizers = response.data;
+        })
+        .catch(error => {
+          console.error(error);
         });
     }
   }
