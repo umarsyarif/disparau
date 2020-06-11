@@ -96,17 +96,19 @@ $title = 'Login';
         <div class="account-pages mt-3 mb-5">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-8 col-lg-6 col-xl-5 ml-auto">
-                        <div class="text-center">
+                    <div class="col-md-4 col-lg-6 px-auto">
+                        <div class="text-center mt-3">
                             <a href="{{route('home')}}" class="logo">
                                 <span class="logo-lg">
-                                    <img src="{{asset('images/logo-Riau-The-homeland.png')}}" alt="" height="200px">
+                                    <img src="{{asset('images/logo-Riau-The-homeland.png')}}" alt="" height="400px">
                                     {{-- <span class="logo-lg-text-dark">Disparau</span> --}}
                                 </span>
                             </a>
                             <p class="text-white mt-2 mb-4">Dinas Pariwisata Prov.Riau</p>
                         </div>
-                        <div class="card">
+                    </div>
+                    <div class="col-md-8 col-lg-6 col-xl-5 ml-auto">
+                        <div class="card mt-5">
 
                             <div class="card-body p-4">
 

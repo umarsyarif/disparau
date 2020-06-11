@@ -36,4 +36,16 @@ class ArtisanController extends Controller
         Routes cached successfully!
         Files cached successfully!';
     }
+
+    public function migrateFresh()
+    {
+        Artisan::call('migrate:fresh');
+        print 'Migrate Fresh!';
+    }
+
+    public function seed()
+    {
+        Artisan::call('db:seed');
+        print 'Database seeder';
+    }
 }

@@ -126,8 +126,7 @@ export default {
       incoming: {},
       header: "/images/selatpanjang_4.jpeg",
       center: { lat: 10, lng: 10 },
-      marker: {},
-      places: []
+      marker: {}
     };
   },
   mounted() {

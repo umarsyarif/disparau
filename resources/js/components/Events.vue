@@ -152,16 +152,11 @@
               </label>
               <div class="row px-2">
                 <gmap-autocomplete class="form-control col-10 mr-2" @place_changed="setPlace"></gmap-autocomplete>
-                <button class="btn btn-primary" @click.prevent="addMarker">Add</button>
+                <button class="btn btn-primary" @click.prevent="addMarker">Save</button>
               </div>
               <br />
               <gmap-map :center="center" :zoom="15" style="width:100%;  height: 400px;">
-                <gmap-marker
-                  :key="index"
-                  v-for="(m, index) in markers"
-                  :position="m.position"
-                  @click="center=m.position"
-                ></gmap-marker>
+                <gmap-marker :position="marker.position" @click="center=marker.position"></gmap-marker>
               </gmap-map>
             </div>
           </div>
@@ -195,7 +190,6 @@ export default {
     this.loadOrganizers();
     this.loadCities();
     this.loadYears();
-    this.geolocate();
   },
   data: function() {
     return {
@@ -210,8 +204,7 @@ export default {
       currentYear: "",
       isCreate: false,
       center: { lat: 0.5070677, lng: 101.4477793 },
-      markers: [],
-      places: [],
+      marker: {},
       currentPlace: null,
       disabledDates: {
         customPredictor: date => {
@@ -276,12 +269,22 @@ export default {
     editData(event) {
       this.form = event;
       this.isCreate = !this.isCreate;
+      this.geolocate();
     },
     storeData() {
       let file = this.form.header;
       let form = new FormData();
+      if (typeof file != "string") {
+        form.append("file", file, file.name);
+      }
       form.append("data", JSON.stringify(this.form));
-      form.append("file", file, file.name);
+      if (file == "") {
+        Toast.fire({
+          icon: "warning",
+          title: "Header tidak boleh kosong!"
+        });
+        return;
+      }
       axios
         .post(this.urlEvent, form, {
           headers: {
@@ -327,7 +330,6 @@ export default {
       });
     },
     handleFileChange(e) {
-      console.log(e.target.files[0]);
       this.form.header = e.target.files[0];
     },
     changePhoto() {
@@ -354,25 +356,17 @@ export default {
           lat: this.currentPlace.geometry.location.lat(),
           lng: this.currentPlace.geometry.location.lng()
         };
-        this.markers.push({ position: marker });
-        this.markers.shift();
-        this.places.push(this.currentPlace);
+        this.marker = { position: marker };
         this.center = marker;
         this.form.meta = JSON.stringify(marker);
       }
     },
     geolocate: function() {
-      navigator.geolocation.getCurrentPosition(position => {
-        this.center = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-      });
-      const marker = {
-        lat: this.center.lat,
-        lng: this.center.lng
-      };
-      this.markers.push({ position: marker });
+      if (this.form.meta) {
+        const marker = JSON.parse(this.form.meta);
+        this.marker = { position: marker };
+        this.center = marker;
+      }
     }
   },
   computed: {

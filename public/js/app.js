@@ -15925,8 +15925,7 @@ __webpack_require__.r(__webpack_exports__);
         lat: 10,
         lng: 10
       },
-      marker: {},
-      places: []
+      marker: {}
     };
   },
   mounted: function mounted() {
@@ -16154,11 +16153,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 //
 //
 //
-//
-//
-//
-//
-//
 
 
  // import VueDropify from "vue-dropify";
@@ -16178,7 +16172,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     this.loadOrganizers();
     this.loadCities();
     this.loadYears();
-    this.geolocate();
   },
   data: function data() {
     var _this = this;
@@ -16198,8 +16191,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         lat: 0.5070677,
         lng: 101.4477793
       },
-      markers: [],
-      places: [],
+      marker: {},
       currentPlace: null,
       disabledDates: {
         customPredictor: function customPredictor(date) {
@@ -16266,14 +16258,28 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     editData: function editData(event) {
       this.form = event;
       this.isCreate = !this.isCreate;
+      this.geolocate();
     },
     storeData: function storeData() {
       var _this6 = this;
 
       var file = this.form.header;
       var form = new FormData();
+
+      if (typeof file != "string") {
+        form.append("file", file, file.name);
+      }
+
       form.append("data", JSON.stringify(this.form));
-      form.append("file", file, file.name);
+
+      if (file == "") {
+        Toast.fire({
+          icon: "warning",
+          title: "Header tidak boleh kosong!"
+        });
+        return;
+      }
+
       axios.post(this.urlEvent, form, {
         headers: {
           "Content-Type": "multipart/form-data"
@@ -16315,7 +16321,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       });
     },
     handleFileChange: function handleFileChange(e) {
-      console.log(e.target.files[0]);
       this.form.header = e.target.files[0];
     },
     changePhoto: function changePhoto() {
@@ -16341,31 +16346,21 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           lat: this.currentPlace.geometry.location.lat(),
           lng: this.currentPlace.geometry.location.lng()
         };
-        this.markers.push({
+        this.marker = {
           position: marker
-        });
-        this.markers.shift();
-        this.places.push(this.currentPlace);
+        };
         this.center = marker;
         this.form.meta = JSON.stringify(marker);
       }
     },
     geolocate: function geolocate() {
-      var _this9 = this;
-
-      navigator.geolocation.getCurrentPosition(function (position) {
-        _this9.center = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
+      if (this.form.meta) {
+        var marker = JSON.parse(this.form.meta);
+        this.marker = {
+          position: marker
         };
-      });
-      var marker = {
-        lat: this.center.lat,
-        lng: this.center.lng
-      };
-      this.markers.push({
-        position: marker
-      });
+        this.center = marker;
+      }
     }
   },
   computed: {
@@ -66670,7 +66665,7 @@ var render = function() {
                               }
                             }
                           },
-                          [_vm._v("Add")]
+                          [_vm._v("Save")]
                         )
                       ],
                       1
@@ -66684,17 +66679,16 @@ var render = function() {
                         staticStyle: { width: "100%", height: "400px" },
                         attrs: { center: _vm.center, zoom: 15 }
                       },
-                      _vm._l(_vm.markers, function(m, index) {
-                        return _c("gmap-marker", {
-                          key: index,
-                          attrs: { position: m.position },
+                      [
+                        _c("gmap-marker", {
+                          attrs: { position: _vm.marker.position },
                           on: {
                             click: function($event) {
-                              _vm.center = m.position
+                              _vm.center = _vm.marker.position
                             }
                           }
                         })
-                      }),
+                      ],
                       1
                     )
                   ],

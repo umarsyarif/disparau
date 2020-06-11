@@ -74,8 +74,9 @@ class EventController extends Controller
             if ($path == '') {
                 return $data['message'] = 'File tidak sesuai';
             }
+            $event->update(['header' => $path]);
         }
-        $event->update(['url' => route('event.show', $event->id), 'header' => $path]);
+        $event->update(['url' => route('event.show', $event->id)]);
         $data = [
             'message' => 'Data berhasil disimpan!',
             'data' => $this->index()
