@@ -7,7 +7,7 @@ $title = 'Pariwisata';
 
 @section('content')
     <pariwisata-component
-    url-get-cities="{{route('event.cities')}}"
-    url-color="{{route('event.color')}}"
+    url-get-wisata="{{route('wisata.index')}}"
+    url-wisata="{{route('wisata.store')}}"
     />
 @endsection

@@ -18,7 +18,7 @@ class WisataController extends Controller
      */
     public function index()
     {
-        //
+        return Wisata::with('city')->get();
     }
 
     /**

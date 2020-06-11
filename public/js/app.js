@@ -16807,17 +16807,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
-    urlGetCities: String,
-    urlColor: String
+    urlGetWisata: String,
+    urlWisata: String
   },
   mounted: function mounted() {
     this.loadData();
   },
   data: function data() {
     return {
-      cities: {},
+      wisata: {},
       form: {}
     };
   },
@@ -16825,8 +16831,8 @@ __webpack_require__.r(__webpack_exports__);
     loadData: function loadData() {
       var _this = this;
 
-      axios.get(this.urlGetCities).then(function (response) {
-        _this.cities = response.data;
+      axios.get(this.urlGetWisata).then(function (response) {
+        _this.wisata = response.data;
       });
     },
     changeColor: function changeColor(id, event) {
@@ -67355,7 +67361,7 @@ var render = function() {
               _vm._v("Pariwisata")
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "clear-fix" }),
+            _vm._m(0),
             _vm._v(" "),
             _c("div", { staticClass: "responsive-table-plugin mt-5" }, [
               _c("div", { staticClass: "table-rep-plugin" }, [
@@ -67374,45 +67380,48 @@ var render = function() {
                         attrs: { id: "responsive-datatable" }
                       },
                       [
-                        _vm._m(0),
+                        _vm._m(1),
                         _vm._v(" "),
                         _c(
                           "tbody",
-                          _vm._l(_vm.cities, function(row, index) {
+                          _vm._l(_vm.wisata, function(row, index) {
                             return _c("tr", { key: row.id }, [
                               _c("td", [_vm._v(_vm._s(index + 1))]),
                               _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(row.name))]),
+                              _c("td", [_vm._v(_vm._s(row.title))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(row.city.name))]),
                               _vm._v(" "),
                               _c("td", [
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: row.color,
-                                      expression: "row.color"
-                                    }
-                                  ],
-                                  staticClass: "form-control",
-                                  attrs: { type: "color" },
-                                  domProps: { value: row.color },
-                                  on: {
-                                    change: function($event) {
-                                      return _vm.changeColor(row.id, $event)
-                                    },
-                                    input: function($event) {
-                                      if ($event.target.composing) {
-                                        return
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-sm btn-info",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.showModal(row)
                                       }
-                                      _vm.$set(
-                                        row,
-                                        "color",
-                                        $event.target.value
-                                      )
                                     }
-                                  }
-                                })
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "mdi mdi-lead-pencil"
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-sm btn-danger",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.deleteData(row.id)
+                                      }
+                                    }
+                                  },
+                                  [_c("i", { staticClass: "mdi mdi-delete" })]
+                                )
                               ])
                             ])
                           }),
@@ -67435,13 +67444,33 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "clear-fix" }, [
+      _c(
+        "a",
+        {
+          staticClass: "btn btn-success float-right my-3",
+          attrs: { href: "javascript:void(0)" }
+        },
+        [
+          _c("i", { staticClass: "fa fa-plus mr-1" }),
+          _vm._v(" Wisata Baru\n            ")
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
         _c("th", [_vm._v("#")]),
         _vm._v(" "),
         _c("th", [_vm._v("Nama")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Warna")])
+        _c("th", [_vm._v("Lokasi")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Actions")])
       ])
     ])
   }

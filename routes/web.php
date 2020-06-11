@@ -28,7 +28,9 @@ Route::prefix('city')->name('cities.')->group(function () {
 
 // Pariwisata
 Route::prefix('wisata')->name('wisata.')->group(function () {
+    Route::get('/get', 'WisataController@index')->name('index');
     Route::get('/', 'WisataController@page')->name('page');
+    Route::post('/', 'WisataController@store')->name('store');
 });
 
 // Events

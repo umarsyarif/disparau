@@ -5,7 +5,11 @@
         <div class="card">
           <div class="card-body">
             <h4 class="heading-text text-center">Pariwisata</h4>
-            <div class="clear-fix"></div>
+            <div class="clear-fix">
+              <a href="javascript:void(0)" class="btn btn-success float-right my-3">
+                <i class="fa fa-plus mr-1"></i> Wisata Baru
+              </a>
+            </div>
             <div class="responsive-table-plugin mt-5">
               <div class="table-rep-plugin">
                 <div class="table-responsive" data-pattern="priority-columns">
@@ -17,20 +21,22 @@
                       <tr>
                         <th>#</th>
                         <th>Nama</th>
-                        <th>Warna</th>
+                        <th>Lokasi</th>
+                        <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(row, index) in cities" :key="row.id">
+                      <tr v-for="(row, index) in wisata" :key="row.id">
                         <td>{{index+1}}</td>
-                        <td>{{row.name}}</td>
+                        <td>{{row.title}}</td>
+                        <td>{{row.city.name}}</td>
                         <td>
-                          <input
-                            class="form-control"
-                            type="color"
-                            v-model="row.color"
-                            @change="changeColor(row.id, $event)"
-                          />
+                          <button @click="showModal(row)" class="btn btn-sm btn-info">
+                            <i class="mdi mdi-lead-pencil"></i>
+                          </button>
+                          <button @click="deleteData(row.id)" class="btn btn-sm btn-danger">
+                            <i class="mdi mdi-delete"></i>
+                          </button>
                         </td>
                       </tr>
                     </tbody>
@@ -48,22 +54,22 @@
 <script>
 export default {
   props: {
-    urlGetCities: String,
-    urlColor: String
+    urlGetWisata: String,
+    urlWisata: String
   },
   mounted: function() {
     this.loadData();
   },
   data: function() {
     return {
-      cities: {},
+      wisata: {},
       form: {}
     };
   },
   methods: {
     loadData() {
-      axios.get(this.urlGetCities).then(response => {
-        this.cities = response.data;
+      axios.get(this.urlGetWisata).then(response => {
+        this.wisata = response.data;
       });
     },
     changeColor(id, event) {
