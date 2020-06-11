@@ -16258,6 +16258,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     editData: function editData(event) {
       this.form = event;
       this.isCreate = !this.isCreate;
+      var date = new Date(this.form.end);
+      date.setDate(date.getDate() - 1);
+      this.form.end = date;
       this.geolocate();
     },
     storeData: function storeData() {
@@ -16280,6 +16283,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         return;
       }
 
+      $("#store").addClass("disabled");
       axios.post(this.urlEvent, form, {
         headers: {
           "Content-Type": "multipart/form-data"
@@ -16293,6 +16297,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         });
       })["catch"](function (error) {
         console.error(error);
+        Toast.fire({
+          icon: "warning",
+          title: error
+        });
       });
     },
     deleteData: function deleteData(id) {
@@ -65204,7 +65212,7 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "col-12" }, [
       _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-8" }, [
+        _c("div", { staticClass: "col-12 col-md-8" }, [
           _c("div", { staticClass: "card-box" }, [
             _c("h1", { staticClass: "display-6 text-center mb-5" }, [
               _c("strong", [
@@ -65371,7 +65379,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col-4" }, [
+        _c("div", { staticClass: "col-12 col-md-4" }, [
           _c("div", { staticClass: "card-box" }, [
             _vm._m(0),
             _vm._v(" "),
@@ -66708,6 +66716,7 @@ var render = function() {
                   "button",
                   {
                     staticClass: "btn btn-primary float-right",
+                    attrs: { id: "store" },
                     on: { click: _vm.storeData }
                   },
                   [_vm._v("Save")]

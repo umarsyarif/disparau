@@ -161,7 +161,7 @@
             </div>
           </div>
           <div class="card-footer bg-white mb-4">
-            <button class="btn btn-primary float-right" @click="storeData">Save</button>
+            <button class="btn btn-primary float-right" id="store" @click="storeData">Save</button>
           </div>
         </div>
       </div>
@@ -269,6 +269,9 @@ export default {
     editData(event) {
       this.form = event;
       this.isCreate = !this.isCreate;
+      let date = new Date(this.form.end);
+      date.setDate(date.getDate() - 1);
+      this.form.end = date;
       this.geolocate();
     },
     storeData() {
@@ -285,6 +288,7 @@ export default {
         });
         return;
       }
+      $("#store").addClass("disabled");
       axios
         .post(this.urlEvent, form, {
           headers: {
@@ -301,6 +305,10 @@ export default {
         })
         .catch(error => {
           console.error(error);
+          Toast.fire({
+            icon: "warning",
+            title: error
+          });
         });
     },
     deleteData(id) {

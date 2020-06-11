@@ -12,7 +12,7 @@
     </div>
     <div class="col-12">
       <div class="row">
-        <div class="col-8">
+        <div class="col-12 col-md-8">
           <div class="card-box">
             <h1 class="display-6 text-center mb-5">
               <strong>{{city.name | kotaSentence}}</strong>
@@ -62,7 +62,7 @@
             <p class="text muted text-center" v-else>Tidak ada event</p>
           </div>
         </div>
-        <div class="col-4">
+        <div class="col-12 col-md-4">
           <div class="card-box">
             <h5 class="header-title mt-0 float-left">
               <i class="mdi mdi-map-search"></i> Kota/Kabupaten Lainnya
