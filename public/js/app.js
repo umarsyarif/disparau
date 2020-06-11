@@ -65250,7 +65250,14 @@ var render = function() {
                                     [
                                       _c("img", {
                                         staticClass: "w-100",
-                                        attrs: { src: _vm.header, alt: "" }
+                                        attrs: {
+                                          src: [
+                                            row.header != null
+                                              ? row.header
+                                              : _vm.header
+                                          ],
+                                          alt: ""
+                                        }
                                       })
                                     ]
                                   )

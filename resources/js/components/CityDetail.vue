@@ -24,7 +24,7 @@
                   <div class="text-center card h-100 pb-3 shadow">
                     <div class="item-img item-img-card bg--gradient-50">
                       <div style="background-position: center; background-size: cover;">
-                        <img :src="header" alt class="w-100" />
+                        <img :src="[row.header != null ? row.header : header]" alt class="w-100" />
                       </div>
                     </div>
                     <div class="px-3 pt-2">
