@@ -16153,6 +16153,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 //
 //
 //
+//
+//
+//
+//
+//
 
 
  // import VueDropify from "vue-dropify";
@@ -16179,19 +16184,20 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     return {
       editor: _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0___default.a,
       editorConfig: {},
-      pickerLocale: vuejs_datepicker_dist_locale__WEBPACK_IMPORTED_MODULE_1__["id"],
       events: {},
       form: {},
       organizers: {},
       cities: {},
       years: [],
-      currentYear: "",
-      isCreate: false,
+      marker: {},
       center: {
         lat: 0.5070677,
         lng: 101.4477793
       },
-      marker: {},
+      pickerLocale: vuejs_datepicker_dist_locale__WEBPACK_IMPORTED_MODULE_1__["id"],
+      currentYear: "",
+      isCreate: false,
+      isLoading: false,
       currentPlace: null,
       disabledDates: {
         customPredictor: function customPredictor(date) {
@@ -16289,7 +16295,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         return;
       }
 
-      $("#store").addClass("disabled");
+      $("#store").attr("disabled", "disabled");
+      this.isLoading = true;
       axios.post(this.urlEvent, form, {
         headers: {
           "Content-Type": "multipart/form-data"
@@ -16307,6 +16314,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           icon: "warning",
           title: error
         });
+      }).then(function () {
+        _this6.isLoading = false;
       });
     },
     deleteData: function deleteData(id) {
@@ -66788,7 +66797,7 @@ var render = function() {
                               }
                             }
                           },
-                          [_vm._v("Save")]
+                          [_vm._v("Add")]
                         )
                       ],
                       1
@@ -66824,10 +66833,10 @@ var render = function() {
                   "button",
                   {
                     staticClass: "btn btn-primary float-right",
-                    attrs: { id: "store" },
+                    attrs: { id: "store", disabled: _vm.isLoading },
                     on: { click: _vm.storeData }
                   },
-                  [_vm._v("Save")]
+                  [_vm._v("Simpan")]
                 )
               ])
             ])

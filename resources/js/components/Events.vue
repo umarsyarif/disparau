@@ -152,7 +152,7 @@
               </label>
               <div class="row px-2">
                 <gmap-autocomplete class="form-control col-10 mr-2" @place_changed="setPlace"></gmap-autocomplete>
-                <button class="btn btn-primary" @click.prevent="addMarker">Save</button>
+                <button class="btn btn-primary" @click.prevent="addMarker">Add</button>
               </div>
               <br />
               <gmap-map :center="center" :zoom="15" style="width:100%;  height: 400px;">
@@ -161,7 +161,12 @@
             </div>
           </div>
           <div class="card-footer bg-white mb-4">
-            <button class="btn btn-primary float-right" id="store" @click="storeData">Save</button>
+            <button
+              class="btn btn-primary float-right"
+              id="store"
+              @click="storeData"
+              :disabled="isLoading"
+            >Simpan</button>
           </div>
         </div>
       </div>
@@ -195,16 +200,17 @@ export default {
     return {
       editor: ClassicEditor,
       editorConfig: {},
-      pickerLocale: id,
       events: {},
       form: {},
       organizers: {},
       cities: {},
       years: [],
+      marker: {},
+      center: { lat: 0.5070677, lng: 101.4477793 },
+      pickerLocale: id,
       currentYear: "",
       isCreate: false,
-      center: { lat: 0.5070677, lng: 101.4477793 },
-      marker: {},
+      isLoading: false,
       currentPlace: null,
       disabledDates: {
         customPredictor: date => {
@@ -291,7 +297,8 @@ export default {
         });
         return;
       }
-      $("#store").addClass("disabled");
+      $("#store").attr("disabled", "disabled");
+      this.isLoading = true;
       axios
         .post(this.urlEvent, form, {
           headers: {
@@ -312,6 +319,9 @@ export default {
             icon: "warning",
             title: error
           });
+        })
+        .then(() => {
+          this.isLoading = false;
         });
     },
     deleteData(id) {
