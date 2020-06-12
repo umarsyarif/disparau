@@ -15509,10 +15509,22 @@ __webpack_require__.r(__webpack_exports__);
     deleteData: function deleteData(id) {
       var _this4 = this;
 
-      axios["delete"](this.urlCity + "/" + id).then(function (response) {
-        _this4.organizers = response.data;
-      })["catch"](function (error) {
-        console.error(error);
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        cancelButtonColor: "#3085d6",
+        confirmButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(function (result) {
+        if (result.value) {
+          axios["delete"](_this4.urlCity + "/" + id).then(function (response) {
+            _this4.loadData();
+          })["catch"](function (error) {
+            console.error(error);
+          });
+        }
       });
     }
   }
@@ -17047,8 +17059,9 @@ __webpack_require__.r(__webpack_exports__);
     "full-calendar": _fullcalendar_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   mounted: function mounted() {
-    this.loadData();
-    this.loadCities();
+    this.loadData(); // this.loadCities();
+
+    this.getCitiesEvents();
   },
   data: function data() {
     return {
@@ -17058,7 +17071,8 @@ __webpack_require__.r(__webpack_exports__);
       ],
       currentMonth: "",
       calendarEvents: [],
-      cities: {}
+      cities: {},
+      citiesEvent: {}
     };
   },
   methods: {
@@ -17083,6 +17097,18 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.error(error);
       });
+    },
+    getCitiesEvents: function getCitiesEvents() {
+      var _this3 = this;
+
+      axios.get(this.urlCitiesEvents).then(function (response) {
+        _this3.citiesEvent = response.data;
+      })["catch"](function (error) {
+        console.error(error);
+      });
+    },
+    detail: function detail(id) {
+      window.location = this.urlCity + "/" + id;
     },
     handleMonthChange: function handleMonthChange() {
       var calendarApi = this.$refs.fullCalendar.getApi();
@@ -17158,25 +17184,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     urlCitiesEvents: String,
@@ -17189,8 +17196,7 @@ __webpack_require__.r(__webpack_exports__);
       q: ""
     };
   },
-  mounted: function mounted() {
-    this.getCitiesEvents();
+  mounted: function mounted() {// this.getCitiesEvents();
   },
   methods: {
     getCitiesEvents: function getCitiesEvents() {
@@ -67986,6 +67992,62 @@ var render = function() {
             ])
           ])
         ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-lg-12 px-5 my-5" }, [
+        _c("p", { staticClass: "lead text-center" }, [
+          _vm._v(
+            "Kunjungi dan jangan lewatkan, event event yang menarik tahun ini"
+          )
+        ]),
+        _vm._v(" "),
+        _c("h1", { staticClass: "text-center" }, [
+          _vm._v("Kota dan Kabupaten di Provinsi Riau")
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "row mt-5" },
+          _vm._l(_vm.citiesEvent, function(row) {
+            return _c(
+              "div",
+              { key: row.id, staticClass: "col-sm-6 col-md-6 col-lg-4" },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass: "card card-kota",
+                    on: {
+                      click: function($event) {
+                        return _vm.detail(row.id)
+                      }
+                    }
+                  },
+                  [
+                    _c("img", {
+                      staticClass: "card-img-top img-fluid",
+                      attrs: {
+                        src: "/images/Kuansing-Pacu-Jalur.jpg",
+                        alt: "Card image cap"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "card-body" }, [
+                      _c("h2", { staticClass: "card-title" }, [
+                        _vm._v(_vm._s(_vm._f("kotaSentence")(row.name)))
+                      ]),
+                      _vm._v(" "),
+                      _c("h3", { staticClass: "mb-0" }, [
+                        _vm._v(_vm._s(row.events.length) + " Event")
+                      ])
+                    ])
+                  ]
+                )
+              ]
+            )
+          }),
+          0
+        )
       ])
     ],
     1
@@ -68086,63 +68148,7 @@ var render = function() {
           ])
         ])
       ]
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "col-lg-12 px-5 my-5" }, [
-      _c("p", { staticClass: "lead text-center" }, [
-        _vm._v(
-          "Kunjungi dan jangan lewatkan, event event yang menarik tahun ini"
-        )
-      ]),
-      _vm._v(" "),
-      _c("h1", { staticClass: "text-center" }, [
-        _vm._v("Kota dan Kabupaten di Provinsi Riau")
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "row mt-5" },
-        _vm._l(_vm.cities, function(row) {
-          return _c(
-            "div",
-            { key: row.id, staticClass: "col-sm-6 col-md-6 col-lg-4" },
-            [
-              _c(
-                "div",
-                {
-                  staticClass: "card card-kota",
-                  on: {
-                    click: function($event) {
-                      return _vm.detail(row.id)
-                    }
-                  }
-                },
-                [
-                  _c("img", {
-                    staticClass: "card-img-top img-fluid",
-                    attrs: {
-                      src: "/images/Kuansing-Pacu-Jalur.jpg",
-                      alt: "Card image cap"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "card-body" }, [
-                    _c("h2", { staticClass: "card-title" }, [
-                      _vm._v(_vm._s(_vm._f("kotaSentence")(row.name)))
-                    ]),
-                    _vm._v(" "),
-                    _c("h3", { staticClass: "mb-0" }, [
-                      _vm._v(_vm._s(row.events.length) + " Event")
-                    ])
-                  ])
-                ]
-              )
-            ]
-          )
-        }),
-        0
-      )
-    ])
+    )
   ])
 }
 var staticRenderFns = [

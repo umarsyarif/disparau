@@ -103,9 +103,9 @@ class CityController extends Controller
      * @param  \App\City  $city
      * @return \Illuminate\Http\Response
      */
-    public function destroy(City $city)
+    public function destroy($id)
     {
-        City::findOrFail($city)->delete();
+        City::findOrFail($id)->delete();
         $data = [
             'message' => 'Data berhasil dihapus!',
             'data' => $this->index()

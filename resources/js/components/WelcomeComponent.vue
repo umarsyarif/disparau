@@ -26,25 +26,6 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-12 px-5 my-5">
-      <p class="lead text-center">Kunjungi dan jangan lewatkan, event event yang menarik tahun ini</p>
-      <h1 class="text-center">Kota dan Kabupaten di Provinsi Riau</h1>
-      <div class="row mt-5">
-        <div class="col-sm-6 col-md-6 col-lg-4" v-for="row in cities" :key="row.id">
-          <div class="card card-kota" @click="detail(row.id)">
-            <img
-              class="card-img-top img-fluid"
-              src="/images/Kuansing-Pacu-Jalur.jpg"
-              alt="Card image cap"
-            />
-            <div class="card-body">
-              <h2 class="card-title">{{row.name | kotaSentence}}</h2>
-              <h3 class="mb-0">{{row.events.length}} Event</h3>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -62,7 +43,7 @@ export default {
     };
   },
   mounted() {
-    this.getCitiesEvents();
+    // this.getCitiesEvents();
   },
   methods: {
     getCitiesEvents() {

@@ -19,7 +19,8 @@ export default {
   },
   mounted: function() {
     this.loadData();
-    this.loadCities();
+    // this.loadCities();
+    this.getCitiesEvents();
   },
   data: function() {
     return {
@@ -31,7 +32,8 @@ export default {
       ],
       currentMonth: "",
       calendarEvents: [],
-      cities: {}
+      cities: {},
+      citiesEvent: {}
     };
   },
   methods: {
@@ -58,6 +60,19 @@ export default {
         .catch(error => {
           console.error(error);
         });
+    },
+    getCitiesEvents() {
+      axios
+        .get(this.urlCitiesEvents)
+        .then(response => {
+          this.citiesEvent = response.data;
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
+    detail(id) {
+      window.location = this.urlCity + "/" + id;
     },
     handleMonthChange() {
       let calendarApi = this.$refs.fullCalendar.getApi();
@@ -235,6 +250,25 @@ export default {
             <!-- end col -->
           </div>
           <!-- end row -->
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-12 px-5 my-5">
+      <p class="lead text-center">Kunjungi dan jangan lewatkan, event event yang menarik tahun ini</p>
+      <h1 class="text-center">Kota dan Kabupaten di Provinsi Riau</h1>
+      <div class="row mt-5">
+        <div class="col-sm-6 col-md-6 col-lg-4" v-for="row in citiesEvent" :key="row.id">
+          <div class="card card-kota" @click="detail(row.id)">
+            <img
+              class="card-img-top img-fluid"
+              src="/images/Kuansing-Pacu-Jalur.jpg"
+              alt="Card image cap"
+            />
+            <div class="card-body">
+              <h2 class="card-title">{{row.name | kotaSentence}}</h2>
+              <h3 class="mb-0">{{row.events.length}} Event</h3>
+            </div>
+          </div>
         </div>
       </div>
     </div>

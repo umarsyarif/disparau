@@ -219,14 +219,26 @@ export default {
         });
     },
     deleteData(id) {
-      axios
-        .delete(this.urlCity + "/" + id)
-        .then(response => {
-          this.organizers = response.data;
-        })
-        .catch(error => {
-          console.error(error);
-        });
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        cancelButtonColor: "#3085d6",
+        confirmButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(result => {
+        if (result.value) {
+          axios
+            .delete(this.urlCity + "/" + id)
+            .then(response => {
+              this.loadData();
+            })
+            .catch(error => {
+              console.error(error);
+            });
+        }
+      });
     }
   }
 };
