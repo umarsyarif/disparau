@@ -8,7 +8,7 @@
             <div class="clear-fix">
               <a
                 href="javascript:void(0)"
-                class="btn btn-success float-right my-3"
+                class="btn btn-purple float-right my-3"
                 @click="showModal"
               >
                 <i class="fa fa-plus mr-1"></i> Kabupaten Baru

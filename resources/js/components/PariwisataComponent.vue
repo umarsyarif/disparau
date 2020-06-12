@@ -6,7 +6,7 @@
           <div class="card-body">
             <h4 class="heading-text text-center">Pariwisata</h4>
             <div class="clear-fix">
-              <a href="javascript:void(0)" class="btn btn-success float-right my-3">
+              <a href="javascript:void(0)" class="btn btn-purple float-right my-3">
                 <i class="fa fa-plus mr-1"></i> Wisata Baru
               </a>
             </div>

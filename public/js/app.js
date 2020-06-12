@@ -65085,7 +65085,7 @@ var render = function() {
               _c(
                 "a",
                 {
-                  staticClass: "btn btn-success float-right my-3",
+                  staticClass: "btn btn-purple float-right my-3",
                   attrs: { href: "javascript:void(0)" },
                   on: { click: _vm.showModal }
                 },
@@ -66546,7 +66546,7 @@ var render = function() {
                   _c(
                     "a",
                     {
-                      staticClass: "btn btn-success float-right my-3",
+                      staticClass: "btn btn-purple float-right my-3",
                       attrs: { href: "javascript:void(0)" },
                       on: { click: _vm.createData }
                     },
@@ -67087,7 +67087,7 @@ var render = function() {
               _c(
                 "a",
                 {
-                  staticClass: "btn btn-success float-right my-3",
+                  staticClass: "btn btn-purple float-right my-3",
                   attrs: { href: "javascript:void(0)" },
                   on: { click: _vm.showModal }
                 },
@@ -67454,7 +67454,7 @@ var staticRenderFns = [
       _c(
         "a",
         {
-          staticClass: "btn btn-success float-right my-3",
+          staticClass: "btn btn-purple float-right my-3",
           attrs: { href: "javascript:void(0)" }
         },
         [
