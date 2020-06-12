@@ -188,6 +188,7 @@
 
 <script>
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import UploadAdapter from "../UploadAdapter";
 import { id } from "vuejs-datepicker/dist/locale";
 import Datepicker from "vuejs-datepicker";
 // import VueDropify from "vue-dropify";
@@ -211,7 +212,9 @@ export default {
   data: function() {
     return {
       editor: ClassicEditor,
-      editorConfig: {},
+      editorConfig: {
+        extraPlugins: [this.uploader]
+      },
       events: {},
       form: {},
       organizers: {},
@@ -400,6 +403,11 @@ export default {
         this.center = marker;
       }
       this.marker;
+    },
+    uploader(editor) {
+      editor.plugins.get("FileRepository").createUploadAdapter = loader => {
+        return new UploadAdapter(loader);
+      };
     }
   },
   computed: {

@@ -16198,9 +16198,10 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ckeditor/ckeditor5-build-classic */ "./node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js");
 /* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vuejs_datepicker_dist_locale__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuejs-datepicker/dist/locale */ "./node_modules/vuejs-datepicker/dist/locale/index.js");
-/* harmony import */ var vuejs_datepicker_dist_locale__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuejs_datepicker_dist_locale__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var vuejs_datepicker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuejs-datepicker */ "./node_modules/vuejs-datepicker/dist/vuejs-datepicker.esm.js");
+/* harmony import */ var _UploadAdapter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../UploadAdapter */ "./resources/js/UploadAdapter.js");
+/* harmony import */ var vuejs_datepicker_dist_locale__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuejs-datepicker/dist/locale */ "./node_modules/vuejs-datepicker/dist/locale/index.js");
+/* harmony import */ var vuejs_datepicker_dist_locale__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vuejs_datepicker_dist_locale__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vuejs_datepicker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuejs-datepicker */ "./node_modules/vuejs-datepicker/dist/vuejs-datepicker.esm.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 //
@@ -16393,6 +16394,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 //
 
 
+
  // import VueDropify from "vue-dropify";
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -16404,7 +16406,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     urlEvent: String
   },
   components: {
-    "date-picker": vuejs_datepicker__WEBPACK_IMPORTED_MODULE_2__["default"]
+    "date-picker": vuejs_datepicker__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   mounted: function mounted() {
     this.loadOrganizers();
@@ -16416,7 +16418,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
     return {
       editor: _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0___default.a,
-      editorConfig: {},
+      editorConfig: {
+        extraPlugins: [this.uploader]
+      },
       events: {},
       form: {},
       organizers: {},
@@ -16427,7 +16431,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         lat: 0.5070677,
         lng: 101.4477793
       },
-      pickerLocale: vuejs_datepicker_dist_locale__WEBPACK_IMPORTED_MODULE_1__["id"],
+      pickerLocale: vuejs_datepicker_dist_locale__WEBPACK_IMPORTED_MODULE_2__["id"],
       currentYear: "",
       isCreate: false,
       isLoading: false,
@@ -16618,6 +16622,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       }
 
       this.marker;
+    },
+    uploader: function uploader(editor) {
+      editor.plugins.get("FileRepository").createUploadAdapter = function (loader) {
+        return new _UploadAdapter__WEBPACK_IMPORTED_MODULE_1__["default"](loader);
+      };
     }
   },
   computed: {
@@ -68646,7 +68655,7 @@ var render = function() {
           _vm._l(_vm.citiesEvent, function(row) {
             return _c(
               "div",
-              { key: row.id, staticClass: "col-sm-6 col-md-6 col-lg-4" },
+              { key: row.id, staticClass: "col-sm-6 col-md-6 col-lg-3" },
               [
                 _c(
                   "div",
@@ -68662,7 +68671,11 @@ var render = function() {
                     _c("img", {
                       staticClass: "card-img-top img-fluid",
                       attrs: {
-                        src: "/images/Kuansing-Pacu-Jalur.jpg",
+                        src: [
+                          row.header != null
+                            ? row.header
+                            : "/images/Kuansing-Pacu-Jalur.jpg"
+                        ],
                         alt: "Card image cap"
                       }
                     }),
@@ -86598,6 +86611,99 @@ module.exports = function(module) {
 	}
 	return module;
 };
+
+
+/***/ }),
+
+/***/ "./resources/js/UploadAdapter.js":
+/*!***************************************!*\
+  !*** ./resources/js/UploadAdapter.js ***!
+  \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return UploadAdapter; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+/**
+ * The upload adapter that converts images inserted into the editor into Base64 strings.
+ *
+ * @private
+ * @implements module:upload/filerepository~UploadAdapter
+ */
+var UploadAdapter =
+/*#__PURE__*/
+function () {
+  /**
+   * Creates a new adapter instance.
+   *
+   * @param {module:upload/filerepository~FileLoader} loader
+   */
+  function UploadAdapter(loader) {
+    _classCallCheck(this, UploadAdapter);
+
+    /**
+     * `FileLoader` instance to use during the upload.
+     *
+     * @member {module:upload/filerepository~FileLoader} #loader
+     */
+    this.loader = loader;
+  }
+  /**
+   * Starts the upload process.
+   *
+   * @see module:upload/filerepository~UploadAdapter#upload
+   * @returns {Promise}
+   */
+
+
+  _createClass(UploadAdapter, [{
+    key: "upload",
+    value: function upload() {
+      var _this = this;
+
+      return new Promise(function (resolve, reject) {
+        var reader = _this.reader = new window.FileReader();
+        reader.addEventListener('load', function () {
+          resolve({
+            "default": reader.result
+          });
+        });
+        reader.addEventListener('error', function (err) {
+          reject(err);
+        });
+        reader.addEventListener('abort', function () {
+          reject();
+        });
+
+        _this.loader.file.then(function (file) {
+          reader.readAsDataURL(file);
+        });
+      });
+    }
+    /**
+     * Aborts the upload process.
+     *
+     * @see module:upload/filerepository~UploadAdapter#abort
+     * @returns {Promise}
+     */
+
+  }, {
+    key: "abort",
+    value: function abort() {
+      this.reader.abort();
+    }
+  }]);
+
+  return UploadAdapter;
+}();
+
 
 
 /***/ }),
