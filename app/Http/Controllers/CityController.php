@@ -36,7 +36,7 @@ class CityController extends Controller
      */
     public function store(Request $request)
     {
-        City::updateOrCreate(['id' => optional($request)->id], $request->form);
+        City::updateOrCreate(['id' => optional($request->id)['id']], $request->form);
         return $this->index();
     }
 

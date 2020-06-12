@@ -11,7 +11,7 @@
                 class="btn btn-purple float-right my-3"
                 @click="showModal"
               >
-                <i class="fa fa-plus mr-1"></i> Kabupaten Baru
+                <i class="fa fa-plus mr-1"></i> Kota/Kabupaten Baru
               </a>
             </div>
             <div class="responsive-table-plugin mt-5">
@@ -95,6 +95,28 @@
                 <input type="color" class="form-control" v-model="form.color" id="color" />
                 <small class="form-text text-muted">warna penanda pada calendar event</small>
               </div>
+              <div class="form-group mt-3">
+                <label for="file_input">Foto Header</label>
+                <br />
+                <button
+                  class="btn btn-primary btn-sm mb-2"
+                  @click="changePhoto"
+                  v-if="form.header != '' && form.header != null"
+                >Ubah Foto</button>
+                <div>
+                  <div class="custom-file" v-if="form.header == '' || form.header == null">
+                    <input
+                      type="file"
+                      id="file_input"
+                      class="custom-file-input"
+                      @change="handleFileChange"
+                    />
+                    <label class="custom-file-label" for="customFile">Pilih foto...</label>
+                    <small>foto akan ditampilkan di halaman detail kota/kab.</small>
+                  </div>
+                  <img :src="fileUrl" width="250rem" v-else />
+                </div>
+              </div>
               <div class="form-group">
                 <label for="meta">Lokasi</label>
                 <div class="input-group">
@@ -169,6 +191,12 @@ export default {
       this.marker = {};
       this.currentPlace = null;
     },
+    handleFileChange(e) {
+      this.form.header = e.target.files[0];
+    },
+    changePhoto() {
+      this.form.header = "";
+    },
     setPlace(place) {
       this.currentPlace = place;
     },
@@ -239,6 +267,17 @@ export default {
             });
         }
       });
+    }
+  },
+  computed: {
+    fileUrl() {
+      let file = this.form.header;
+      let type = typeof file;
+      if (type == "file" || type == "object") {
+        return URL.createObjectURL(file);
+      } else {
+        return file;
+      }
     }
   }
 };

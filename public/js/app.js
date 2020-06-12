@@ -15271,6 +15271,30 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -15452,6 +15476,12 @@ __webpack_require__.r(__webpack_exports__);
       this.marker = {};
       this.currentPlace = null;
     },
+    handleFileChange: function handleFileChange(e) {
+      this.form.header = e.target.files[0];
+    },
+    changePhoto: function changePhoto() {
+      this.form.header = "";
+    },
     setPlace: function setPlace(place) {
       this.currentPlace = place;
     },
@@ -15526,6 +15556,19 @@ __webpack_require__.r(__webpack_exports__);
           });
         }
       });
+    }
+  },
+  computed: {
+    fileUrl: function fileUrl() {
+      var file = this.form.header;
+
+      var type = _typeof(file);
+
+      if (type == "file" || type == "object") {
+        return URL.createObjectURL(file);
+      } else {
+        return file;
+      }
     }
   }
 });
@@ -65091,7 +65134,7 @@ var render = function() {
                 },
                 [
                   _c("i", { staticClass: "fa fa-plus mr-1" }),
-                  _vm._v(" Kabupaten Baru\n            ")
+                  _vm._v(" Kota/Kabupaten Baru\n            ")
                 ]
               )
             ]),
@@ -65305,6 +65348,54 @@ var render = function() {
                     _vm._v(" "),
                     _c("small", { staticClass: "form-text text-muted" }, [
                       _vm._v("warna penanda pada calendar event")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group mt-3" }, [
+                    _c("label", { attrs: { for: "file_input" } }, [
+                      _vm._v("Foto Header")
+                    ]),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _vm.form.header != "" && _vm.form.header != null
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary btn-sm mb-2",
+                            on: { click: _vm.changePhoto }
+                          },
+                          [_vm._v("Ubah Foto")]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("div", [
+                      _vm.form.header == "" || _vm.form.header == null
+                        ? _c("div", { staticClass: "custom-file" }, [
+                            _c("input", {
+                              staticClass: "custom-file-input",
+                              attrs: { type: "file", id: "file_input" },
+                              on: { change: _vm.handleFileChange }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "label",
+                              {
+                                staticClass: "custom-file-label",
+                                attrs: { for: "customFile" }
+                              },
+                              [_vm._v("Pilih foto...")]
+                            ),
+                            _vm._v(" "),
+                            _c("small", [
+                              _vm._v(
+                                "foto akan ditampilkan di halaman detail kota/kab."
+                              )
+                            ])
+                          ])
+                        : _c("img", {
+                            attrs: { src: _vm.fileUrl, width: "250rem" }
+                          })
                     ])
                   ]),
                   _vm._v(" "),

@@ -9,7 +9,7 @@ class City extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['name', 'color', 'meta'];
+    protected $fillable = ['name', 'color', 'meta', 'header'];
 
     public function events()
     {
