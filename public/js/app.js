@@ -17059,8 +17059,8 @@ __webpack_require__.r(__webpack_exports__);
     "full-calendar": _fullcalendar_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   mounted: function mounted() {
-    this.loadData(); // this.loadCities();
-
+    this.loadData();
+    this.loadCities();
     this.getCitiesEvents();
   },
   data: function data() {
@@ -67854,35 +67854,38 @@ var render = function() {
                       [
                         _c("h5", [_vm._v("Keterangan warna :")]),
                         _vm._v(" "),
-                        _c(
-                          "ul",
-                          { staticClass: "pl-0" },
-                          _vm._l(_vm.cities, function(row) {
-                            return _c(
-                              "li",
-                              {
-                                key: row.id,
-                                staticStyle: { "list-style-type": "none" }
-                              },
-                              [
-                                _c(
-                                  "span",
-                                  {
-                                    staticClass: "badge",
-                                    style: { "background-color": row.color }
-                                  },
-                                  [_vm._v(" ")]
-                                ),
-                                _vm._v(
-                                  "\n                    " +
-                                    _vm._s(_vm._f("sentence")(row.name)) +
-                                    "\n                  "
-                                )
-                              ]
-                            )
-                          }),
-                          0
-                        )
+                        _c("ul", { staticClass: "pl-0 col-12" }, [
+                          _c(
+                            "div",
+                            { staticClass: "row" },
+                            _vm._l(_vm.cities, function(row) {
+                              return _c(
+                                "li",
+                                {
+                                  key: row.id,
+                                  staticClass: "col-6",
+                                  staticStyle: { "list-style-type": "none" }
+                                },
+                                [
+                                  _c(
+                                    "span",
+                                    {
+                                      staticClass: "badge",
+                                      style: { "background-color": row.color }
+                                    },
+                                    [_vm._v(" ")]
+                                  ),
+                                  _vm._v(
+                                    "\n                      " +
+                                      _vm._s(_vm._f("sentence")(row.name)) +
+                                      "\n                    "
+                                  )
+                                ]
+                              )
+                            }),
+                            0
+                          )
+                        ])
                       ]
                     )
                   ],

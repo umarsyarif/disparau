@@ -19,7 +19,7 @@ export default {
   },
   mounted: function() {
     this.loadData();
-    // this.loadCities();
+    this.loadCities();
     this.getCitiesEvents();
   },
   data: function() {
@@ -205,11 +205,18 @@ export default {
                 <h6 class="text-danger">*Klik tanggal untuk melihat event harian</h6>
                 <div class="card-footer bg-white mt-2 pl-0">
                   <h5>Keterangan warna :</h5>
-                  <ul class="pl-0">
-                    <li style="list-style-type:none" v-for="row in cities" :key="row.id">
-                      <span class="badge" :style="{'background-color': row.color}">&nbsp;</span>
-                      {{ row.name | sentence}}
-                    </li>
+                  <ul class="pl-0 col-12">
+                    <div class="row">
+                      <li
+                        style="list-style-type:none"
+                        class="col-6"
+                        v-for="row in cities"
+                        :key="row.id"
+                      >
+                        <span class="badge" :style="{'background-color': row.color}">&nbsp;</span>
+                        {{ row.name | sentence}}
+                      </li>
+                    </div>
                   </ul>
                 </div>
               </div>
