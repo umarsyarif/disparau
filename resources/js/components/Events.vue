@@ -50,6 +50,9 @@
                         <td>{{row.city.name}}</td>
                         <td>{{row.start | date}} - {{row.end | end}}</td>
                         <td>
+                          <a :href="row.url" class="btn btn-sm btn-success">
+                            <i class="mdi mdi-information-outline"></i> Detail
+                          </a>
                           <button @click="editData(row)" class="btn btn-sm btn-info">
                             <i class="mdi mdi-lead-pencil"></i>
                           </button>
@@ -306,7 +309,6 @@ export default {
         });
         return;
       }
-      $("#store").attr("disabled", "disabled");
       this.isLoading = true;
       axios
         .post(this.urlEvent, form, {

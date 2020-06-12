@@ -31,6 +31,7 @@ Route::prefix('wisata')->name('wisata.')->group(function () {
     Route::get('/get', 'WisataController@index')->name('index');
     Route::get('/', 'WisataController@page')->name('page');
     Route::post('/', 'WisataController@store')->name('store');
+    Route::delete('/{id?}', 'WisataController@destroy')->name('destroy');
 });
 
 // Events

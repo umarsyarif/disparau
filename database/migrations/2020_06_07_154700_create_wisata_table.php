@@ -17,7 +17,10 @@ class CreateWisataTable extends Migration
             $table->bigIncrements('id');
             $table->integer('city_id');
             $table->string('title');
+            $table->text('address');
             $table->text('description');
+            $table->string('header')->nullable();
+            $table->string('meta')->nullable();
             $table->timestamps();
         });
     }

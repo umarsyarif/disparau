@@ -8,8 +8,8 @@
             <div class="clear-fix">
               <a
                 href="javascript:void(0)"
-                class="btn btn-purple float-right my-3"
-                @click="showModal"
+                class="btn btn-purple float-right my-3 disabled"
+                @click="showModal(null)"
               >
                 <i class="fa fa-plus mr-1"></i> Kota/Kabupaten Baru
               </a>
@@ -193,6 +193,7 @@ export default {
     },
     handleFileChange(e) {
       this.form.header = e.target.files[0];
+      console.log(typeof this.form.header);
     },
     changePhoto() {
       this.form.header = "";
@@ -239,7 +240,7 @@ export default {
           form: this.form
         })
         .then(response => {
-          this.organizers = response.data;
+          this.cities = response.data;
           this.resetModal();
         })
         .catch(error => {
@@ -260,7 +261,11 @@ export default {
           axios
             .delete(this.urlCity + "/" + id)
             .then(response => {
-              this.loadData();
+              Toast.fire({
+                icon: "success",
+                title: response.data.message
+              });
+              this.cities = response.data.data;
             })
             .catch(error => {
               console.error(error);

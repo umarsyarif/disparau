@@ -15478,6 +15478,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     },
     handleFileChange: function handleFileChange(e) {
       this.form.header = e.target.files[0];
+      console.log(_typeof(this.form.header));
     },
     changePhoto: function changePhoto() {
       this.form.header = "";
@@ -15529,7 +15530,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       axios.post(this.urlCity, {
         form: this.form
       }).then(function (response) {
-        _this3.organizers = response.data;
+        _this3.cities = response.data;
 
         _this3.resetModal();
       })["catch"](function (error) {
@@ -15550,7 +15551,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       }).then(function (result) {
         if (result.value) {
           axios["delete"](_this4.urlCity + "/" + id).then(function (response) {
-            _this4.loadData();
+            Toast.fire({
+              icon: "success",
+              title: response.data.message
+            });
+            _this4.cities = response.data.data;
           })["catch"](function (error) {
             console.error(error);
           });
@@ -16383,6 +16388,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 //
 //
 //
+//
+//
+//
 
 
  // import VueDropify from "vue-dropify";
@@ -16520,7 +16528,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         return;
       }
 
-      $("#store").attr("disabled", "disabled");
       this.isLoading = true;
       axios.post(this.urlEvent, form, {
         headers: {
@@ -16815,6 +16822,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ckeditor/ckeditor5-build-classic */ "./node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js");
+/* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 //
 //
 //
@@ -16868,18 +16879,117 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     urlGetWisata: String,
+    urlGetCities: String,
     urlWisata: String
   },
   mounted: function mounted() {
     this.loadData();
+    this.loadCities();
   },
   data: function data() {
     return {
+      editor: _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0___default.a,
+      editorConfig: {},
       wisata: {},
-      form: {}
+      cities: {},
+      form: {},
+      marker: {},
+      center: {
+        lat: 0.5070677,
+        lng: 101.4477793
+      },
+      isCreate: false,
+      isLoading: false,
+      currentPlace: null
     };
   },
   methods: {
@@ -16890,19 +17000,142 @@ __webpack_require__.r(__webpack_exports__);
         _this.wisata = response.data;
       });
     },
-    changeColor: function changeColor(id, event) {
+    loadCities: function loadCities() {
       var _this2 = this;
 
-      console.log(event.target.value);
-      axios.post(this.urlColor + "/" + id, {
-        color: event.target.value
+      axios.get(this.urlGetCities).then(function (response) {
+        _this2.cities = response.data;
+      })["catch"](function (error) {
+        console.error(error);
+      });
+    },
+    handleFileChange: function handleFileChange(e) {
+      this.form.header = e.target.files[0];
+    },
+    changePhoto: function changePhoto() {
+      this.form.header = "";
+    },
+    setPlace: function setPlace(place) {
+      this.currentPlace = place;
+    },
+    addMarker: function addMarker() {
+      if (this.currentPlace) {
+        var marker = {
+          lat: this.currentPlace.geometry.location.lat(),
+          lng: this.currentPlace.geometry.location.lng()
+        };
+        this.marker = {
+          position: marker
+        };
+        this.center = marker;
+        this.form.meta = JSON.stringify(marker);
+      }
+    },
+    createData: function createData() {
+      this.form = {
+        city_id: "",
+        header: "",
+        city: {
+          name: ""
+        }
+      };
+      this.isCreate = !this.isCreate;
+    },
+    editData: function editData(event) {
+      this.form = event;
+      this.isCreate = !this.isCreate;
+      this.geolocate();
+    },
+    storeData: function storeData() {
+      var _this3 = this;
+
+      var file = this.form.header;
+      var form = new FormData();
+
+      if (typeof file != "string") {
+        form.append("file", file, file.name);
+      }
+
+      form.append("data", JSON.stringify(this.form));
+
+      if (file == "") {
+        Toast.fire({
+          icon: "warning",
+          title: "Header tidak boleh kosong!"
+        });
+        return;
+      }
+
+      this.isLoading = true;
+      axios.post(this.urlWisata, form, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
       }).then(function (response) {
-        _this2.cities = response.data.data;
+        _this3.isCreate = false;
+        _this3.wisata = response.data.data;
         Toast.fire({
           icon: "success",
           title: response.data.message
         });
+      })["catch"](function (error) {
+        console.error(error);
+        Toast.fire({
+          icon: "warning",
+          title: error
+        });
+      }).then(function () {
+        _this3.isLoading = false;
       });
+    },
+    deleteData: function deleteData(id) {
+      var _this4 = this;
+
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        cancelButtonColor: "#3085d6",
+        confirmButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(function (result) {
+        if (result.value) {
+          axios["delete"](_this4.urlWisata + "/" + id).then(function (response) {
+            _this4.wisata = response.data.data;
+            Toast.fire({
+              icon: "success",
+              title: response.data.message
+            });
+          })["catch"](function (error) {
+            console.error(error);
+          });
+        }
+      });
+    },
+    geolocate: function geolocate() {
+      if (this.form.meta) {
+        var marker = JSON.parse(this.form.meta);
+        this.marker = {
+          position: marker
+        };
+        this.center = marker;
+      }
+
+      this.marker;
+    }
+  },
+  computed: {
+    fileUrl: function fileUrl() {
+      var file = this.form.header;
+
+      var type = _typeof(file);
+
+      if (type == "file" || type == "object") {
+        return URL.createObjectURL(file);
+      } else {
+        return file;
+      }
     }
   }
 });
@@ -65128,9 +65361,13 @@ var render = function() {
               _c(
                 "a",
                 {
-                  staticClass: "btn btn-purple float-right my-3",
+                  staticClass: "btn btn-purple float-right my-3 disabled",
                   attrs: { href: "javascript:void(0)" },
-                  on: { click: _vm.showModal }
+                  on: {
+                    click: function($event) {
+                      return _vm.showModal(null)
+                    }
+                  }
                 },
                 [
                   _c("i", { staticClass: "fa fa-plus mr-1" }),
@@ -66687,6 +66924,23 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("td", [
                                     _c(
+                                      "a",
+                                      {
+                                        staticClass: "btn btn-sm btn-success",
+                                        attrs: { href: row.url }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass:
+                                            "mdi mdi-information-outline"
+                                        }),
+                                        _vm._v(
+                                          " Detail\n                        "
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
                                       "button",
                                       {
                                         staticClass: "btn btn-sm btn-info",
@@ -67451,110 +67705,380 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container-fluid mt-3" }, [
     _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-12" }, [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-body" }, [
-            _c("h4", { staticClass: "heading-text text-center" }, [
-              _vm._v("Pariwisata")
-            ]),
-            _vm._v(" "),
-            _vm._m(0),
-            _vm._v(" "),
-            _c("div", { staticClass: "responsive-table-plugin mt-5" }, [
-              _c("div", { staticClass: "table-rep-plugin" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass: "table-responsive",
-                    attrs: { "data-pattern": "priority-columns" }
-                  },
-                  [
+      !_vm.isCreate
+        ? _c("div", { staticClass: "col-12" }, [
+            _c("div", { staticClass: "card" }, [
+              _c("div", { staticClass: "card-body" }, [
+                _c("h4", { staticClass: "heading-text text-center" }, [
+                  _vm._v("Pariwisata")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "clear-fix" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-purple float-right my-3",
+                      attrs: { href: "javascript:void(0)" },
+                      on: { click: _vm.createData }
+                    },
+                    [
+                      _c("i", { staticClass: "fa fa-plus mr-1" }),
+                      _vm._v(" Wisata Baru\n            ")
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "responsive-table-plugin mt-5" }, [
+                  _c("div", { staticClass: "table-rep-plugin" }, [
                     _c(
-                      "table",
+                      "div",
                       {
-                        staticClass:
-                          "table table-bordered table-bordered dt-responsive nowrap",
-                        attrs: { id: "responsive-datatable" }
+                        staticClass: "table-responsive",
+                        attrs: { "data-pattern": "priority-columns" }
                       },
                       [
-                        _vm._m(1),
-                        _vm._v(" "),
                         _c(
-                          "tbody",
-                          _vm._l(_vm.wisata, function(row, index) {
-                            return _c("tr", { key: row.id }, [
-                              _c("td", [_vm._v(_vm._s(index + 1))]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(row.title))]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(row.city.name))]),
-                              _vm._v(" "),
-                              _c("td", [
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-sm btn-info",
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.showModal(row)
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _c("i", {
-                                      staticClass: "mdi mdi-lead-pencil"
-                                    })
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-sm btn-danger",
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.deleteData(row.id)
-                                      }
-                                    }
-                                  },
-                                  [_c("i", { staticClass: "mdi mdi-delete" })]
-                                )
-                              ])
-                            ])
-                          }),
-                          0
+                          "table",
+                          {
+                            staticClass:
+                              "table table-bordered table-bordered dt-responsive nowrap",
+                            attrs: { id: "responsive-datatable" }
+                          },
+                          [
+                            _vm._m(0),
+                            _vm._v(" "),
+                            _c(
+                              "tbody",
+                              _vm._l(_vm.wisata, function(row, index) {
+                                return _c("tr", { key: row.id }, [
+                                  _c("td", [_vm._v(_vm._s(index + 1))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(row.title))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(row.city.name))]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-sm btn-info",
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.editData(row)
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "mdi mdi-lead-pencil"
+                                        })
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-sm btn-danger",
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.deleteData(row.id)
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "mdi mdi-delete"
+                                        })
+                                      ]
+                                    )
+                                  ])
+                                ])
+                              }),
+                              0
+                            )
+                          ]
                         )
                       ]
                     )
-                  ]
+                  ])
+                ])
+              ])
+            ])
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.isCreate
+        ? _c("div", { staticClass: "col-12" }, [
+            _c("div", { staticClass: "card-box" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "close text-muted",
+                  attrs: { href: "javascript:void(0)" },
+                  on: { click: _vm.createData }
+                },
+                [_c("i", { staticClass: "mdi mdi-close float-right" })]
+              ),
+              _vm._v(" "),
+              _vm._m(1),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "title" } }, [_vm._v("Nama")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.title,
+                        expression: "form.title"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", id: "title" },
+                    domProps: { value: _vm.form.title },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.form, "title", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("small", { staticClass: "form-text text-muted" }, [
+                    _vm._v("Nama tempat wisata")
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "address" } }, [
+                    _vm._v("Alamat")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.address,
+                        expression: "form.address"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      id: "address",
+                      placeholder: "nama jalan, gedung, atau lokasi spesifik"
+                    },
+                    domProps: { value: _vm.form.address },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.form, "address", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.city_id,
+                          expression: "form.city_id"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", id: "city_id" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.form,
+                            "city_id",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "" } }, [
+                        _vm._v("Pilih Kota / Kabupaten")
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.cities, function(row) {
+                        return _c(
+                          "option",
+                          { key: row.id, domProps: { value: row.id } },
+                          [_vm._v(_vm._s(row.name))]
+                        )
+                      })
+                    ],
+                    2
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group mt-3" }, [
+                  _c("label", { attrs: { for: "file_input" } }, [
+                    _vm._v("Foto Header")
+                  ]),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _vm.form.header != "" && _vm.form.header != null
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary btn-sm mb-2",
+                          on: { click: _vm.changePhoto }
+                        },
+                        [_vm._v("Ubah Foto")]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("div", [
+                    _vm.form.header == "" || _vm.form.header == null
+                      ? _c("div", { staticClass: "custom-file" }, [
+                          _c("input", {
+                            staticClass: "custom-file-input",
+                            attrs: { type: "file", id: "file_input" },
+                            on: { change: _vm.handleFileChange }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "label",
+                            {
+                              staticClass: "custom-file-label",
+                              attrs: { for: "customFile" }
+                            },
+                            [_vm._v("Pilih foto...")]
+                          )
+                        ])
+                      : _c("img", {
+                          attrs: { src: _vm.fileUrl, width: "250rem" }
+                        })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "form-group mt-3" },
+                  [
+                    _c("label", { attrs: { for: "description" } }, [
+                      _vm._v("Deskripsi")
+                    ]),
+                    _vm._v(" "),
+                    _c("ckeditor", {
+                      attrs: { editor: _vm.editor, config: _vm.editorConfig },
+                      model: {
+                        value: _vm.form.description,
+                        callback: function($$v) {
+                          _vm.$set(_vm.form, "description", $$v)
+                        },
+                        expression: "form.description"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("small", { staticClass: "form-text text-muted" }, [
+                      _vm._v("Deskripsi tempat wisata")
+                    ])
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "form-group mt-3" },
+                  [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "input-group" },
+                      [
+                        _c("gmap-autocomplete", {
+                          staticClass: "form-control col-12 mr-2",
+                          on: { place_changed: _vm.setPlace }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.addMarker($event)
+                              }
+                            }
+                          },
+                          [_vm._v("Add")]
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c(
+                      "gmap-map",
+                      {
+                        staticStyle: { width: "100%", height: "400px" },
+                        attrs: { center: _vm.center, zoom: 15 }
+                      },
+                      [
+                        _c("gmap-marker", {
+                          attrs: { position: _vm.marker.position },
+                          on: {
+                            click: function($event) {
+                              _vm.center = _vm.marker.position
+                            }
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-footer bg-white mb-4" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary float-right",
+                    attrs: { id: "store", disabled: _vm.isLoading },
+                    on: { click: _vm.storeData }
+                  },
+                  [_vm._v("Simpan")]
                 )
               ])
             ])
           ])
-        ])
-      ])
+        : _vm._e()
     ])
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "clear-fix" }, [
-      _c(
-        "a",
-        {
-          staticClass: "btn btn-purple float-right my-3",
-          attrs: { href: "javascript:void(0)" }
-        },
-        [
-          _c("i", { staticClass: "fa fa-plus mr-1" }),
-          _vm._v(" Wisata Baru\n            ")
-        ]
-      )
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -67569,6 +68093,23 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Actions")])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header bg-white text-center" }, [
+      _c("h5", [_vm._v("Form Wisata")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "" } }, [
+      _vm._v("\n              G-Maps\n              "),
+      _c("small", { staticClass: "text-muted" }, [_vm._v("(Optional)")])
     ])
   }
 ]
