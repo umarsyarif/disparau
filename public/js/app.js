@@ -86,6 +86,898 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./node_modules/@chenfengyuan/vue-carousel/dist/vue-carousel.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@chenfengyuan/vue-carousel/dist/vue-carousel.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*!
+ * vue-carousel v1.0.5
+ * https://fengyuanchen.github.io/vue-carousel
+ *
+ * Copyright 2018-present Chen Fengyuan
+ * Released under the MIT license
+ *
+ * Date: 2020-05-18T12:27:10.213Z
+ */
+
+(function (global, factory) {
+   true ? module.exports = factory() :
+  undefined;
+}(this, (function () { 'use strict';
+
+  function _typeof(obj) {
+    "@babel/helpers - typeof";
+
+    if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+      _typeof = function (obj) {
+        return typeof obj;
+      };
+    } else {
+      _typeof = function (obj) {
+        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+      };
+    }
+
+    return _typeof(obj);
+  }
+
+  function _defineProperty(obj, key, value) {
+    if (key in obj) {
+      Object.defineProperty(obj, key, {
+        value: value,
+        enumerable: true,
+        configurable: true,
+        writable: true
+      });
+    } else {
+      obj[key] = value;
+    }
+
+    return obj;
+  }
+
+  function ownKeys(object, enumerableOnly) {
+    var keys = Object.keys(object);
+
+    if (Object.getOwnPropertySymbols) {
+      var symbols = Object.getOwnPropertySymbols(object);
+      if (enumerableOnly) symbols = symbols.filter(function (sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+      keys.push.apply(keys, symbols);
+    }
+
+    return keys;
+  }
+
+  function _objectSpread2(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i] != null ? arguments[i] : {};
+
+      if (i % 2) {
+        ownKeys(Object(source), true).forEach(function (key) {
+          _defineProperty(target, key, source[key]);
+        });
+      } else if (Object.getOwnPropertyDescriptors) {
+        Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+      } else {
+        ownKeys(Object(source)).forEach(function (key) {
+          Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+        });
+      }
+    }
+
+    return target;
+  }
+
+  /*!
+   * create-vue-component v1.1.0
+   * https://github.com/fengyuanchen/create-vue-component
+   *
+   * Copyright 2018-present Chen Fengyuan
+   * Released under the MIT license
+   *
+   * Date: 2018-06-28T13:45:18.559Z
+   */
+  var _typeof2 = typeof Symbol === "function" && _typeof(Symbol.iterator) === "symbol" ? function (obj) {
+    return _typeof(obj);
+  } : function (obj) {
+    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : _typeof(obj);
+  };
+
+  var _typeof$1 = typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol" ? function (obj) {
+    return typeof obj === "undefined" ? "undefined" : _typeof2(obj);
+  } : function (obj) {
+    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof2(obj);
+  };
+  /**
+   * Check if the given value is a non-null object.
+   * @param {*} value - The value to check.
+   * @returns {boolean} Returns `true` if the given value is a non-null object, else `false`.
+   */
+
+
+  function isNonNullObject(value) {
+    return (typeof value === 'undefined' ? 'undefined' : _typeof$1(value)) === 'object' && value !== null;
+  }
+
+  var _Object$prototype = Object.prototype,
+      hasOwnProperty = _Object$prototype.hasOwnProperty,
+      toString = _Object$prototype.toString;
+  /**
+   * Check if the given value is a non-empty string.
+   * @param {*} value - The value to check.
+   * @returns {boolean} Returns `true` if the given value is a non-empty string, else `false`.
+   */
+
+  function isNonEmptyString(value) {
+    return typeof value === 'string' && value.trim().length > 0;
+  }
+  /**
+   * Check if the given value is a plain object.
+   * @param {*} value - The value to check.
+   * @returns {boolean} Returns `true` if the given value is a plain object, else `false`.
+   */
+
+
+  function isPlainObject(value) {
+    if (!isNonNullObject(value)) {
+      return false;
+    }
+
+    try {
+      var _constructor = value.constructor;
+      var prototype = _constructor.prototype;
+      return _constructor && prototype && hasOwnProperty.call(prototype, 'isPrototypeOf');
+    } catch (e) {
+      return false;
+    }
+  }
+  /**
+   * Check if the given value is a function.
+   * @param {*} value - The value to check.
+   * @returns {boolean} Returns `true` if the given value is a function, else `false`.
+   */
+
+
+  function isFunction(value) {
+    return typeof value === 'function';
+  }
+  /**
+   * Check if the given value is a non-empty array.
+   * @param {*} value - The value to check.
+   * @returns {boolean} Returns `true` if the given value is a non-empty array, else `false`.
+   */
+
+
+  function isNonEmptyArray(value) {
+    return Array.isArray(value) && value.length > 0;
+  }
+  /**
+   * Check if the given value is an element.
+   * @param {*} value - The value to check.
+   * @returns {boolean} Returns `true` if the given value is an element, else `false`.
+   */
+
+
+  function isElement(value) {
+    return isNonNullObject(value) && value.nodeType === 1 && toString.call(value).indexOf('Element') > -1;
+  }
+  /**
+   * Check if the given value is a valid Vue component.
+   * @param {*} value - The value to check.
+   * @returns {boolean} Returns `true` if the given value is a valid Vue component, else `false`.
+   */
+
+
+  function isVueComponent(value) {
+    return isPlainObject(value) && (isNonEmptyString(value.template) || isFunction(value.render) || isNonEmptyString(value.el) || isElement(value.el) || isVueComponent(value.extends) || isNonEmptyArray(value.mixins) && value.mixins.some(function (val) {
+      return isVueComponent(val);
+    }));
+  }
+
+  var _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+  /**
+   * Convert anything to a Vue component.
+   * @param {*} content - The content for creating Vue component.
+   * @param {Object} options - The options for creating Vue component.
+   * @param {string} options.tag - The tag for root element of the created Vue component.
+   * @param {*} options.data - The data as the second parameter if the content is a render function.
+   * @returns {Object} Return the created Vue component.
+   */
+
+
+  function createVueComponent(content) {
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    var component = {};
+
+    if (isVueComponent(content)) {
+      component = _extends({}, content);
+    } else if (typeof content === 'function') {
+      component.render = function render(createElement) {
+        return content.call(this, createElement, options.data, this);
+      };
+    } else {
+      var tag = options.tag || 'span'; // Support HTML content with the `template` property
+
+      component.template = '<' + tag + '>' + content + '</' + tag + '>';
+    }
+
+    return component;
+  }
+
+  var IS_BROWSER = typeof window !== 'undefined' && typeof window.document !== 'undefined';
+  var IS_TOUCH_DEVICE = IS_BROWSER && window.document.documentElement ? 'ontouchstart' in window.document.documentElement : false;
+  var HAS_POINTER_EVENT = IS_BROWSER ? 'PointerEvent' in window : false;
+  var EVENT_TOUCH_START = IS_TOUCH_DEVICE ? 'touchstart' : 'mousedown';
+  var EVENT_TOUCH_MOVE = IS_TOUCH_DEVICE ? 'touchmove' : 'mousemove';
+  var EVENT_TOUCH_END = IS_TOUCH_DEVICE ? 'touchend' : 'mouseup';
+  var EVENT_POINTER_DOWN = HAS_POINTER_EVENT ? 'pointerdown' : EVENT_TOUCH_START;
+  var EVENT_POINTER_MOVE = HAS_POINTER_EVENT ? 'pointermove' : EVENT_TOUCH_MOVE;
+  var EVENT_POINTER_UP = HAS_POINTER_EVENT ? 'pointerup' : EVENT_TOUCH_END;
+  var EVENT_POINTER_ENTER = HAS_POINTER_EVENT ? 'pointerenter' : 'mouseenter';
+  var EVENT_POINTER_LEAVE = HAS_POINTER_EVENT ? 'pointerleave' : 'mouseleave';
+  var script = {
+    name: 'Carousel',
+    props: {
+      autoplay: {
+        type: Boolean,
+        default: true
+      },
+      controls: {
+        type: [Boolean, String],
+        default: 'hover'
+      },
+      data: {
+        type: Array,
+        default: undefined
+      },
+      direction: {
+        type: String,
+        default: 'left'
+      },
+      indicators: {
+        type: [Boolean, String],
+        default: true
+      },
+      indicatorTrigger: {
+        type: String,
+        default: 'click'
+      },
+      indicatorType: {
+        type: String,
+        default: 'line'
+      },
+      interval: {
+        type: Number,
+        default: 5000
+      },
+      pauseOnEnter: {
+        type: Boolean,
+        default: true
+      },
+      slideOnSwipe: {
+        type: Boolean,
+        default: true
+      },
+      tag: {
+        type: String,
+        default: 'div'
+      }
+    },
+    data: function data() {
+      return {
+        endX: 0,
+        endY: 0,
+        index: 0,
+        list: [],
+        playing: false,
+        sliding: false,
+        startX: 0,
+        startY: 0,
+        timeout: 0
+      };
+    },
+    watch: {
+      data: function data() {
+        this.init();
+      }
+    },
+    created: function created() {
+      this.init();
+    },
+    mounted: function mounted() {
+      var _this = this;
+
+      document.addEventListener('visibilitychange', this.onVisibilityChange = function () {
+        if (_this.playing) {
+          if (document.visibilityState === 'visible') {
+            _this.cycle();
+          } else {
+            _this.pause();
+          }
+        }
+      });
+
+      if (this.autoplay) {
+        this.play();
+      }
+    },
+    beforeDestroy: function beforeDestroy() {
+      document.removeEventListener('visibilitychange', this.onVisibilityChange);
+    },
+    methods: {
+      init: function init() {
+        var _this2 = this;
+
+        var data = this.data;
+        var list = [];
+
+        if (data && data.length > 0) {
+          var maxIndex = data.length - 1; // In case the number of the data list is reduced (#23).
+
+          if (this.index > maxIndex) {
+            this.index = maxIndex;
+          }
+
+          data.forEach(function (rawItem, index) {
+            var active = index === _this2.index;
+
+            var item = _objectSpread2(_objectSpread2({}, rawItem && rawItem.content !== undefined ? rawItem : {
+              content: rawItem
+            }), {}, {
+              active: active,
+              bottom: false,
+              left: false,
+              raw: rawItem,
+              right: false,
+              sliding: active,
+              toBottom: false,
+              toLeft: false,
+              toRight: false,
+              toTop: false,
+              top: false
+            });
+
+            list.push(item);
+          });
+        }
+
+        this.list = list;
+      },
+      play: function play() {
+        if (!this.playing) {
+          this.playing = true;
+          this.cycle();
+        }
+      },
+      cycle: function cycle() {
+        var _this3 = this;
+
+        if (this.playing) {
+          this.pause();
+          this.timeout = setTimeout(function () {
+            _this3.next(function () {
+              _this3.cycle();
+            });
+          }, this.interval);
+        }
+      },
+      pause: function pause() {
+        clearTimeout(this.timeout);
+        this.timeout = 0;
+      },
+      stop: function stop() {
+        if (this.playing) {
+          this.pause();
+          this.playing = false;
+        }
+      },
+      prev: function prev(done) {
+        this.slideTo(this.index - 1, done);
+      },
+      next: function next(done) {
+        this.slideTo(this.index + 1, done);
+      },
+      slide: function slide(index) {
+        var _this4 = this;
+
+        var reverse = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+        var done = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
+
+        if (document.hidden || this.sliding) {
+          done();
+          return;
+        }
+
+        this.sliding = true;
+        var list = this.list;
+        var minIndex = 0;
+        var maxIndex = list.length - 1;
+
+        if (index > maxIndex) {
+          index = minIndex;
+        } else if (index < minIndex) {
+          index = maxIndex;
+        }
+
+        if (index === this.index) {
+          done();
+          return;
+        }
+
+        var active = list[this.index];
+        var next = list[index];
+
+        switch (this.direction) {
+          case 'up':
+            next.bottom = !reverse;
+            next.top = reverse;
+            break;
+
+          case 'right':
+            next.left = !reverse;
+            next.right = reverse;
+            break;
+
+          case 'down':
+            next.top = !reverse;
+            next.bottom = reverse;
+            break;
+          // case 'left':
+
+          default:
+            next.right = !reverse;
+            next.left = reverse;
+        } // Waiting for the class change applied
+
+
+        this.$nextTick(function () {
+          // Force reflow to enable CSS3 transition
+          // eslint-disable-next-line
+          _this4.$el.offsetWidth;
+
+          switch (_this4.direction) {
+            case 'up':
+              active.toTop = !reverse;
+              active.toBottom = reverse;
+              next.toTop = !reverse;
+              next.toBottom = reverse;
+              break;
+
+            case 'right':
+              active.toRight = !reverse;
+              active.toLeft = reverse;
+              next.toRight = !reverse;
+              next.toLeft = reverse;
+              break;
+
+            case 'down':
+              active.toBottom = !reverse;
+              active.toTop = reverse;
+              next.toBottom = !reverse;
+              next.toTop = reverse;
+              break;
+            // case 'left':
+
+            default:
+              active.toLeft = !reverse;
+              active.toRight = reverse;
+              next.toLeft = !reverse;
+              next.toRight = reverse;
+          }
+
+          active.sliding = false;
+          next.sliding = true;
+          setTimeout(function () {
+            active.active = false;
+            active.top = false;
+            active.right = false;
+            active.bottom = false;
+            active.left = false;
+            active.toTop = false;
+            active.toRight = false;
+            active.toBottom = false;
+            active.toLeft = false;
+            next.active = true;
+            next.top = false;
+            next.right = false;
+            next.bottom = false;
+            next.left = false;
+            next.toTop = false;
+            next.toRight = false;
+            next.toBottom = false;
+            next.toLeft = false;
+            _this4.index = index;
+            _this4.sliding = false;
+            done();
+          }, 600);
+        });
+      },
+      slideTo: function slideTo(index, done) {
+        if (index === this.index) {
+          return;
+        }
+
+        var direction = this.direction;
+        var reverse = index < this.index;
+
+        if (direction === 'right' || direction === 'down') {
+          reverse = !reverse;
+        }
+
+        this.slide(index, reverse, done);
+      },
+      slideStart: function slideStart(event) {
+        var touch = event.touches ? event.touches[0] : null;
+
+        if (this.playing && this.pauseOnEnter) {
+          this.stop();
+        }
+
+        this.startX = touch ? touch.pageX : event.pageX;
+        this.startY = touch ? touch.pageY : event.pageY;
+      },
+      slideMove: function slideMove(event) {
+        var touch = event.touches ? event.touches[0] : null;
+        event.preventDefault();
+        this.endX = touch ? touch.pageX : event.pageX;
+        this.endY = touch ? touch.pageY : event.pageY;
+      },
+      slideEnd: function slideEnd() {
+        var _this5 = this;
+
+        var moveX = this.endX - this.startX;
+        var moveY = this.endY - this.startY;
+        this.endX = this.startX;
+        this.endY = this.startY; // Ignore click events
+
+        if (moveX === 0 && moveY === 0) {
+          return;
+        }
+
+        var thresholdX = this.$el.offsetWidth / 5;
+        var thresholdY = this.$el.offsetHeight / 5;
+        var top = moveY < -thresholdY;
+        var right = moveX > thresholdX;
+        var bottom = moveY > thresholdY;
+        var left = moveX < -thresholdX;
+
+        var done = function done() {
+          if (_this5.playing && _this5.pauseOnEnter) {
+            _this5.play();
+          }
+        };
+
+        var prev = false;
+        var next = false;
+
+        switch (this.direction) {
+          case 'up':
+            prev = bottom;
+            next = top;
+            break;
+
+          case 'right':
+            prev = left;
+            next = right;
+            break;
+
+          case 'down':
+            prev = top;
+            next = bottom;
+            break;
+          // case 'left':
+
+          default:
+            prev = right;
+            next = left;
+        }
+
+        if (prev) {
+          this.prev(done);
+        } else if (next) {
+          this.next(done);
+        } else {
+          done();
+        }
+      }
+    },
+    render: function render(createElement) {
+      var _class,
+          _ref,
+          _ref2,
+          _this6 = this;
+
+      return createElement(this.tag, {
+        class: (_class = {
+          carousel: true
+        }, _defineProperty(_class, "carousel--".concat(this.direction), this.direction), _defineProperty(_class, 'carousel--slidable', this.slideOnSwipe), _defineProperty(_class, 'carousel--controls', this.controls === 'hover'), _defineProperty(_class, 'carousel--indicators', this.indicators === 'hover'), _class),
+        on: _objectSpread2(_objectSpread2(_objectSpread2({}, this.$listeners), this.pauseOnEnter ? (_ref = {}, _defineProperty(_ref, EVENT_POINTER_ENTER, this.pause), _defineProperty(_ref, EVENT_POINTER_LEAVE, this.cycle), _ref) : {}), this.slideOnSwipe ? (_ref2 = {}, _defineProperty(_ref2, EVENT_POINTER_DOWN, this.slideStart), _defineProperty(_ref2, EVENT_POINTER_MOVE, this.slideMove), _defineProperty(_ref2, EVENT_POINTER_UP, this.slideEnd), _ref2) : {})
+      }, this.list.length === 0 ? [] : [createElement('ul', {
+        class: 'carousel__list'
+      }, this.list.map(function (item, index) {
+        return createElement('li', {
+          attrs: {
+            'data-index': index
+          },
+          class: {
+            carousel__item: true,
+            'carousel__item--active': item.active,
+            'carousel__item--top': item.top,
+            'carousel__item--right': item.right,
+            'carousel__item--bottom': item.bottom,
+            'carousel__item--left': item.left,
+            'carousel__item--to-top': item.toTop,
+            'carousel__item--to-right': item.toRight,
+            'carousel__item--to-bottom': item.toBottom,
+            'carousel__item--to-left': item.toLeft
+          }
+        }, [createElement(createVueComponent(item.content, {
+          data: item.raw
+        }))]);
+      })), this.indicators ? createElement('ol', {
+        class: _defineProperty({
+          carousel__indicators: true
+        }, "carousel__indicators--".concat(this.indicatorType), this.indicatorType)
+      }, this.list.map(function (item, index) {
+        return createElement('li', {
+          attrs: {
+            'data-slide-to': index
+          },
+          class: {
+            carousel__indicator: true,
+            'carousel__indicator--active': item.sliding
+          },
+          on: function () {
+            var listeners = {};
+
+            var slide = function slide() {
+              _this6.slideTo(index);
+            };
+
+            if (_this6.indicatorTrigger === 'hover') {
+              listeners.touchstart = slide;
+              listeners[EVENT_POINTER_ENTER] = slide;
+            } else {
+              listeners.click = slide;
+            }
+
+            return listeners;
+          }()
+        });
+      })) : '', this.controls ? createElement('button', {
+        attrs: {
+          type: 'button',
+          'data-slide': 'prev'
+        },
+        class: 'carousel__control carousel__control--prev',
+        on: {
+          click: function click() {
+            if (['right', 'down'].indexOf(_this6.direction) > -1) {
+              _this6.next();
+            } else {
+              _this6.prev();
+            }
+          }
+        }
+      }) : '', this.controls ? createElement('button', {
+        attrs: {
+          type: 'button',
+          'data-slide': 'next'
+        },
+        class: 'carousel__control carousel__control--next',
+        on: {
+          click: function click() {
+            if (['right', 'down'].indexOf(_this6.direction) > -1) {
+              _this6.prev();
+            } else {
+              _this6.next();
+            }
+          }
+        }
+      }) : '']);
+    }
+  };
+
+  function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier
+  /* server only */
+  , shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
+    if (typeof shadowMode !== 'boolean') {
+      createInjectorSSR = createInjector;
+      createInjector = shadowMode;
+      shadowMode = false;
+    } // Vue.extend constructor export interop.
+
+
+    var options = typeof script === 'function' ? script.options : script; // render functions
+
+    if (template && template.render) {
+      options.render = template.render;
+      options.staticRenderFns = template.staticRenderFns;
+      options._compiled = true; // functional template
+
+      if (isFunctionalTemplate) {
+        options.functional = true;
+      }
+    } // scopedId
+
+
+    if (scopeId) {
+      options._scopeId = scopeId;
+    }
+
+    var hook;
+
+    if (moduleIdentifier) {
+      // server build
+      hook = function hook(context) {
+        // 2.3 injection
+        context = context || // cached call
+        this.$vnode && this.$vnode.ssrContext || // stateful
+        this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext; // functional
+        // 2.2 with runInNewContext: true
+
+        if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+          context = __VUE_SSR_CONTEXT__;
+        } // inject component styles
+
+
+        if (style) {
+          style.call(this, createInjectorSSR(context));
+        } // register component module identifier for async chunk inference
+
+
+        if (context && context._registeredComponents) {
+          context._registeredComponents.add(moduleIdentifier);
+        }
+      }; // used by ssr in case component is cached and beforeCreate
+      // never gets called
+
+
+      options._ssrRegister = hook;
+    } else if (style) {
+      hook = shadowMode ? function (context) {
+        style.call(this, createInjectorShadow(context, this.$root.$options.shadowRoot));
+      } : function (context) {
+        style.call(this, createInjector(context));
+      };
+    }
+
+    if (hook) {
+      if (options.functional) {
+        // register for functional component in vue file
+        var originalRender = options.render;
+
+        options.render = function renderWithStyleInjection(h, context) {
+          hook.call(context);
+          return originalRender(h, context);
+        };
+      } else {
+        // inject component registration as beforeCreate hook
+        var existing = options.beforeCreate;
+        options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
+      }
+    }
+
+    return script;
+  }
+
+  var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
+
+  function createInjector(context) {
+    return function (id, style) {
+      return addStyle(id, style);
+    };
+  }
+
+  var HEAD;
+  var styles = {};
+
+  function addStyle(id, css) {
+    var group = isOldIE ? css.media || 'default' : id;
+    var style = styles[group] || (styles[group] = {
+      ids: new Set(),
+      styles: []
+    });
+
+    if (!style.ids.has(id)) {
+      style.ids.add(id);
+      var code = css.source;
+
+      if (css.map) {
+        // https://developer.chrome.com/devtools/docs/javascript-debugging
+        // this makes source maps inside style tags work properly in Chrome
+        code += '\n/*# sourceURL=' + css.map.sources[0] + ' */'; // http://stackoverflow.com/a/26603875
+
+        code += '\n/*# sourceMappingURL=data:application/json;base64,' + btoa(unescape(encodeURIComponent(JSON.stringify(css.map)))) + ' */';
+      }
+
+      if (!style.element) {
+        style.element = document.createElement('style');
+        style.element.type = 'text/css';
+        if (css.media) style.element.setAttribute('media', css.media);
+
+        if (HEAD === undefined) {
+          HEAD = document.head || document.getElementsByTagName('head')[0];
+        }
+
+        HEAD.appendChild(style.element);
+      }
+
+      if ('styleSheet' in style.element) {
+        style.styles.push(code);
+        style.element.styleSheet.cssText = style.styles.filter(Boolean).join('\n');
+      } else {
+        var index = style.ids.size - 1;
+        var textNode = document.createTextNode(code);
+        var nodes = style.element.childNodes;
+        if (nodes[index]) style.element.removeChild(nodes[index]);
+        if (nodes.length) style.element.insertBefore(textNode, nodes[index]);else style.element.appendChild(textNode);
+      }
+    }
+  }
+
+  /* script */
+  var __vue_script__ = script;
+  /* template */
+
+  /* style */
+
+  var __vue_inject_styles__ = function __vue_inject_styles__(inject) {
+    if (!inject) return;
+    inject("data-v-730f2b7a_0", {
+      source: ".carousel[data-v-730f2b7a]{position:relative;user-select:none}.carousel--slidable[data-v-730f2b7a]{touch-action:none}.carousel--down>.carousel__indicators[data-v-730f2b7a],.carousel--up>.carousel__indicators[data-v-730f2b7a]{bottom:auto;flex-direction:column;left:auto;right:0;top:50%;transform:translate(0,-50%)}.carousel--down>.carousel__indicators>.carousel__indicator[data-v-730f2b7a]::before,.carousel--up>.carousel__indicators>.carousel__indicator[data-v-730f2b7a]::before{height:100%;width:.125rem}.carousel--down>.carousel__indicators--disc>.carousel__indicator[data-v-730f2b7a],.carousel--up>.carousel__indicators--disc>.carousel__indicator[data-v-730f2b7a]{height:.75rem;width:1.5rem}.carousel--down>.carousel__indicators--disc>.carousel__indicator[data-v-730f2b7a]::before,.carousel--up>.carousel__indicators--disc>.carousel__indicator[data-v-730f2b7a]::before{height:.5rem;width:.5rem}.carousel--right>.carousel__indicators[data-v-730f2b7a]{flex-direction:row-reverse}.carousel--down>.carousel__indicators[data-v-730f2b7a]{flex-direction:column-reverse}.carousel--controls:hover>.carousel__control[data-v-730f2b7a]{opacity:.5;transform:translateX(0);z-index:1}.carousel--controls:hover>.carousel__control[data-v-730f2b7a]:focus,.carousel--controls:hover>.carousel__control[data-v-730f2b7a]:hover{opacity:1}.carousel--controls>.carousel__control[data-v-730f2b7a]{opacity:0;z-index:-1}.carousel--controls>.carousel__control--prev[data-v-730f2b7a]{transform:translateX(-50%)}.carousel--controls>.carousel__control--next[data-v-730f2b7a]{transform:translateX(50%)}.carousel--indicators:hover>.carousel__indicators[data-v-730f2b7a]{opacity:1;z-index:1}.carousel--indicators>.carousel__indicators[data-v-730f2b7a]{opacity:0;transition:opacity .15s;z-index:-1}.carousel__list[data-v-730f2b7a]{margin:0;overflow:hidden;padding:0;position:relative;width:100%}.carousel__item[data-v-730f2b7a]{display:none;margin:0}.carousel__item--active[data-v-730f2b7a],.carousel__item--bottom[data-v-730f2b7a],.carousel__item--left[data-v-730f2b7a],.carousel__item--right[data-v-730f2b7a],.carousel__item--top[data-v-730f2b7a]{display:block;transition:transform .6s ease-in-out;width:100%}.carousel__item--bottom[data-v-730f2b7a],.carousel__item--left[data-v-730f2b7a],.carousel__item--right[data-v-730f2b7a],.carousel__item--top[data-v-730f2b7a]{left:0;position:absolute;top:0}.carousel__item--top[data-v-730f2b7a]{transform:translateY(-100%)}.carousel__item--top.carousel__item--to-bottom[data-v-730f2b7a]{transform:translateY(0)}.carousel__item--right[data-v-730f2b7a]{transform:translateX(100%)}.carousel__item--right.carousel__item--to-left[data-v-730f2b7a]{transform:translateX(0)}.carousel__item--bottom[data-v-730f2b7a]{transform:translateY(100%)}.carousel__item--bottom.carousel__item--to-top[data-v-730f2b7a]{transform:translateY(0)}.carousel__item--left[data-v-730f2b7a]{transform:translateX(-100%)}.carousel__item--left.carousel__item--to-right[data-v-730f2b7a]{transform:translateX(0)}.carousel__item--active[data-v-730f2b7a]{transform:translate(0,0);z-index:1}.carousel__item--active.carousel__item--to-top[data-v-730f2b7a]{transform:translateY(-100%)}.carousel__item--active.carousel__item--to-right[data-v-730f2b7a]{transform:translateX(100%)}.carousel__item--active.carousel__item--to-bottom[data-v-730f2b7a]{transform:translateY(100%)}.carousel__item--active.carousel__item--to-left[data-v-730f2b7a]{transform:translateX(-100%)}.carousel__indicators[data-v-730f2b7a]{bottom:0;display:flex;justify-content:center;left:50%;list-style:none;margin:0;padding:0;position:absolute;transform:translateX(-50%);z-index:1}.carousel__indicators--disc>.carousel__indicator[data-v-730f2b7a]{width:.75rem}.carousel__indicators--disc>.carousel__indicator[data-v-730f2b7a]::before{border-radius:50%;height:.5rem;width:.5rem}.carousel__indicator[data-v-730f2b7a]{cursor:pointer;height:1.5rem;margin:.125rem;opacity:.5;position:relative;transition:opacity .15s;width:1.5rem}.carousel__indicator[data-v-730f2b7a]::before{background-color:#fff;content:\"\";display:block;height:.125rem;left:50%;position:absolute;top:50%;transform:translate(-50%,-50%);width:100%}.carousel__indicator--active[data-v-730f2b7a]{opacity:1}.carousel__control[data-v-730f2b7a]{background-color:rgba(0,0,0,.5);border:0;border-radius:50%;color:#fff;cursor:pointer;height:2rem;margin-top:-1rem;opacity:.5;padding:.5rem;position:absolute;top:50%;transition:all .15s;width:2rem}.carousel__control[data-v-730f2b7a]:focus,.carousel__control[data-v-730f2b7a]:hover{opacity:1}.carousel__control[data-v-730f2b7a]:focus{outline:0}.carousel__control[data-v-730f2b7a]::before{border:.0625rem solid transparent;border-radius:.125rem;content:\"\";display:block;height:.5rem;left:50%;position:absolute;top:50%;transform:translate(-50%,-50%) rotate(45deg);width:.5rem}.carousel__control--prev[data-v-730f2b7a]{left:1rem}.carousel__control--prev[data-v-730f2b7a]::before{border-bottom-color:#fff;border-left-color:#fff;margin-left:.125rem}.carousel__control--next[data-v-730f2b7a]{right:1rem}.carousel__control--next[data-v-730f2b7a]::before{border-right-color:#fff;border-top-color:#fff;margin-left:-.125rem}",
+      map: undefined,
+      media: undefined
+    });
+  };
+  /* scoped */
+
+
+  var __vue_scope_id__ = "data-v-730f2b7a";
+  /* module identifier */
+
+  var __vue_module_identifier__ = undefined;
+  /* functional template */
+
+  var __vue_is_functional_template__ = undefined;
+  /* style inject SSR */
+
+  /* style inject shadow dom */
+
+  var __vue_component__ = /*#__PURE__*/normalizeComponent({}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, createInjector, undefined, undefined);
+
+  __vue_component__.install = function (Vue) {
+    Vue.component(__vue_component__.name, __vue_component__);
+  };
+
+  if (typeof window !== 'undefined' && window.Vue) {
+    window.Vue.use(__vue_component__);
+  }
+
+  return __vue_component__;
+
+})));
+
+
+/***/ }),
+
 /***/ "./node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js":
 /*!**************************************************************************!*\
   !*** ./node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js ***!
@@ -15677,6 +16569,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     dataCity: String,
@@ -15688,11 +16607,17 @@ __webpack_require__.r(__webpack_exports__);
       city: {},
       events: {},
       others: {},
+      marker: {},
+      center: {
+        lat: 10,
+        lng: 10
+      },
       header: "/images/Kuansing-Pacu-Jalur.jpg"
     };
   },
   mounted: function mounted() {
     this.getData();
+    this.setPosition();
   },
   methods: {
     getData: function getData() {
@@ -15700,11 +16625,27 @@ __webpack_require__.r(__webpack_exports__);
       this.others = JSON.parse(this.dataOthers);
       this.events = JSON.parse(this.dataEvents);
     },
+    setPosition: function setPosition() {
+      if (this.currentPlace) {
+        var marker = this.currentPlace;
+        this.marker = {
+          position: marker
+        };
+        this.center = this.marker.position;
+      }
+    },
     back: function back() {
       window.history.back();
     },
     detail: function detail(url) {
       window.location = url;
+    }
+  },
+  computed: {
+    currentPlace: function currentPlace() {
+      var _JSON$parse;
+
+      return (_JSON$parse = JSON.parse(this.city.meta)) !== null && _JSON$parse !== void 0 ? _JSON$parse : this.center;
     }
   }
 });
@@ -17337,6 +18278,7 @@ __webpack_require__.r(__webpack_exports__);
     urlGetCities: String,
     urlGetEvent: String,
     urlCitiesEvents: String,
+    urlIncomingEvents: String,
     urlCity: String,
     urlSearch: String
   },
@@ -17347,17 +18289,19 @@ __webpack_require__.r(__webpack_exports__);
     this.loadData();
     this.loadCities();
     this.getCitiesEvents();
+    this.getIncomingEvents();
   },
   data: function data() {
     return {
-      locale: _fullcalendar_core_locales_id__WEBPACK_IMPORTED_MODULE_1___default.a,
-      nextDayThreshold: "00:00:00",
       calendarPlugins: [_fullcalendar_daygrid__WEBPACK_IMPORTED_MODULE_2__["default"], _fullcalendar_interaction__WEBPACK_IMPORTED_MODULE_0__["default"] // needed for dateClick
       ],
+      nextDayThreshold: "00:00:00",
+      locale: _fullcalendar_core_locales_id__WEBPACK_IMPORTED_MODULE_1___default.a,
       currentMonth: "",
       calendarEvents: [],
       cities: {},
-      citiesEvent: {}
+      citiesEvent: {},
+      incomingEvents: {}
     };
   },
   methods: {
@@ -17392,6 +18336,15 @@ __webpack_require__.r(__webpack_exports__);
         console.error(error);
       });
     },
+    getIncomingEvents: function getIncomingEvents() {
+      var _this4 = this;
+
+      axios.get(this.urlIncomingEvents).then(function (response) {
+        _this4.incomingEvents = response.data;
+      })["catch"](function (error) {
+        console.error(error);
+      });
+    },
     detail: function detail(id) {
       window.location = this.urlCity + "/" + id;
     },
@@ -17406,24 +18359,27 @@ __webpack_require__.r(__webpack_exports__);
     },
     handleEventClick: function handleEventClick(url) {
       window.location = url;
-    },
-    dayRender: function dayRender(info) {
-      //   console.group("dayRender(info) called", info);
-      var element = info.el;
-      var date = new Date(info.date);
-      date.setDate(date.getDate() + 1);
-      var currentDate = date.toISOString().substring(0, 10);
-      var hoverDivs = '<div class="fc-day-hover-container">' + "</div>"; // Change background of a date cell upon hover and add a centralized "+" icon
+    } // dayRender: function(info) {
+    //   var element = info.el;
+    //   var date = new Date(info.date);
+    //   date.setDate(date.getDate() + 1);
+    //   var currentDate = date.toISOString().substring(0, 10);
+    //   var hoverDivs = '<div class="fc-day-hover-container">' + "</div>";
+    //   // Change background of a date cell upon hover and add a centralized "+" icon
+    //   $("td")
+    //     .find('[data-date="' + currentDate + '"]')
+    //     .hover(
+    //       function() {
+    //         $('td [data-date="' + currentDate + '"]').addClass("fc-day-hover"); // Monthly view
+    //         $(element).append(hoverDivs);
+    //       },
+    //       function() {
+    //         $('[data-date="' + currentDate + '"]').removeClass("fc-day-hover");
+    //         $(".fc-day-hover-container").remove();
+    //       }
+    //     );
+    // }
 
-      $("td").find('[data-date="' + currentDate + '"]').hover(function () {
-        $('td [data-date="' + currentDate + '"]').addClass("fc-day-hover"); // Monthly view
-
-        $(element).append(hoverDivs);
-      }, function () {
-        $('[data-date="' + currentDate + '"]').removeClass("fc-day-hover");
-        $(".fc-day-hover-container").remove();
-      });
-    }
   }
 });
 
@@ -17469,6 +18425,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     urlCitiesEvents: String,
@@ -17477,22 +18459,20 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      imgList: ["images/Kuansing-Pacu-Jalur.jpg", "images/selatpanjang_4.jpeg", "images/Kuansing-Pacu-Jalur.jpg"],
+      currentImg: 0,
       cities: {},
       q: ""
     };
   },
-  mounted: function mounted() {// this.getCitiesEvents();
+  mounted: function mounted() {
+    var _this = this;
+
+    setInterval(function () {
+      _this.currentImg = _this.currentImg + 1;
+    }, 3000);
   },
   methods: {
-    getCitiesEvents: function getCitiesEvents() {
-      var _this = this;
-
-      axios.get(this.urlCitiesEvents).then(function (response) {
-        _this.cities = response.data;
-      })["catch"](function (error) {
-        console.error(error);
-      });
-    },
     search: function search() {
       if (this.q == "") {
         Toast.fire({
@@ -17503,9 +18483,6 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       window.location = this.urlSearch + "?q=" + this.q;
-    },
-    detail: function detail(id) {
-      window.location = this.urlCity + "/" + id;
     }
   }
 });
@@ -29316,7 +30293,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".searchbar {\n  margin-bottom: auto;\n  margin-top: auto;\n  height: 60px;\n  width: 570px;\n  background-color: #ffff;\n  border-radius: 30px;\n  padding: 10px;\n  opacity: 0.8;\n}\n.search_input {\n  color: dimgrey;\n  padding: 0 10px;\n  border: 0;\n  outline: 0;\n  background: none;\n  width: 510px;\n  caret-color: transparent;\n  line-height: 40px;\n}\n.searchbar:hover {\n  opacity: 1;\n}\n.searchbar:hover > .search_input {\n  caret-color: red;\n}\n.searchbar:hover > .search_icon {\n  background: #e74c3c;\n  color: white;\n}\n.search_icon {\n  height: 40px;\n  width: 40px;\n  float: right;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 50%;\n  color: #e74c3c;\n  text-decoration: none;\n}\n.img-fluid {\n  opacity: 0.6;\n}\n.card-kota {\n  height: 380px;\n}\n.card-kota:hover {\n  cursor: pointer;\n}\n.card-kota:hover > .img-fluid {\n  opacity: 0.8;\n}", ""]);
+exports.push([module.i, ".searchbar {\n  margin-bottom: auto;\n  margin-top: auto;\n  height: 60px;\n  width: 570px;\n  background-color: #ffff;\n  border-radius: 30px;\n  padding: 10px;\n  opacity: 0.8;\n}\n.search_input {\n  color: dimgrey;\n  padding: 0 10px;\n  border: 0;\n  outline: 0;\n  background: none;\n  width: 510px;\n  caret-color: transparent;\n  line-height: 40px;\n}\n.searchbar:hover {\n  opacity: 1;\n}\n.searchbar:hover > .search_input {\n  caret-color: red;\n}\n.searchbar:hover > .search_icon {\n  background: #e74c3c;\n  color: white;\n}\n.search_icon {\n  height: 40px;\n  width: 40px;\n  float: right;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 50%;\n  color: #e74c3c;\n  text-decoration: none;\n}\n.img-fluid {\n  opacity: 0.6;\n}\n.card-kota {\n  height: 380px;\n}\n.card-kota:hover {\n  cursor: pointer;\n}\n.card-kota:hover > .img-fluid {\n  opacity: 0.8;\n}\n#demo {\n  overflow: hidden;\n}\n.slide-leave-active,\n.slide-enter-active {\n  transition: 1s;\n}\n.slide-enter {\n  transform: translate(100%, 0);\n}\n.slide-leave-to {\n  transform: translate(-100%, 0);\n}\n.img-slider {\n  overflow: hidden;\n  position: relative;\n  height: 600px;\n}\n.img-slider img {\n  position: absolute;\n  width: 100%;\n  top: -9999px;\n  bottom: -9999px;\n  left: -9999px;\n  right: -9999px;\n  margin: auto;\n}\n.container-slider {\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  top: 0;\n  left: 0;\n}", ""]);
 
 // exports
 
@@ -65831,8 +66808,15 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _c("h3", { staticClass: "text-muted mb-2" }, [
-              _vm._v("List Event")
+            _vm._m(0),
+            _vm._v(" "),
+            _c("h5", { staticClass: "header-title mt-0 float-left" }, [
+              _c("i", { staticClass: "mdi mdi-format-list-bulleted" }),
+              _vm._v(
+                "\n            List Event di " +
+                  _vm._s(_vm._f("kotaSentence")(_vm.city.name)) +
+                  "\n          "
+              )
             ]),
             _vm._v(" "),
             _vm.events.length > 0
@@ -65987,12 +66971,55 @@ var render = function() {
               : _c("p", { staticClass: "text muted text-center" }, [
                   _vm._v("Tidak ada event")
                 ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-box" }, [
+            _c("h5", { staticClass: "header-title mt-0 float-left" }, [
+              _c("i", { staticClass: "mdi mdi-format-list-bulleted" }),
+              _vm._v(
+                "\n            Destinasi Wisata di " +
+                  _vm._s(_vm._f("kotaSentence")(_vm.city.name)) +
+                  "\n          "
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body" })
           ])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-12 col-md-4" }, [
           _c("div", { staticClass: "card-box" }, [
-            _vm._m(0),
+            _vm._m(1),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-12 mt-4 px-0" },
+              [
+                _c(
+                  "gmap-map",
+                  {
+                    staticStyle: { width: "100%", height: "300px" },
+                    attrs: { center: _vm.center, zoom: 15 }
+                  },
+                  [
+                    _c("gmap-marker", {
+                      attrs: { position: _vm.marker.position },
+                      on: {
+                        click: function($event) {
+                          _vm.center = _vm.marker.position
+                        }
+                      }
+                    })
+                  ],
+                  1
+                )
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-box" }, [
+            _vm._m(2),
             _vm._v(" "),
             _c(
               "div",
@@ -66011,6 +67038,29 @@ var render = function() {
                               attrs: { href: "javascript:void(0)" }
                             },
                             [
+                              _c(
+                                "div",
+                                {
+                                  staticStyle: {
+                                    "background-position": "center",
+                                    "background-size": "cover"
+                                  }
+                                },
+                                [
+                                  _c("img", {
+                                    staticClass: "w-100",
+                                    attrs: {
+                                      src: [
+                                        row.header != null
+                                          ? row.header
+                                          : _vm.header
+                                      ],
+                                      alt: ""
+                                    }
+                                  })
+                                ]
+                              ),
+                              _vm._v(" "),
                               _c(
                                 "div",
                                 { staticClass: "user-desc col-md-10 col-10" },
@@ -66055,6 +67105,27 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-body" }, [
+      _c("p", [
+        _vm._v(
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore est debitis et vel optio, reiciendis, recusandae suscipit eos expedita repellat quidem. Tempora laboriosam molestiae nam vitae quibusdam reprehenderit, suscipit accusamus."
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h5", { staticClass: "header-title mt-0 float-left" }, [
+      _c("i", { staticClass: "mdi mdi-google-maps" }),
+      _vm._v(" G-Maps\n          ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("h5", { staticClass: "header-title mt-0 float-left" }, [
       _c("i", { staticClass: "mdi mdi-map-search" }),
       _vm._v(" Kota/Kabupaten Lainnya\n          ")
@@ -66082,7 +67153,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
+  return _c("div", { staticClass: "container py-4" }, [
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-lg-4" }, [
         _c("div", { staticClass: "card-box" }, [
@@ -68447,13 +69518,94 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _c("div", { staticClass: "container-fluid mt-3 pb-4" }, [
-        _c("h1", { staticClass: "text-center" }, [
-          _vm._v("Kalender Event Provinsi Riau")
+      _c("div", { staticClass: "col-lg-12 px-5 my-5" }, [
+        _c("p", { staticClass: "lead text-center" }, [
+          _vm._v("Jangan Lewatkan Keseruan Liburan Anda!")
         ]),
         _vm._v(" "),
-        _c("h4", { staticClass: "text-center text-muted mb-4" }, [
+        _c("h1", { staticClass: "text-center" }, [
+          _vm._v("Event yang akan datang")
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "row" },
+          _vm._l(_vm.incomingEvents, function(row) {
+            return _c(
+              "div",
+              { key: row.id, staticClass: "card-event col-lg-4 col-md-6 py-2" },
+              [
+                _c("div", { staticClass: "text-center card pb-3 shadow" }, [
+                  _c(
+                    "div",
+                    { staticClass: "item-img item-img-card bg--gradient-50" },
+                    [
+                      _c("div", { staticStyle: { height: "200px" } }, [
+                        _c("img", {
+                          staticClass: "img-fluid mw-100 h-auto",
+                          staticStyle: { opacity: "1" },
+                          attrs: {
+                            src: [row.header != null ? row.header : _vm.header],
+                            alt: "header-event"
+                          }
+                        })
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "bg-white px-3 pt-2",
+                      staticStyle: { position: "relative" }
+                    },
+                    [
+                      _c("p", { staticClass: "text-dark font-15 mb-0" }, [
+                        _c("strong", [_vm._v(_vm._s(row.title))])
+                      ]),
+                      _vm._v(" "),
+                      _c("h6", { staticClass: "font-13 mb-0" }, [
+                        _vm._v(
+                          _vm._s(_vm._f("start")(row.start)) +
+                            " - " +
+                            _vm._s(_vm._f("end")(row.end))
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "text-muted" }, [
+                        _vm._v(_vm._s(_vm._f("sentence")(row.city.name)))
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "btn btn-purple btn-rounded waves-effect waves-light mt-auto mx-2",
+                      on: {
+                        click: function($event) {
+                          return _vm.detail(row.url)
+                        }
+                      }
+                    },
+                    [_vm._v("Lihat rincian")]
+                  )
+                ])
+              ]
+            )
+          }),
+          0
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "container-fluid mt-5 pb-4 px-4" }, [
+        _c("h4", { staticClass: "text-center text-muted" }, [
           _vm._v("Dinas Pariwisata Prov.Riau")
+        ]),
+        _vm._v(" "),
+        _c("h1", { staticClass: "text-center mb-4" }, [
+          _vm._v("Kalender Event Provinsi Riau")
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
@@ -68480,8 +69632,7 @@ var render = function() {
                       },
                       on: {
                         dateClick: _vm.handleDateClick,
-                        datesRender: _vm.handleMonthChange,
-                        dayRender: _vm.dayRender
+                        datesRender: _vm.handleMonthChange
                       }
                     }),
                     _vm._v(" "),
@@ -68655,7 +69806,7 @@ var render = function() {
           _vm._l(_vm.citiesEvent, function(row) {
             return _c(
               "div",
-              { key: row.id, staticClass: "col-sm-6 col-md-6 col-lg-3" },
+              { key: row.id, staticClass: "col-sm-6 col-md-6 col-lg-4" },
               [
                 _c(
                   "div",
@@ -68738,9 +69889,12 @@ var render = function() {
       "div",
       {
         staticClass: "jumbotron bg-success",
-        staticStyle: {
+        style: {
           height: "600px",
-          "background-image": "url('images/Kuansing-Pacu-Jalur.jpg')",
+          "background-image":
+            "url(" +
+            _vm.imgList[Math.abs(_vm.currentImg) % _vm.imgList.length] +
+            ")",
           "background-size": "1350px",
           "background-position": "center",
           opacity: "0.8"
@@ -86731,6 +87885,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var dayjs_locale_id__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(dayjs_locale_id__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var vue2_google_maps__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue2-google-maps */ "./node_modules/vue2-google-maps/dist/main.js");
 /* harmony import */ var vue2_google_maps__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(vue2_google_maps__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _chenfengyuan_vue_carousel__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @chenfengyuan/vue-carousel */ "./node_modules/@chenfengyuan/vue-carousel/dist/vue-carousel.js");
+/* harmony import */ var _chenfengyuan_vue_carousel__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_chenfengyuan_vue_carousel__WEBPACK_IMPORTED_MODULE_8__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -86835,6 +87991,8 @@ Vue.use(vue2_google_maps__WEBPACK_IMPORTED_MODULE_7__, {
 
   }
 });
+
+Vue.use(_chenfengyuan_vue_carousel__WEBPACK_IMPORTED_MODULE_8___default.a);
 Vue.component('welcome-component', __webpack_require__(/*! ./components/WelcomeComponent.vue */ "./resources/js/components/WelcomeComponent.vue")["default"]);
 Vue.component('dashboard-component', __webpack_require__(/*! ./components/DashboardComponent.vue */ "./resources/js/components/DashboardComponent.vue")["default"]);
 Vue.component('admin-calendar', __webpack_require__(/*! ./components/AdminCalendar.vue */ "./resources/js/components/AdminCalendar.vue")["default"]);

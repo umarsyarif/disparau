@@ -1,5 +1,5 @@
 <!-- Topbar Start -->
-<div class="navbar-custom">
+<div class="navbar-custom" style="background-color: violet">
     <ul class="list-unstyled topnav-menu float-right mb-0">
 
         @guest

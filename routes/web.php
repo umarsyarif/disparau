@@ -46,6 +46,7 @@ Route::prefix('event')->name('event.')->group(function () {
     Route::delete('/{id?}', 'EventController@destroy')->name('destroy');
     Route::get('/detail/{event?}', 'EventController@show')->name('show');
     Route::get('/incoming', 'EventController@incomingEvents')->name('show.incoming');
+    Route::get('/dashboard', 'EventController@dashboard')->name('show.dashboard');
     Route::get('/{date?}', 'EventController@showPerDay')->name('show.day');
     Route::get('/get/{date?}', 'EventController@showPerMonth')->name('show.month');
 });

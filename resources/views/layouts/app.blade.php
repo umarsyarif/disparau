@@ -26,7 +26,7 @@
             </div>
         </div>
         <!-- End Preloader-->
-        <div id="app" >
+        <div id="app">
             <main class="pb-4">
                 @yield('content')
             </main>

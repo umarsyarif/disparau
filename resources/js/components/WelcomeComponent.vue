@@ -1,8 +1,34 @@
 <template>
   <div>
+    <!-- <transition-group tag="div" class="img-slider" name="slide">
+      <div v-for="number in [currentImg]" v-bind:key="number">
+        <img :src="imgList[Math.abs(currentImg) % imgList.length]" />
+      </div>
+    </transition-group>
+    <div class="container mt-3">
+      <h3 class="text-white">Kunjungi Event-Event Menarik</h3>
+      <h1 class="display-2 text-white mb-5">
+        <strong>Kalender Event Riau</strong>
+      </h1>
+      <div class="container container-slider h-100">
+        <div class="d-flex justify-content-center h-100">
+          <div class="searchbar">
+            <input
+              class="search_input"
+              type="text"
+              v-model="q"
+              placeholder="Apa yang anda cari...?"
+            />
+            <a href="javascript:void(0)" class="search_icon" @click="search">
+              <i class="fas fa-search"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>-->
     <div
       class="jumbotron bg-success"
-      style="height: 600px; background-image: url('images/Kuansing-Pacu-Jalur.jpg'); background-size: 1350px; background-position: center; opacity: 0.8"
+      :style="{'height': '600px', 'background-image': 'url('+imgList[Math.abs(currentImg) % imgList.length]+')', 'background-size': '1350px', 'background-position': 'center', 'opacity': '0.8'}"
     >
       <div class="container mt-3">
         <h3 class="text-white">Kunjungi Event-Event Menarik</h3>
@@ -38,24 +64,22 @@ export default {
   },
   data() {
     return {
+      imgList: [
+        "images/Kuansing-Pacu-Jalur.jpg",
+        "images/selatpanjang_4.jpeg",
+        "images/Kuansing-Pacu-Jalur.jpg"
+      ],
+      currentImg: 0,
       cities: {},
       q: ""
     };
   },
   mounted() {
-    // this.getCitiesEvents();
+    setInterval(() => {
+      this.currentImg = this.currentImg + 1;
+    }, 3000);
   },
   methods: {
-    getCitiesEvents() {
-      axios
-        .get(this.urlCitiesEvents)
-        .then(response => {
-          this.cities = response.data;
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    },
     search() {
       if (this.q == "") {
         Toast.fire({
@@ -65,9 +89,6 @@ export default {
         return;
       }
       window.location = this.urlSearch + "?q=" + this.q;
-    },
-    detail(id) {
-      window.location = this.urlCity + "/" + id;
     }
   }
 };
@@ -135,5 +156,46 @@ export default {
 
 .card-kota:hover > .img-fluid {
   opacity: 0.8;
+}
+
+// slider
+#demo {
+  overflow: hidden;
+}
+
+.slide-leave-active,
+.slide-enter-active {
+  transition: 1s;
+}
+.slide-enter {
+  transform: translate(100%, 0);
+}
+.slide-leave-to {
+  transform: translate(-100%, 0);
+}
+
+.img-slider {
+  overflow: hidden;
+  position: relative;
+  height: 600px;
+  //   width: 100%;
+}
+
+.img-slider img {
+  position: absolute;
+  width: 100%;
+  top: -9999px;
+  bottom: -9999px;
+  left: -9999px;
+  right: -9999px;
+  margin: auto;
+}
+
+.container-slider {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 </style>

@@ -11,6 +11,7 @@ export default {
     urlGetCities: String,
     urlGetEvent: String,
     urlCitiesEvents: String,
+    urlIncomingEvents: String,
     urlCity: String,
     urlSearch: String
   },
@@ -21,19 +22,21 @@ export default {
     this.loadData();
     this.loadCities();
     this.getCitiesEvents();
+    this.getIncomingEvents();
   },
   data: function() {
     return {
-      locale: idLocale,
-      nextDayThreshold: "00:00:00",
       calendarPlugins: [
         dayGridPlugin,
         interactionPlugin // needed for dateClick
       ],
+      nextDayThreshold: "00:00:00",
+      locale: idLocale,
       currentMonth: "",
       calendarEvents: [],
       cities: {},
-      citiesEvent: {}
+      citiesEvent: {},
+      incomingEvents: {}
     };
   },
   methods: {
@@ -71,6 +74,16 @@ export default {
           console.error(error);
         });
     },
+    getIncomingEvents() {
+      axios
+        .get(this.urlIncomingEvents)
+        .then(response => {
+          this.incomingEvents = response.data;
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
     detail(id) {
       window.location = this.urlCity + "/" + id;
     },
@@ -85,30 +98,28 @@ export default {
     },
     handleEventClick(url) {
       window.location = url;
-    },
-    dayRender: function(info) {
-      //   console.group("dayRender(info) called", info);
-
-      var element = info.el;
-      var date = new Date(info.date);
-      date.setDate(date.getDate() + 1);
-      var currentDate = date.toISOString().substring(0, 10);
-      var hoverDivs = '<div class="fc-day-hover-container">' + "</div>";
-
-      // Change background of a date cell upon hover and add a centralized "+" icon
-      $("td")
-        .find('[data-date="' + currentDate + '"]')
-        .hover(
-          function() {
-            $('td [data-date="' + currentDate + '"]').addClass("fc-day-hover"); // Monthly view
-            $(element).append(hoverDivs);
-          },
-          function() {
-            $('[data-date="' + currentDate + '"]').removeClass("fc-day-hover");
-            $(".fc-day-hover-container").remove();
-          }
-        );
     }
+    // dayRender: function(info) {
+    //   var element = info.el;
+    //   var date = new Date(info.date);
+    //   date.setDate(date.getDate() + 1);
+    //   var currentDate = date.toISOString().substring(0, 10);
+    //   var hoverDivs = '<div class="fc-day-hover-container">' + "</div>";
+
+    //   // Change background of a date cell upon hover and add a centralized "+" icon
+    //   $("td")
+    //     .find('[data-date="' + currentDate + '"]')
+    //     .hover(
+    //       function() {
+    //         $('td [data-date="' + currentDate + '"]').addClass("fc-day-hover"); // Monthly view
+    //         $(element).append(hoverDivs);
+    //       },
+    //       function() {
+    //         $('[data-date="' + currentDate + '"]').removeClass("fc-day-hover");
+    //         $(".fc-day-hover-container").remove();
+    //       }
+    //     );
+    // }
   }
 };
 </script>
@@ -177,9 +188,53 @@ export default {
       :url-city="urlCity"
       :url-search="urlSearch"
     />
-    <div class="container-fluid mt-3 pb-4">
-      <h1 class="text-center">Kalender Event Provinsi Riau</h1>
-      <h4 class="text-center text-muted mb-4">Dinas Pariwisata Prov.Riau</h4>
+    <div class="col-lg-12 px-5 my-5">
+      <p class="lead text-center">Jangan Lewatkan Keseruan Liburan Anda!</p>
+      <h1 class="text-center">Event yang akan datang</h1>
+      <div class="row">
+        <div class="card-event col-lg-4 col-md-6 py-2" v-for="row in incomingEvents" :key="row.id">
+          <div class="text-center card pb-3 shadow">
+            <div class="item-img item-img-card bg--gradient-50">
+              <div style="height: 200px">
+                <img
+                  :src="[row.header != null ? row.header : header]"
+                  alt="header-event"
+                  class="img-fluid mw-100 h-auto"
+                  style="opacity: 1"
+                />
+              </div>
+            </div>
+            <div class="bg-white px-3 pt-2" style="position: relative">
+              <p class="text-dark font-15 mb-0">
+                <strong>{{ row.title }}</strong>
+              </p>
+              <h6 class="font-13 mb-0">{{ row.start | start }} - {{ row.end | end }}</h6>
+              <p class="text-muted">{{row.city.name | sentence}}</p>
+            </div>
+            <button
+              class="btn btn-purple btn-rounded waves-effect waves-light mt-auto mx-2"
+              @click="detail(row.url)"
+            >Lihat rincian</button>
+          </div>
+        </div>
+        <!-- <div class="col-sm-6 col-md-6 col-lg-3" v-for="row in incomingEvents" :key="row.id">
+          <a :href="row.url" class="card card-kota">
+            <img
+              class="card-img-top img-fluid"
+              :src="[row.header != null ? row.header : '/images/Kuansing-Pacu-Jalur.jpg']"
+              alt="Card image cap"
+            />
+            <div class="card-body">
+              <h2 class="card-title">{{row.title | sentence}}</h2>
+              <h3 class="mb-0">{{row.start}}</h3>
+            </div>
+          </a>
+        </div>-->
+      </div>
+    </div>
+    <div class="container-fluid mt-5 pb-4 px-4">
+      <h4 class="text-center text-muted">Dinas Pariwisata Prov.Riau</h4>
+      <h1 class="text-center mb-4">Kalender Event Provinsi Riau</h1>
       <div class="row">
         <div class="col-12">
           <div class="row">
@@ -200,7 +255,6 @@ export default {
                   :events="calendarEvents"
                   @dateClick="handleDateClick"
                   @datesRender="handleMonthChange"
-                  @dayRender="dayRender"
                 />
                 <h6 class="text-danger">*Klik tanggal untuk melihat event harian</h6>
                 <div class="card-footer bg-white mt-2 pl-0">
@@ -264,7 +318,7 @@ export default {
       <p class="lead text-center">Kunjungi dan jangan lewatkan, event event yang menarik tahun ini</p>
       <h1 class="text-center">Kota dan Kabupaten di Provinsi Riau</h1>
       <div class="row mt-5">
-        <div class="col-sm-6 col-md-6 col-lg-3" v-for="row in citiesEvent" :key="row.id">
+        <div class="col-sm-6 col-md-6 col-lg-4" v-for="row in citiesEvent" :key="row.id">
           <div class="card card-kota" @click="detail(row.id)">
             <img
               class="card-img-top img-fluid"

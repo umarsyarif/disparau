@@ -11,6 +11,7 @@ $title = 'Home';
     url-get-cities="{{route('event.cities')}}"
     url-get-event="{{route('event.index')}}"
     url-cities-events="{{route('cities.events')}}"
+    url-incoming-events="{{route('event.show.incoming')}}"
     url-city="{{route('cities.show')}}"
     url-search="{{route('event.search')}}"
     />

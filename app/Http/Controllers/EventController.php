@@ -164,6 +164,18 @@ class EventController extends Controller
     public function incomingEvents()
     {
         $date = date('Y-m-d');
+        $incomingEvents = Event::whereDate('start', '>=', $date)
+            ->whereDate('end', '>', $date)
+            ->orderBy('start')->limit(6)->with('city', 'organizer')->get();
+        if ($incomingEvents->isEmpty()) {
+            $incomingEvents = Event::orderBy('start')->with('city', 'organizer')->limit(6)->get();
+        }
+        return $incomingEvents;
+    }
+
+    public function dashboard()
+    {
+        $date = date('Y-m-d');
         $year = date('Y', strtotime($date));
         $month = date('n', strtotime($date));
         $yearEvents = Event::whereYear('start', $year)

@@ -7,6 +7,6 @@ $title = 'Dashboard';
 
 @section('content')
     <dashboard-component
-    url-get-event="{{route('event.show.incoming')}}"
+    url-get-event="{{route('event.show.dashboard')}}"
     />
 @endsection
