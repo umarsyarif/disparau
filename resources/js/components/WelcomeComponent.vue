@@ -1,33 +1,7 @@
 <template>
   <div>
-    <!-- <transition-group tag="div" class="img-slider" name="slide">
-      <div v-for="number in [currentImg]" v-bind:key="number">
-        <img :src="imgList[Math.abs(currentImg) % imgList.length]" />
-      </div>
-    </transition-group>
-    <div class="container mt-3">
-      <h3 class="text-white">Kunjungi Event-Event Menarik</h3>
-      <h1 class="display-2 text-white mb-5">
-        <strong>Kalender Event Riau</strong>
-      </h1>
-      <div class="container container-slider h-100">
-        <div class="d-flex justify-content-center h-100">
-          <div class="searchbar">
-            <input
-              class="search_input"
-              type="text"
-              v-model="q"
-              placeholder="Apa yang anda cari...?"
-            />
-            <a href="javascript:void(0)" class="search_icon" @click="search">
-              <i class="fas fa-search"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>-->
     <div
-      class="jumbotron bg-success"
+      class="jumbotron bg-gray"
       :style="{'height': '600px', 'background-image': 'url('+imgList[Math.abs(currentImg) % imgList.length]+')', 'background-size': '1350px', 'background-position': 'center', 'opacity': '0.8'}"
     >
       <div class="container mt-3">

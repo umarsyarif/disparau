@@ -17533,32 +17533,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     urlCitiesEvents: String,
@@ -68637,7 +68611,7 @@ var render = function() {
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "row" },
+          { staticClass: "row mt-5" },
           _vm._l(_vm.incomingEvents, function(row) {
             return _c(
               "div",
@@ -68996,7 +68970,7 @@ var render = function() {
     _c(
       "div",
       {
-        staticClass: "jumbotron bg-success",
+        staticClass: "jumbotron bg-gray",
         style: {
           height: "600px",
           "background-image":

@@ -191,7 +191,7 @@ export default {
     <div class="col-lg-12 px-5 my-5">
       <p class="lead text-center">Jangan Lewatkan Keseruan Liburan Anda!</p>
       <h1 class="text-center">Event yang akan datang</h1>
-      <div class="row">
+      <div class="row mt-5">
         <div class="card-event col-lg-4 col-md-6 py-2" v-for="row in incomingEvents" :key="row.id">
           <div class="text-center card pb-3 shadow">
             <div class="item-img item-img-card bg--gradient-50">
