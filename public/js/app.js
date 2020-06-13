@@ -15704,8 +15704,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
+    urlWisata: String,
     dataCity: String,
     dataOthers: String,
     dataEvents: String
@@ -15714,6 +15742,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       city: {},
       events: {},
+      wisata: {},
       others: {},
       marker: {},
       center: {
@@ -15726,12 +15755,22 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.getData();
     this.setPosition();
+    this.getWisata();
   },
   methods: {
     getData: function getData() {
       this.city = JSON.parse(this.dataCity);
       this.others = JSON.parse(this.dataOthers);
       this.events = JSON.parse(this.dataEvents);
+    },
+    getWisata: function getWisata() {
+      var _this = this;
+
+      axios.get(this.urlWisata).then(function (response) {
+        _this.wisata = response.data;
+      })["catch"](function (error) {
+        console.error(error);
+      });
     },
     setPosition: function setPosition() {
       if (this.currentPlace) {
@@ -17541,7 +17580,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      imgList: ["images/Kuansing-Pacu-Jalur.jpg", "images/selatpanjang_4.jpeg", "images/Kuansing-Pacu-Jalur.jpg"],
+      imgList: ["images/slider/view1.jpg", "images/slider/view6.jpg", "images/slider/view2.jpg", "images/slider/view3.jpg", "images/slider/view4.jpg", "images/slider/view5.jpg", "images/slider/view7.jpg"],
       currentImg: 0,
       cities: {},
       q: ""
@@ -65882,7 +65921,7 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "col-12" }, [
       _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-12 col-md-8" }, [
+        _c("div", { staticClass: "col-lg-8 col-md-12 col-sm-12" }, [
           _c("div", { staticClass: "card-box" }, [
             _c("h1", { staticClass: "display-6 text-center mb-5" }, [
               _c("strong", [
@@ -66065,11 +66104,87 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "card-body" })
+            _c("div", { staticClass: "card-body" }, [
+              _c(
+                "div",
+                { staticClass: "row" },
+                _vm._l(_vm.wisata, function(row) {
+                  return _c(
+                    "div",
+                    {
+                      key: row.id,
+                      staticClass: "card-event col-lg-6 col-md-6 py-2"
+                    },
+                    [
+                      _c(
+                        "div",
+                        { staticClass: "text-center card pb-3 shadow h-100" },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "item-img item-img-card bg--gradient-50"
+                            },
+                            [
+                              _c("div", { staticStyle: { height: "200px" } }, [
+                                _c("img", {
+                                  staticClass: "img-fluid mw-100 h-auto",
+                                  staticStyle: { opacity: "1" },
+                                  attrs: {
+                                    src: [
+                                      row.header != null
+                                        ? row.header
+                                        : _vm.header
+                                    ],
+                                    alt: "header-event"
+                                  }
+                                })
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass: "bg-white px-3 pt-2",
+                              staticStyle: { position: "relative" }
+                            },
+                            [
+                              _c(
+                                "p",
+                                { staticClass: "text-dark font-15 mb-0" },
+                                [_c("strong", [_vm._v(_vm._s(row.title))])]
+                              ),
+                              _vm._v(" "),
+                              _c("p", { staticClass: "text-muted" }, [
+                                _vm._v(
+                                  _vm._s(_vm._f("sentence")(row.city.name))
+                                )
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "btn btn-purple btn-rounded waves-effect waves-light mt-auto mx-2"
+                            },
+                            [_vm._v("Lihat rincian")]
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                }),
+                0
+              )
+            ])
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col-12 col-md-4" }, [
+        _c("div", { staticClass: "col-lg-4 col-md-12 col-sm-12" }, [
           _c("div", { staticClass: "card-box" }, [
             _vm._m(1),
             _vm._v(" "),

@@ -12,7 +12,7 @@
     </div>
     <div class="col-12">
       <div class="row">
-        <div class="col-12 col-md-8">
+        <div class="col-lg-8 col-md-12 col-sm-12">
           <div class="card-box">
             <h1 class="display-6 text-center mb-5">
               <strong>{{city.name | kotaSentence}}</strong>
@@ -72,10 +72,37 @@
               <i class="mdi mdi-format-list-bulleted"></i>
               Destinasi Wisata di {{city.name | kotaSentence}}
             </h5>
-            <div class="card-body"></div>
+            <div class="card-body">
+              <div class="row">
+                <div class="card-event col-lg-6 col-md-6 py-2" v-for="row in wisata" :key="row.id">
+                  <div class="text-center card pb-3 shadow h-100">
+                    <div class="item-img item-img-card bg--gradient-50">
+                      <div style="height: 200px">
+                        <img
+                          :src="[row.header != null ? row.header : header]"
+                          alt="header-event"
+                          class="img-fluid mw-100 h-auto"
+                          style="opacity: 1"
+                        />
+                      </div>
+                    </div>
+                    <div class="bg-white px-3 pt-2" style="position: relative">
+                      <p class="text-dark font-15 mb-0">
+                        <strong>{{ row.title }}</strong>
+                      </p>
+                      <!-- <h6 class="font-13 mb-0">{{ row.start | start }} - {{ row.end | end }}</h6> -->
+                      <p class="text-muted">{{row.city.name | sentence}}</p>
+                    </div>
+                    <button
+                      class="btn btn-purple btn-rounded waves-effect waves-light mt-auto mx-2"
+                    >Lihat rincian</button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="col-12 col-md-4">
+        <div class="col-lg-4 col-md-12 col-sm-12">
           <div class="card-box">
             <h5 class="header-title mt-0 float-left">
               <i class="mdi mdi-google-maps"></i> G-Maps
@@ -116,6 +143,7 @@
 <script>
 export default {
   props: {
+    urlWisata: String,
     dataCity: String,
     dataOthers: String,
     dataEvents: String
@@ -124,6 +152,7 @@ export default {
     return {
       city: {},
       events: {},
+      wisata: {},
       others: {},
       marker: {},
       center: { lat: 10, lng: 10 },
@@ -133,12 +162,23 @@ export default {
   mounted() {
     this.getData();
     this.setPosition();
+    this.getWisata();
   },
   methods: {
     getData() {
       this.city = JSON.parse(this.dataCity);
       this.others = JSON.parse(this.dataOthers);
       this.events = JSON.parse(this.dataEvents);
+    },
+    getWisata() {
+      axios
+        .get(this.urlWisata)
+        .then(response => {
+          this.wisata = response.data;
+        })
+        .catch(error => {
+          console.error(error);
+        });
     },
     setPosition() {
       if (this.currentPlace) {

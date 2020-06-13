@@ -7,6 +7,7 @@ $title = $city->name;
 
 @section('content')
 <city-detail
+url-wisata="{{route('wisata.index', ['city' => $city->id])}}"
 data-city="{{$city}}"
 data-others="{{$othercities}}"
 data-events="{{$citiesEvents}}"/>

@@ -217,19 +217,6 @@ export default {
             >Lihat rincian</button>
           </div>
         </div>
-        <!-- <div class="col-sm-6 col-md-6 col-lg-3" v-for="row in incomingEvents" :key="row.id">
-          <a :href="row.url" class="card card-kota">
-            <img
-              class="card-img-top img-fluid"
-              :src="[row.header != null ? row.header : '/images/Kuansing-Pacu-Jalur.jpg']"
-              alt="Card image cap"
-            />
-            <div class="card-body">
-              <h2 class="card-title">{{row.title | sentence}}</h2>
-              <h3 class="mb-0">{{row.start}}</h3>
-            </div>
-          </a>
-        </div>-->
       </div>
     </div>
     <div class="container-fluid mt-5 pb-4 px-4">

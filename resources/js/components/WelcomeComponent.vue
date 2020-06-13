@@ -39,9 +39,13 @@ export default {
   data() {
     return {
       imgList: [
-        "images/Kuansing-Pacu-Jalur.jpg",
-        "images/selatpanjang_4.jpeg",
-        "images/Kuansing-Pacu-Jalur.jpg"
+        "images/slider/view1.jpg",
+        "images/slider/view6.jpg",
+        "images/slider/view2.jpg",
+        "images/slider/view3.jpg",
+        "images/slider/view4.jpg",
+        "images/slider/view5.jpg",
+        "images/slider/view7.jpg"
       ],
       currentImg: 0,
       cities: {},

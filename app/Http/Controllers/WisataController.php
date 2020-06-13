@@ -18,9 +18,17 @@ class WisataController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Wisata::with('city')->get();
+        $city = $request->city;
+        return Wisata::when($city, function ($query) use ($city) {
+            return $query->where('city_id', $city);
+        })->with('city')->get();
+    }
+
+    public function city($city)
+    {
+        return Wisata::where('city_id', $city)->with('city')->get();
     }
 
     /**
@@ -88,9 +96,10 @@ class WisataController extends Controller
      * @param  \App\Wisata  $wisata
      * @return \Illuminate\Http\Response
      */
-    public function show(Wisata $wisata)
+    public function show($id)
     {
-        //
+        $wisata = Wisata::where('id', $id)->with('city')->first();
+        return $wisata;
     }
 
     /**
