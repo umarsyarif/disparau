@@ -86,17 +86,6 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/@chenfengyuan/vue-carousel/dist/vue-carousel.js":
-/*!**********************************************************************!*\
-  !*** ./node_modules/@chenfengyuan/vue-carousel/dist/vue-carousel.js ***!
-  \**********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-throw new Error("Module build failed: Error: ENOENT: no such file or directory, open 'C:\\xampp\\htdocs\\disparau\\node_modules\\@chenfengyuan\\vue-carousel\\dist\\vue-carousel.js'");
-
-/***/ }),
-
 /***/ "./node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js":
 /*!**************************************************************************!*\
   !*** ./node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js ***!
@@ -87004,8 +86993,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var dayjs_locale_id__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(dayjs_locale_id__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var vue2_google_maps__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue2-google-maps */ "./node_modules/vue2-google-maps/dist/main.js");
 /* harmony import */ var vue2_google_maps__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(vue2_google_maps__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _chenfengyuan_vue_carousel__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @chenfengyuan/vue-carousel */ "./node_modules/@chenfengyuan/vue-carousel/dist/vue-carousel.js");
-/* harmony import */ var _chenfengyuan_vue_carousel__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_chenfengyuan_vue_carousel__WEBPACK_IMPORTED_MODULE_8__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -87110,8 +87097,6 @@ Vue.use(vue2_google_maps__WEBPACK_IMPORTED_MODULE_7__, {
 
   }
 });
-
-Vue.use(_chenfengyuan_vue_carousel__WEBPACK_IMPORTED_MODULE_8___default.a);
 Vue.component('welcome-component', __webpack_require__(/*! ./components/WelcomeComponent.vue */ "./resources/js/components/WelcomeComponent.vue")["default"]);
 Vue.component('dashboard-component', __webpack_require__(/*! ./components/DashboardComponent.vue */ "./resources/js/components/DashboardComponent.vue")["default"]);
 Vue.component('admin-calendar', __webpack_require__(/*! ./components/AdminCalendar.vue */ "./resources/js/components/AdminCalendar.vue")["default"]);

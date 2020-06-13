@@ -104,9 +104,6 @@ Vue.use(VueGoogleMaps, {
     }
 });
 
-import VueCarousel from '@chenfengyuan/vue-carousel';
-Vue.use(VueCarousel);
-
 Vue.component('welcome-component', require('./components/WelcomeComponent.vue').default);
 Vue.component('dashboard-component', require('./components/DashboardComponent.vue').default);
 Vue.component('admin-calendar', require('./components/AdminCalendar.vue').default);
