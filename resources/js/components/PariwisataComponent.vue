@@ -274,6 +274,10 @@ export default {
             })
             .catch(error => {
               console.error(error);
+              Toast.fire({
+                icon: "warning",
+                title: error
+              });
             });
         }
       });

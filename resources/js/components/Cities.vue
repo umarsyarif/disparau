@@ -8,7 +8,7 @@
             <div class="clear-fix">
               <a
                 href="javascript:void(0)"
-                class="btn btn-purple float-right my-3 disabled"
+                class="btn btn-purple float-right my-3"
                 @click="showModal(null)"
               >
                 <i class="fa fa-plus mr-1"></i> Kota/Kabupaten Baru
@@ -42,6 +42,9 @@
                           />
                         </td>
                         <td>
+                          <a :href="urlCity+'/'+row.id" class="btn btn-sm btn-success">
+                            <i class="mdi mdi-information-outline"></i> Detail
+                          </a>
                           <button @click="showModal(row)" class="btn btn-sm btn-info">
                             <i class="mdi mdi-lead-pencil"></i>
                           </button>
@@ -235,9 +238,25 @@ export default {
         });
     },
     handleSubmit() {
+      let file = this.form.header;
+      let form = new FormData();
+      if (typeof file != "string") {
+        form.append("file", file, file.name);
+      }
+      form.append("data", JSON.stringify(this.form));
+      if (file == "") {
+        Toast.fire({
+          icon: "warning",
+          title: "Header tidak boleh kosong!"
+        });
+        return;
+      }
+      this.isLoading = true;
       axios
-        .post(this.urlCity, {
-          form: this.form
+        .post(this.urlCity, form, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
         })
         .then(response => {
           this.cities = response.data;
@@ -245,6 +264,13 @@ export default {
         })
         .catch(error => {
           console.error(error);
+          Toast.fire({
+            icon: "warning",
+            title: error.message
+          });
+        })
+        .then(() => {
+          this.isLoading = false;
         });
     },
     deleteData(id) {

@@ -15425,6 +15425,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     urlGetCities: String,
@@ -15527,14 +15530,40 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     handleSubmit: function handleSubmit() {
       var _this3 = this;
 
-      axios.post(this.urlCity, {
-        form: this.form
+      var file = this.form.header;
+      var form = new FormData();
+
+      if (typeof file != "string") {
+        form.append("file", file, file.name);
+      }
+
+      form.append("data", JSON.stringify(this.form));
+
+      if (file == "") {
+        Toast.fire({
+          icon: "warning",
+          title: "Header tidak boleh kosong!"
+        });
+        return;
+      }
+
+      this.isLoading = true;
+      axios.post(this.urlCity, form, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
       }).then(function (response) {
         _this3.cities = response.data;
 
         _this3.resetModal();
       })["catch"](function (error) {
         console.error(error);
+        Toast.fire({
+          icon: "warning",
+          title: error.message
+        });
+      }).then(function () {
+        _this3.isLoading = false;
       });
     },
     deleteData: function deleteData(id) {
@@ -17206,6 +17235,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             });
           })["catch"](function (error) {
             console.error(error);
+            Toast.fire({
+              icon: "warning",
+              title: error
+            });
           });
         }
       });
@@ -65468,7 +65501,7 @@ var render = function() {
               _c(
                 "a",
                 {
-                  staticClass: "btn btn-purple float-right my-3 disabled",
+                  staticClass: "btn btn-purple float-right my-3",
                   attrs: { href: "javascript:void(0)" },
                   on: {
                     click: function($event) {
@@ -65542,6 +65575,20 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("td", [
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass: "btn btn-sm btn-success",
+                                    attrs: { href: _vm.urlCity + "/" + row.id }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "mdi mdi-information-outline"
+                                    }),
+                                    _vm._v(" Detail\n                        ")
+                                  ]
+                                ),
+                                _vm._v(" "),
                                 _c(
                                   "button",
                                   {
@@ -69003,7 +69050,7 @@ var render = function() {
           _vm._l(_vm.citiesEvent, function(row) {
             return _c(
               "div",
-              { key: row.id, staticClass: "col-sm-6 col-md-6 col-lg-4" },
+              { key: row.id, staticClass: "col-sm-6 col-md-6 col-lg-3" },
               [
                 _c(
                   "div",

@@ -305,7 +305,7 @@ export default {
       <p class="lead text-center">Kunjungi dan jangan lewatkan, event event yang menarik tahun ini</p>
       <h1 class="text-center">Kota dan Kabupaten di Provinsi Riau</h1>
       <div class="row mt-5">
-        <div class="col-sm-6 col-md-6 col-lg-4" v-for="row in citiesEvent" :key="row.id">
+        <div class="col-sm-6 col-md-6 col-lg-3" v-for="row in citiesEvent" :key="row.id">
           <div class="card card-kota" @click="detail(row.id)">
             <img
               class="card-img-top img-fluid"

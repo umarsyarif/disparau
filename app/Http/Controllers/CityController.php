@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\City;
 use App\Event;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CityController extends Controller
 {
@@ -36,8 +38,44 @@ class CityController extends Controller
      */
     public function store(Request $request)
     {
-        City::updateOrCreate(['id' => optional($request->id)['id']], $request->form);
+        $file = $request->file;
+        $data = json_decode($request->data);
+        $city = City::updateOrCreate(['id' => optional($data)->id], [
+            'name' => $data->name,
+            'color' => $data->color,
+            'meta' => $data->meta ?? null,
+        ]);
+        if (!!$file) {
+            $path = $this->strorageStore($file, $city);
+            if ($path == '') {
+                return $data['message'] = 'File tidak sesuai';
+            }
+            $city->update(['header' => $path]);
+        }
+        $city->update(['url' => route('cities.show', $city->id)]);
+        $data = [
+            'message' => 'Data berhasil disimpan!',
+            'data' => $this->index()
+        ];
         return $this->index();
+    }
+
+    public function strorageStore($file, $city)
+    {
+        $folder = 'city';
+        $name = Str::slug($city->name, '-');
+        $extension = $file->getClientOriginalExtension();
+        $mimeType = $file->getClientMimeType();
+        if ($mimeType == 'image/png' || $mimeType == 'image/jpg' || $mimeType == 'image/jpeg') {
+            if ($city->header != null) {
+                Storage::delete($city->header);
+            }
+            $newName =  $name  . '.' . $extension;
+            Storage::putFileAs('public/' . $folder, $file, $newName);
+            return Storage::url($folder . '/' . $newName);
+        } else {
+            return false;
+        }
     }
 
     /**

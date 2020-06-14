@@ -21,9 +21,9 @@ class WisataController extends Controller
     public function index(Request $request)
     {
         $city = $request->city;
-        return Wisata::when($city, function ($query) use ($city) {
+        return Wisata::with('city')->when($city, function ($query) use ($city) {
             return $query->where('city_id', $city);
-        })->with('city')->get();
+        })->get();
     }
 
     public function city($city)
@@ -59,9 +59,6 @@ class WisataController extends Controller
         ]);
         $file = $request->file;
         if (!!$file) {
-            if ($wisata->header != null) {
-                //
-            }
             $path = $this->strorageStore($file, $wisata);
             if ($path == '') {
                 return $data['message'] = 'File tidak sesuai';
@@ -70,19 +67,22 @@ class WisataController extends Controller
         }
         $data = [
             'message' => 'Data berhasil disimpan!',
-            'data' => $this->index()
+            'data' => $this->index($request)
         ];
         return $data;
     }
 
-    public function strorageStore($file, $event)
+    public function strorageStore($file, $wisata)
     {
         $folder = 'wisata';
-        $name = Str::slug($event->title, '-');
+        $name = Str::slug($wisata->title, '-');
         $extension = $file->getClientOriginalExtension();
         $mimeType = $file->getClientMimeType();
         if ($mimeType == 'image/png' || $mimeType == 'image/jpg' || $mimeType == 'image/jpeg') {
-            $newName =  $name . '-' . $event->start . '.' . $extension;
+            if ($wisata->header != null) {
+                Storage::delete($wisata->header);
+            }
+            $newName =  $name . '-' . $wisata->city->name . '.' . $extension;
             Storage::putFileAs('public/' . $folder, $file, $newName);
             return Storage::url($folder . '/' . $newName);
         } else {
@@ -131,12 +131,12 @@ class WisataController extends Controller
      * @param  \App\Wisata  $wisata
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         Wisata::findOrFail($id)->delete();
         $data = [
             'message' => 'Data berhasil dihapus!',
-            'data' => $this->index()
+            'data' => $this->index($request)
         ];
         return $data;
     }

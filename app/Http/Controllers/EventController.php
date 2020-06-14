@@ -67,9 +67,6 @@ class EventController extends Controller
         ]);
         $file = $request->file;
         if (!!$file) {
-            if ($event->header != null) {
-                //
-            }
             $path = $this->strorageStore($file, $event);
             if ($path == '') {
                 return $data['message'] = 'File tidak sesuai';
@@ -91,6 +88,9 @@ class EventController extends Controller
         $extension = $file->getClientOriginalExtension();
         $mimeType = $file->getClientMimeType();
         if ($mimeType == 'image/png' || $mimeType == 'image/jpg' || $mimeType == 'image/jpeg') {
+            if ($event->header != null) {
+                Storage::delete($event->header);
+            }
             $newName =  $name . '-' . $event->start . '.' . $extension;
             Storage::putFileAs('public/' . $folder, $file, $newName);
             return Storage::url($folder . '/' . $newName);
