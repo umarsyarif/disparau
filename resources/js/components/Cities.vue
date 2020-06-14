@@ -45,10 +45,10 @@
                           <a :href="urlCity+'/'+row.id" class="btn btn-sm btn-success">
                             <i class="mdi mdi-information-outline"></i> Detail
                           </a>
-                          <button @click="showModal(row)" class="btn btn-sm btn-info">
+                          <button @click="showModal(row)" class="btn btn-sm btn-outline-info">
                             <i class="mdi mdi-lead-pencil"></i>
                           </button>
-                          <button @click="deleteData(row.id)" class="btn btn-sm btn-danger">
+                          <button @click="deleteData(row.id)" class="btn btn-sm btn-outline-danger">
                             <i class="mdi mdi-delete"></i>
                           </button>
                         </td>

@@ -116,6 +116,7 @@ Vue.component('city-detail', require('./components/CityDetail.vue').default);
 Vue.component('day-component', require('./components/Day.vue').default);
 Vue.component('search-component', require('./components/SearchComponent.vue').default);
 Vue.component('pariwisata-component', require('./components/PariwisataComponent.vue').default);
+Vue.component('detail-pariwisata', require('./components/PariwisataDetail.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

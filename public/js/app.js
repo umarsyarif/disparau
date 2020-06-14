@@ -17090,6 +17090,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -17266,6 +17269,155 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       } else {
         return file;
       }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PariwisataDetail.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PariwisataDetail.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "GoogleMap",
+  props: {
+    dataWisata: String,
+    dataCity: String,
+    dataIncoming: String
+  },
+  data: function data() {
+    return {
+      wisata: {},
+      city: {
+        name: ""
+      },
+      organizer: {},
+      incoming: {},
+      header: "/images/selatpanjang_4.jpeg",
+      center: {
+        lat: 10,
+        lng: 10
+      },
+      marker: {}
+    };
+  },
+  mounted: function mounted() {
+    this.loadData();
+    this.setPosition();
+  },
+  methods: {
+    loadData: function loadData() {
+      this.wisata = JSON.parse(this.dataWisata); //   this.city = JSON.parse(this.dataCity);
+      //   this.incoming = JSON.parse(this.dataIncoming);
+    },
+    back: function back() {
+      window.history.back();
+    },
+    detail: function detail(url) {
+      window.location = url;
+    },
+    setPosition: function setPosition() {
+      if (this.currentPlace) {
+        var marker = this.currentPlace;
+        this.marker = {
+          position: marker
+        };
+        this.center = this.marker.position;
+      }
+    }
+  },
+  computed: {
+    currentPlace: function currentPlace() {
+      var _JSON$parse;
+
+      return (_JSON$parse = JSON.parse(this.wisata.meta)) !== null && _JSON$parse !== void 0 ? _JSON$parse : JSON.parse(this.city.meta);
     }
   }
 });
@@ -65592,7 +65744,7 @@ var render = function() {
                                 _c(
                                   "button",
                                   {
-                                    staticClass: "btn btn-sm btn-info",
+                                    staticClass: "btn btn-sm btn-outline-info",
                                     on: {
                                       click: function($event) {
                                         return _vm.showModal(row)
@@ -65609,7 +65761,8 @@ var render = function() {
                                 _c(
                                   "button",
                                   {
-                                    staticClass: "btn btn-sm btn-danger",
+                                    staticClass:
+                                      "btn btn-sm btn-outline-danger",
                                     on: {
                                       click: function($event) {
                                         return _vm.deleteData(row.id)
@@ -67267,7 +67420,8 @@ var render = function() {
                                     _c(
                                       "button",
                                       {
-                                        staticClass: "btn btn-sm btn-info",
+                                        staticClass:
+                                          "btn btn-sm btn-outline-info",
                                         on: {
                                           click: function($event) {
                                             return _vm.editData(row)
@@ -67284,7 +67438,8 @@ var render = function() {
                                     _c(
                                       "button",
                                       {
-                                        staticClass: "btn btn-sm btn-danger",
+                                        staticClass:
+                                          "btn btn-sm btn-outline-danger",
                                         on: {
                                           click: function($event) {
                                             return _vm.deleteData(row.id)
@@ -67800,7 +67955,7 @@ var render = function() {
                                 _c(
                                   "button",
                                   {
-                                    staticClass: "btn btn-sm btn-info",
+                                    staticClass: "btn btn-sm btn-outline-info",
                                     on: {
                                       click: function($event) {
                                         return _vm.showModal(row)
@@ -67817,7 +67972,8 @@ var render = function() {
                                 _c(
                                   "button",
                                   {
-                                    staticClass: "btn btn-sm btn-danger",
+                                    staticClass:
+                                      "btn btn-sm btn-outline-danger",
                                     on: {
                                       click: function($event) {
                                         return _vm.deleteData(row.id)
@@ -68083,9 +68239,29 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("td", [
                                     _c(
+                                      "a",
+                                      {
+                                        staticClass: "btn btn-sm btn-success",
+                                        attrs: {
+                                          href: _vm.urlWisata + "/" + row.id
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass:
+                                            "mdi mdi-information-outline"
+                                        }),
+                                        _vm._v(
+                                          " Detail\n                        "
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
                                       "button",
                                       {
-                                        staticClass: "btn btn-sm btn-info",
+                                        staticClass:
+                                          "btn btn-sm btn-outline-info",
                                         on: {
                                           click: function($event) {
                                             return _vm.editData(row)
@@ -68102,7 +68278,8 @@ var render = function() {
                                     _c(
                                       "button",
                                       {
-                                        staticClass: "btn btn-sm btn-danger",
+                                        staticClass:
+                                          "btn btn-sm btn-outline-danger",
                                         on: {
                                           click: function($event) {
                                             return _vm.deleteData(row.id)
@@ -68437,6 +68614,117 @@ var staticRenderFns = [
     ])
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PariwisataDetail.vue?vue&type=template&id=5f4815de&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PariwisataDetail.vue?vue&type=template&id=5f4815de& ***!
+  \*******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container py-4" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12" }, [
+        _c("div", { staticClass: "card-box card-height mb-6" }, [
+          _c(
+            "a",
+            {
+              staticClass: "btn btn-purple btn-back float-left ml-2 mt-2",
+              attrs: { href: "javascript:void(0)" },
+              on: { click: _vm.back }
+            },
+            [_c("i", { staticClass: "mdi mdi-arrow-left logo-back" })]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "jumbotron jumbotron-fluid py-2",
+              style: {
+                "background-image":
+                  "url(" +
+                  [_vm.wisata.header != null ? _vm.wisata.header : _vm.header] +
+                  ")",
+                "background-size": "cover",
+                "min-height": "22.5rem",
+                width: "100%",
+                "background-position": "center"
+              }
+            },
+            [_c("div", { staticClass: "container" })]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-header bg-white" }, [
+            _c("br"),
+            _vm._v(" "),
+            _c("h2", { staticClass: "text-center" }, [
+              _c("span", { staticClass: "label label-danger" }, [
+                _vm._v(_vm._s(_vm.wisata.title))
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body text-left text-muted" }, [
+            _c("p", { staticClass: "text-muted font-15" }, [
+              _c("i", { staticClass: "mdi mdi-map-marker-radius" }),
+              _vm._v(" "),
+              _c("span", { staticClass: "ml-2" }, [
+                _c("strong", [
+                  _vm._v(_vm._s(_vm._f("sentence")(_vm.city.name)))
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("span", {
+              staticClass: "text-muted font-13",
+              domProps: { innerHTML: _vm._s(_vm.wisata.description) }
+            }),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-12 mt-5" },
+              [
+                _c(
+                  "gmap-map",
+                  {
+                    staticStyle: { width: "100%", height: "400px" },
+                    attrs: { center: _vm.center, zoom: 15 }
+                  },
+                  [
+                    _c("gmap-marker", {
+                      attrs: { position: _vm.marker.position },
+                      on: {
+                        click: function($event) {
+                          _vm.center = _vm.marker.position
+                        }
+                      }
+                    })
+                  ],
+                  1
+                )
+              ],
+              1
+            )
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -87245,6 +87533,7 @@ Vue.component('city-detail', __webpack_require__(/*! ./components/CityDetail.vue
 Vue.component('day-component', __webpack_require__(/*! ./components/Day.vue */ "./resources/js/components/Day.vue")["default"]);
 Vue.component('search-component', __webpack_require__(/*! ./components/SearchComponent.vue */ "./resources/js/components/SearchComponent.vue")["default"]);
 Vue.component('pariwisata-component', __webpack_require__(/*! ./components/PariwisataComponent.vue */ "./resources/js/components/PariwisataComponent.vue")["default"]);
+Vue.component('detail-pariwisata', __webpack_require__(/*! ./components/PariwisataDetail.vue */ "./resources/js/components/PariwisataDetail.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -87974,6 +88263,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PariwisataComponent_vue_vue_type_template_id_32ad6d6d___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PariwisataComponent_vue_vue_type_template_id_32ad6d6d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/PariwisataDetail.vue":
+/*!******************************************************!*\
+  !*** ./resources/js/components/PariwisataDetail.vue ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PariwisataDetail_vue_vue_type_template_id_5f4815de___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PariwisataDetail.vue?vue&type=template&id=5f4815de& */ "./resources/js/components/PariwisataDetail.vue?vue&type=template&id=5f4815de&");
+/* harmony import */ var _PariwisataDetail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PariwisataDetail.vue?vue&type=script&lang=js& */ "./resources/js/components/PariwisataDetail.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _PariwisataDetail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PariwisataDetail_vue_vue_type_template_id_5f4815de___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _PariwisataDetail_vue_vue_type_template_id_5f4815de___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/PariwisataDetail.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/PariwisataDetail.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/PariwisataDetail.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PariwisataDetail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./PariwisataDetail.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PariwisataDetail.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PariwisataDetail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/PariwisataDetail.vue?vue&type=template&id=5f4815de&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/PariwisataDetail.vue?vue&type=template&id=5f4815de& ***!
+  \*************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PariwisataDetail_vue_vue_type_template_id_5f4815de___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./PariwisataDetail.vue?vue&type=template&id=5f4815de& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PariwisataDetail.vue?vue&type=template&id=5f4815de&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PariwisataDetail_vue_vue_type_template_id_5f4815de___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PariwisataDetail_vue_vue_type_template_id_5f4815de___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

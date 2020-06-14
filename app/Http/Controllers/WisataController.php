@@ -99,7 +99,10 @@ class WisataController extends Controller
     public function show($id)
     {
         $wisata = Wisata::where('id', $id)->with('city')->first();
-        return $wisata;
+        $data = [
+            'wisata' => $wisata
+        ];
+        return view('wisata.detail', $data);
     }
 
     /**

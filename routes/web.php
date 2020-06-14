@@ -32,7 +32,7 @@ Route::prefix('wisata')->name('wisata.')->group(function () {
     Route::get('/', 'WisataController@page')->name('page');
     Route::post('/', 'WisataController@store')->name('store');
     Route::get('/{id?}', 'WisataController@show')->name('show');
-    \Route::delete('/{id?}', 'WisataController@destroy')->name('destroy');
+    Route::delete('/{id?}', 'WisataController@destroy')->name('destroy');
 });
 
 // Events
