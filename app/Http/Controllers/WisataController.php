@@ -75,14 +75,14 @@ class WisataController extends Controller
     public function strorageStore($file, $wisata)
     {
         $folder = 'wisata';
-        $name = Str::slug($wisata->title, '-');
+        $name = $wisata->title;
         $extension = $file->getClientOriginalExtension();
         $mimeType = $file->getClientMimeType();
         if ($mimeType == 'image/png' || $mimeType == 'image/jpg' || $mimeType == 'image/jpeg') {
             if ($wisata->header != null) {
                 Storage::delete($wisata->header);
             }
-            $newName =  $name . '-' . $wisata->city->name . '.' . $extension;
+            $newName =  $name . '.' . $extension;
             Storage::putFileAs('public/' . $folder, $file, $newName);
             return Storage::url($folder . '/' . $newName);
         } else {

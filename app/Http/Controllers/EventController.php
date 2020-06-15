@@ -84,14 +84,14 @@ class EventController extends Controller
     public function strorageStore($file, $event)
     {
         $folder = 'header';
-        $name = Str::slug($event->title, '-');
+        $name = $event->id;
         $extension = $file->getClientOriginalExtension();
         $mimeType = $file->getClientMimeType();
         if ($mimeType == 'image/png' || $mimeType == 'image/jpg' || $mimeType == 'image/jpeg') {
             if ($event->header != null) {
                 Storage::delete($event->header);
             }
-            $newName =  $name . '-' . $event->start . '.' . $extension;
+            $newName =  $name . '.' . $extension;
             Storage::putFileAs('public/' . $folder, $file, $newName);
             return Storage::url($folder . '/' . $newName);
         } else {

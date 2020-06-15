@@ -67,7 +67,7 @@ class CityController extends Controller
     public function strorageStore($file, $city)
     {
         $folder = 'city';
-        $name = Str::slug($city->name, '-');
+        $name = $city->id;
         $extension = $file->getClientOriginalExtension();
         $mimeType = $file->getClientMimeType();
         if ($mimeType == 'image/png' || $mimeType == 'image/jpg' || $mimeType == 'image/jpeg') {
