@@ -54,11 +54,16 @@
               <div class="card-event col-lg-4 col-md-6 py-2" v-for="row in incoming" :key="row.id">
                 <div class="text-center card pb-3 shadow">
                   <div class="item-img item-img-card bg--gradient-50">
-                    <div style="background-position: center; background-size: cover;">
-                      <img :src="[row.header != null ? row.header : header]" alt class="w-100" />
+                    <div style="height: 200px">
+                      <img
+                        :src="[row.header != null ? row.header : header]"
+                        alt="event-header"
+                        class="img-fluid mw-100 h-auto"
+                        style="opacity: 1"
+                      />
                     </div>
                   </div>
-                  <div class="px-3 pt-2">
+                  <div class="bg-white px-3 pt-2" style="position: relative">
                     <p class="text-dark font-13 mb-0">
                       <strong>{{ row.title }}</strong>
                     </p>

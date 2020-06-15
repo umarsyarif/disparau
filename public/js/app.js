@@ -16242,6 +16242,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "GoogleMap",
   props: {
@@ -67150,46 +67155,45 @@ var render = function() {
                           staticClass: "item-img item-img-card bg--gradient-50"
                         },
                         [
-                          _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "background-position": "center",
-                                "background-size": "cover"
+                          _c("div", { staticStyle: { height: "200px" } }, [
+                            _c("img", {
+                              staticClass: "img-fluid mw-100 h-auto",
+                              staticStyle: { opacity: "1" },
+                              attrs: {
+                                src: [
+                                  row.header != null ? row.header : _vm.header
+                                ],
+                                alt: "event-header"
                               }
-                            },
-                            [
-                              _c("img", {
-                                staticClass: "w-100",
-                                attrs: {
-                                  src: [
-                                    row.header != null ? row.header : _vm.header
-                                  ],
-                                  alt: ""
-                                }
-                              })
-                            ]
-                          )
+                            })
+                          ])
                         ]
                       ),
                       _vm._v(" "),
-                      _c("div", { staticClass: "px-3 pt-2" }, [
-                        _c("p", { staticClass: "text-dark font-13 mb-0" }, [
-                          _c("strong", [_vm._v(_vm._s(row.title))])
-                        ]),
-                        _vm._v(" "),
-                        _c("h6", { staticClass: "font-13 mb-0" }, [
-                          _vm._v(
-                            _vm._s(_vm._f("start")(row.start)) +
-                              " - " +
-                              _vm._s(_vm._f("end")(row.end))
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "text-muted" }, [
-                          _vm._v(_vm._s(_vm._f("sentence")(row.city.name)))
-                        ])
-                      ]),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "bg-white px-3 pt-2",
+                          staticStyle: { position: "relative" }
+                        },
+                        [
+                          _c("p", { staticClass: "text-dark font-13 mb-0" }, [
+                            _c("strong", [_vm._v(_vm._s(row.title))])
+                          ]),
+                          _vm._v(" "),
+                          _c("h6", { staticClass: "font-13 mb-0" }, [
+                            _vm._v(
+                              _vm._s(_vm._f("start")(row.start)) +
+                                " - " +
+                                _vm._s(_vm._f("end")(row.end))
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("p", { staticClass: "text-muted" }, [
+                            _vm._v(_vm._s(_vm._f("sentence")(row.city.name)))
+                          ])
+                        ]
+                      ),
                       _vm._v(" "),
                       _c(
                         "button",
