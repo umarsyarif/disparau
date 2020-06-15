@@ -17,7 +17,10 @@ class CityController extends Controller
      */
     public function index()
     {
-        return City::all();
+        Cache::pull('cities');
+        return Cache::rememberForever('cities', function () {
+            return City::all();
+        });
     }
 
     /**

@@ -9,9 +9,9 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
     <!-- Styles -->
-    <link rel="stylesheet" type="text/css" href="{{asset('adminto/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('adminto/css/icons.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('adminto/css/app.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('adminto/horizontal/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('adminto/horizontal/css/icons.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('adminto/horizontal/css/app.min.css')}}">
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -34,8 +34,8 @@
         @include('partials.big-footer')
     </div>
     <!-- Vendor js -->
-    <script src="{{asset('adminto/js/vendor.min.js')}}"></script>
+    <script src="{{asset('adminto/horizontal/js/vendor.min.js')}}"></script>
     <!-- App js -->
-    <script src="{{asset('adminto/js/app.min.js')}}"></script>
+    <script src="{{asset('adminto/horizontal/js/app.min.js')}}"></script>
 </body>
 </html>

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\City;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Artisan;
 
 class HomeController extends Controller
@@ -19,6 +21,12 @@ class HomeController extends Controller
 
     public function index()
     {
+        $cities = Cache::rememberForever('cities', function () {
+            return City::all();
+        });
+        $data = [
+            'cities' => $cities
+        ];
         return view('pages.welcome');
     }
 
