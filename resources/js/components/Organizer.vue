@@ -32,7 +32,7 @@
                     <tbody>
                       <tr v-for="(row, index) in organizers" :key="row.id">
                         <td>{{index+1}}</td>
-                        <td>{{row.name}}</td>
+                        <td>{{row.name | sentence}}</td>
                         <td>{{row.contact}}</td>
                         <td>
                           <button @click="showModal(row)" class="btn btn-sm btn-outline-info">

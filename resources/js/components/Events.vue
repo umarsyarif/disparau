@@ -47,8 +47,12 @@
                       <tr v-for="(row, index) in events" :key="row.id">
                         <td>{{index+1}}</td>
                         <td>{{row.title}}</td>
-                        <td>{{row.city.name}}</td>
-                        <td>{{row.start | date}} - {{row.end | end}}</td>
+                        <td>{{row.city.name | sentence}}</td>
+                        <td>
+                          {{row.start | date}}
+                          <br />
+                          <small class="text-muted">s.d {{row.end | end}}</small>
+                        </td>
                         <td>
                           <a :href="row.url" class="btn btn-sm btn-success">
                             <i class="mdi mdi-information-outline"></i> Detail
@@ -63,10 +67,34 @@
                       </tr>
                     </tbody>
                   </table>
+                  <div class="clear-fix">
+                    <div class="float-left">
+                      <span v-if="rawData">
+                        <em>Menampilkan {{rawData.from}}-{{rawData.to}} dari {{rawData.total}}</em>
+                      </span>
+                    </div>
+                    <div class="float-right">
+                      <span v-if="rawData">
+                        <button @click="prev" class="btn">
+                          <h4 class="text-muted">
+                            <i class="mdi mdi-chevron-left"></i>
+                          </h4>
+                        </button>
+                        {{rawData.current_page}}
+                        <button
+                          @click="next"
+                          class="btn"
+                        >
+                          <h4 class="text-muted">
+                            <i class="mdi mdi-chevron-right"></i>
+                          </h4>
+                        </button>
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-            <!-- <datatable :columns="columns" :data="rows"></datatable> -->
           </div>
         </div>
       </div>
@@ -205,7 +233,6 @@ export default {
     "date-picker": Datepicker
   },
   mounted: function() {
-    this.loadOrganizers();
     this.loadCities();
     this.loadYears();
   },
@@ -215,6 +242,7 @@ export default {
       editorConfig: {
         extraPlugins: [this.uploader]
       },
+      rawData: null,
       events: {},
       form: {},
       organizers: {},
@@ -249,12 +277,11 @@ export default {
       axios
         .get(this.urlGetYears)
         .then(response => {
-          console.log(response);
           this.years = response.data;
+          this.currentYear = new Date().getFullYear();
+          this.changeYear();
         })
         .catch(error => console.error(error));
-      this.currentYear = new Date().getFullYear();
-      this.changeYear();
     },
     loadOrganizers() {
       axios
@@ -376,11 +403,24 @@ export default {
           year: this.currentYear
         })
         .then(response => {
-          this.events = response.data;
+          this.rawData = response.data;
+          this.events = response.data.data;
         })
         .catch(error => {
           console.error(error);
         });
+    },
+    prev() {
+      axios.post(this.rawData.prev_page_url).then(response => {
+        this.rawData = response.data;
+        this.events = response.data.data;
+      });
+    },
+    next() {
+      axios.post(this.rawData.next_page_url).then(response => {
+        this.rawData = response.data;
+        this.events = response.data.data;
+      });
     },
     setPlace(place) {
       this.currentPlace = place;

@@ -105,8 +105,6 @@ export default {
   methods: {
     loadData() {
       this.wisata = JSON.parse(this.dataWisata);
-      //   this.city = JSON.parse(this.dataCity);
-      //   this.incoming = JSON.parse(this.dataIncoming);
     },
     back() {
       window.history.back();

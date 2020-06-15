@@ -24,7 +24,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        return Event::with('city')->orderBy('start')->get();
+        return Event::with('city', 'organizer')->orderBy('start')->paginate(15);
     }
 
     /**
@@ -151,12 +151,11 @@ class EventController extends Controller
     {
         $year = $request->year;
         if (is_null($year)) {
-            $yearEvents = Event::with('city', 'organizer')
-                ->orderBy('start')->get();
+            $yearEvents = $this->index();
         } else {
             $yearEvents = Event::with('city', 'organizer')->whereYear('start', $year)
                 ->orWhereYear('end', $year)
-                ->orderBy('start')->get();
+                ->orderBy('start')->paginate(15);
         }
         return $yearEvents;
     }

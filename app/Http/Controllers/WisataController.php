@@ -23,7 +23,7 @@ class WisataController extends Controller
         $city = $request->city;
         return Wisata::with('city')->when($city, function ($query) use ($city) {
             return $query->where('city_id', $city);
-        })->get();
+        })->paginate(15);
     }
 
     public function city($city)

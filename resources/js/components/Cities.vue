@@ -32,7 +32,7 @@
                     <tbody>
                       <tr v-for="(row, index) in cities" :key="row.id">
                         <td>{{index+1}}</td>
-                        <td>{{row.name}}</td>
+                        <td>{{row.name | sentence}}</td>
                         <td>
                           <input
                             class="form-control"

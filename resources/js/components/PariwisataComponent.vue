@@ -33,7 +33,7 @@
                       <tr v-for="(row, index) in wisata" :key="row.id">
                         <td>{{index+1}}</td>
                         <td>{{row.title}}</td>
-                        <td>{{row.city.name}}</td>
+                        <td>{{row.city.name | sentence}}</td>
                         <td>
                           <a :href="urlWisata+'/'+row.id" class="btn btn-sm btn-success">
                             <i class="mdi mdi-information-outline"></i> Detail
@@ -48,6 +48,31 @@
                       </tr>
                     </tbody>
                   </table>
+                  <div class="clear-fix">
+                    <div class="float-left">
+                      <span v-if="rawData">
+                        <em>Menampilkan {{rawData.from}}-{{rawData.to}} dari {{rawData.total}}</em>
+                      </span>
+                    </div>
+                    <div class="float-right">
+                      <span v-if="rawData">
+                        <button @click="prev" class="btn">
+                          <h4 class="text-muted">
+                            <i class="mdi mdi-chevron-left"></i>
+                          </h4>
+                        </button>
+                        {{rawData.current_page}}
+                        <button
+                          @click="next"
+                          class="btn"
+                        >
+                          <h4 class="text-muted">
+                            <i class="mdi mdi-chevron-right"></i>
+                          </h4>
+                        </button>
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -155,6 +180,7 @@ export default {
   data: function() {
     return {
       editor: ClassicEditor,
+      rawData: {},
       editorConfig: {},
       wisata: {},
       cities: {},
@@ -169,7 +195,20 @@ export default {
   methods: {
     loadData() {
       axios.get(this.urlGetWisata).then(response => {
-        this.wisata = response.data;
+        this.rawData = response.data;
+        this.wisata = response.data.data;
+      });
+    },
+    prev() {
+      axios.get(this.rawData.prev_page_url).then(response => {
+        this.rawData = response.data;
+        this.wisata = response.data.data;
+      });
+    },
+    next() {
+      axios.get(this.rawData.next_page_url).then(response => {
+        this.rawData = response.data;
+        this.wisata = response.data.data;
       });
     },
     loadCities() {
