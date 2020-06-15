@@ -277,11 +277,6 @@ class EventController extends Controller
         return $data;
     }
 
-    public function cities()
-    {
-        return City::all();
-    }
-
     public function endDate()
     {
         $events = Event::all();
