@@ -211,10 +211,10 @@ export default {
               <h6 class="font-13 mb-0">{{ row.start | start }} - {{ row.end | end }}</h6>
               <p class="text-muted">{{row.city.name | sentence}}</p>
             </div>
-            <button
+            <a
               class="btn btn-purple btn-rounded waves-effect waves-light mt-auto mx-2"
               :href="row.url"
-            >Lihat rincian</button>
+            >Lihat rincian</a>
           </div>
         </div>
       </div>

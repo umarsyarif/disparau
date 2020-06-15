@@ -69080,7 +69080,7 @@ var render = function() {
                   ),
                   _vm._v(" "),
                   _c(
-                    "button",
+                    "a",
                     {
                       staticClass:
                         "btn btn-purple btn-rounded waves-effect waves-light mt-auto mx-2",
