@@ -12,13 +12,21 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item mx-4">
-                    <a class="nav-link {{ \Request::is('/') ? 'active' : '' }}" href="{{ route('login') }}"><strong>{{ __('HOME') }}</strong></a>
+                    <a class="nav-link {{ \Request::is('/') ? 'active' : '' }}" href="{{ route('home') }}"><strong>{{ __('HOME') }}</strong></a>
                 </li>
                 <li class="nav-item mx-4">
                     <a class="nav-link {{ \Request::is('/event') ? 'active' : '' }}" href="{{ route('login') }}"><strong>{{ __('EVENT') }}</strong></a>
                 </li>
-                <li class="nav-item mx-4">
-                    <a class="nav-link {{ \Request::is('/city') ? 'active' : '' }}" href="{{ route('login') }}"><strong>{{ __('KABUPATEN / KOTA') }}</strong></a>
+                <li class="nav-item dropdown mx-4">
+                    <a class="nav-link dropdown-toggle {{ \Request::is('/city') ? 'active' : '' }}" href="javascript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <strong>{{ __('KABUPATEN / KOTA') }}</strong>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#"></a>
+                        <a class="dropdown-item" href="#"></a>
+                        <a class="dropdown-item" href="#"></a>
+                        <a class="dropdown-item" href="#"></a>
+                    </div>
                 </li>
                 <li class="nav-item mx-4">
                     <a class="nav-link {{ \Request::is('/login') ? 'active' : '' }}" href="{{ route('login') }}"><strong>{{ __('TENTANG') }}</strong></a>
@@ -31,7 +39,7 @@
             <!-- Authentication Links -->
             @guest
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                    <a class="nav-link" href="{{ route('login') }}">{{ __('LOGIN') }}</a>
                 </li>
                 @if (Route::has('register'))
                     <li class="nav-item">
