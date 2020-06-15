@@ -12,16 +12,16 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item mx-4">
-                    <a class="nav-link {{}}" href="{{ route('login') }}"><strong>{{ __('HOME') }}</strong></a>
+                    <a class="nav-link {{ \Request::is('/') ? 'active' : '' }}" href="{{ route('login') }}"><strong>{{ __('HOME') }}</strong></a>
                 </li>
                 <li class="nav-item mx-4">
-                    <a class="nav-link {{}}" href="{{ route('login') }}"><strong>{{ __('EVENT') }}</strong></a>
+                    <a class="nav-link {{ \Request::is('/event') ? 'active' : '' }}" href="{{ route('login') }}"><strong>{{ __('EVENT') }}</strong></a>
                 </li>
                 <li class="nav-item mx-4">
-                    <a class="nav-link {{}}" href="{{ route('login') }}"><strong>{{ __('KABUPATEN / KOTA') }}</strong></a>
+                    <a class="nav-link {{ \Request::is('/city') ? 'active' : '' }}" href="{{ route('login') }}"><strong>{{ __('KABUPATEN / KOTA') }}</strong></a>
                 </li>
                 <li class="nav-item mx-4">
-                    <a class="nav-link {{}}" href="{{ route('login') }}"><strong>{{ __('TENTANG') }}</strong></a>
+                    <a class="nav-link {{ \Request::is('/login') ? 'active' : '' }}" href="{{ route('login') }}"><strong>{{ __('TENTANG') }}</strong></a>
                 </li>
             </ul>
 
