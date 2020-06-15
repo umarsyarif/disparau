@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="jumbotron bg-gray"
+      class="jumbotron bg-gray shadow-sm"
       :style="{'height': '600px', 'background-image': 'url('+imgList[Math.abs(currentImg) % imgList.length]+')', 'background-size': '1350px', 'background-position': 'center', 'opacity': '0.8'}"
     >
       <div class="container mt-3">
@@ -137,6 +137,10 @@ export default {
 }
 
 // slider
+.jumbotron {
+  border-radius: 0;
+}
+
 #demo {
   overflow: hidden;
 }

@@ -29599,7 +29599,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".searchbar {\n  margin-bottom: auto;\n  margin-top: auto;\n  height: 60px;\n  width: 570px;\n  background-color: #ffff;\n  border-radius: 30px;\n  padding: 10px;\n  opacity: 0.8;\n}\n.search_input {\n  color: dimgrey;\n  padding: 0 10px;\n  border: 0;\n  outline: 0;\n  background: none;\n  width: 510px;\n  caret-color: transparent;\n  line-height: 40px;\n}\n.searchbar:hover {\n  opacity: 1;\n}\n.searchbar:hover > .search_input {\n  caret-color: red;\n}\n.searchbar:hover > .search_icon {\n  background: #e74c3c;\n  color: white;\n}\n.search_icon {\n  height: 40px;\n  width: 40px;\n  float: right;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 50%;\n  color: #e74c3c;\n  text-decoration: none;\n}\n.img-fluid {\n  opacity: 0.6;\n}\n.card-kota {\n  height: 380px;\n}\n.card-kota:hover {\n  cursor: pointer;\n}\n.card-kota:hover > .img-fluid {\n  opacity: 0.8;\n}\n#demo {\n  overflow: hidden;\n}\n.slide-leave-active,\n.slide-enter-active {\n  transition: 1s;\n}\n.slide-enter {\n  transform: translate(100%, 0);\n}\n.slide-leave-to {\n  transform: translate(-100%, 0);\n}\n.img-slider {\n  overflow: hidden;\n  position: relative;\n  height: 600px;\n}\n.img-slider img {\n  position: absolute;\n  width: 100%;\n  top: -9999px;\n  bottom: -9999px;\n  left: -9999px;\n  right: -9999px;\n  margin: auto;\n}\n.container-slider {\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  top: 0;\n  left: 0;\n}", ""]);
+exports.push([module.i, ".searchbar {\n  margin-bottom: auto;\n  margin-top: auto;\n  height: 60px;\n  width: 570px;\n  background-color: #ffff;\n  border-radius: 30px;\n  padding: 10px;\n  opacity: 0.8;\n}\n.search_input {\n  color: dimgrey;\n  padding: 0 10px;\n  border: 0;\n  outline: 0;\n  background: none;\n  width: 510px;\n  caret-color: transparent;\n  line-height: 40px;\n}\n.searchbar:hover {\n  opacity: 1;\n}\n.searchbar:hover > .search_input {\n  caret-color: red;\n}\n.searchbar:hover > .search_icon {\n  background: #e74c3c;\n  color: white;\n}\n.search_icon {\n  height: 40px;\n  width: 40px;\n  float: right;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 50%;\n  color: #e74c3c;\n  text-decoration: none;\n}\n.img-fluid {\n  opacity: 0.6;\n}\n.card-kota {\n  height: 380px;\n}\n.card-kota:hover {\n  cursor: pointer;\n}\n.card-kota:hover > .img-fluid {\n  opacity: 0.8;\n}\n.jumbotron {\n  border-radius: 0;\n}\n#demo {\n  overflow: hidden;\n}\n.slide-leave-active,\n.slide-enter-active {\n  transition: 1s;\n}\n.slide-enter {\n  transform: translate(100%, 0);\n}\n.slide-leave-to {\n  transform: translate(-100%, 0);\n}\n.img-slider {\n  overflow: hidden;\n  position: relative;\n  height: 600px;\n}\n.img-slider img {\n  position: absolute;\n  width: 100%;\n  top: -9999px;\n  bottom: -9999px;\n  left: -9999px;\n  right: -9999px;\n  margin: auto;\n}\n.container-slider {\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  top: 0;\n  left: 0;\n}", ""]);
 
 // exports
 
@@ -69420,7 +69420,7 @@ var render = function() {
     _c(
       "div",
       {
-        staticClass: "jumbotron bg-gray",
+        staticClass: "jumbotron bg-gray shadow-sm",
         style: {
           height: "600px",
           "background-image":
