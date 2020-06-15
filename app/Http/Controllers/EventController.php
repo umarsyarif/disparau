@@ -281,4 +281,14 @@ class EventController extends Controller
     {
         return City::all();
     }
+
+    public function endDate()
+    {
+        $events = Event::all();
+        foreach ($events as $event) {
+            $end = strtotime($event->end . ' +1 day');
+            $event->update(['end' => date('Y-m-d', intval($end))]);
+        }
+        echo 'done';
+    }
 }

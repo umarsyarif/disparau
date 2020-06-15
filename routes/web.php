@@ -65,6 +65,7 @@ Route::prefix('artisan')->name('artisan')->group(function () {
     Route::get('cache', 'ArtisanController@cache')->name('cache');
     Route::get('clear', 'ArtisanController@clear')->name('clear');
     Route::get('migrate-fresh', 'ArtisanController@migrateFresh')->name('migrate-fresh');
+    Route::get('end', 'EventController@endDate')->name('end');
 });
 
 Route::get('/{page}', 'HomeController@pages')->name('pages');
