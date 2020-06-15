@@ -90,12 +90,12 @@
                       <p class="text-dark font-15 mb-0">
                         <strong>{{ row.title }}</strong>
                       </p>
-                      <!-- <h6 class="font-13 mb-0">{{ row.start | start }} - {{ row.end | end }}</h6> -->
                       <p class="text-muted">{{row.city.name | sentence}}</p>
                     </div>
-                    <button
+                    <a
                       class="btn btn-purple btn-rounded waves-effect waves-light mt-auto mx-2"
-                    >Lihat rincian</button>
+                      :href="urlWisataShow+'/'+row.id"
+                    >Lihat rincian</a>
                   </div>
                 </div>
               </div>
@@ -144,6 +144,7 @@
 export default {
   props: {
     urlWisata: String,
+    urlWisataShow: String,
     dataCity: String,
     dataOthers: String,
     dataEvents: String

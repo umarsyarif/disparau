@@ -276,14 +276,4 @@ class EventController extends Controller
         ];
         return $data;
     }
-
-    public function endDate()
-    {
-        $events = Event::all();
-        foreach ($events as $event) {
-            $end = strtotime($event->end . ' +1 day');
-            $event->update(['end' => date('Y-m-d', intval($end))]);
-        }
-        echo 'done';
-    }
 }

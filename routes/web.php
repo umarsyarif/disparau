@@ -60,7 +60,7 @@ Route::prefix('organizer')->name('organizer.')->group(function () {
 });
 
 // Artisan
-Route::prefix('artisan')->name('artisan')->group(function () {
+Route::prefix('artisan')->name('artisan.')->group(function () {
     Route::get('optimize', 'ArtisanController@optimize')->name('optimize');
     Route::get('cache', 'ArtisanController@cache')->name('cache');
     Route::get('clear', 'ArtisanController@clear')->name('clear');

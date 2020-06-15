@@ -15763,6 +15763,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     urlWisata: String,
+    urlWisataShow: String,
     dataCity: String,
     dataOthers: String,
     dataEvents: String
@@ -66340,10 +66341,11 @@ var render = function() {
                           ),
                           _vm._v(" "),
                           _c(
-                            "button",
+                            "a",
                             {
                               staticClass:
-                                "btn btn-purple btn-rounded waves-effect waves-light mt-auto mx-2"
+                                "btn btn-purple btn-rounded waves-effect waves-light mt-auto mx-2",
+                              attrs: { href: _vm.urlWisataShow + "/" + row.id }
                             },
                             [_vm._v("Lihat rincian")]
                           )
