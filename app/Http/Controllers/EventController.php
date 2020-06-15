@@ -250,16 +250,7 @@ class EventController extends Controller
      * @param  \App\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function changeColor(Request $request, $id)
-    {
-        $city = City::findOrFail($id);
-        $city->update(['color' => $request->color]);
-        $data = [
-            'message' => 'Data berhasil disimpan!',
-            'data' => $this->cities()
-        ];
-        return $data;
-    }
+
 
     /**
      * Remove the specified resource from storage.

@@ -20,7 +20,7 @@ Auth::routes(['register' => false]);
 Route::prefix('city')->name('cities.')->group(function () {
     Route::post('/', 'CityController@store')->name('store');
     Route::get('/get', 'CityController@index')->name('index');
-    Route::post('/color/{id?}', 'EventController@changeColor')->name('color');
+    Route::post('/color/{id?}', 'CityController@changeColor')->name('color');
     Route::get('/with-events', 'CityController@showWithEvents')->name('events');
     Route::get('/{city?}', 'CityController@show')->name('show');
     Route::delete('/{id?}', 'CityController@destroy')->name('destroy');
@@ -38,7 +38,6 @@ Route::prefix('wisata')->name('wisata.')->group(function () {
 // Events
 Route::prefix('event')->name('event.')->group(function () {
     Route::get('/get', 'EventController@index')->name('index');
-    Route::get('/cities', 'EventController@cities')->name('cities');
     Route::get('/year', 'EventController@getYear')->name('year');
     Route::post('/year', 'EventController@showPerYear')->name('show.year');
     Route::post('/', 'EventController@store')->name('store');

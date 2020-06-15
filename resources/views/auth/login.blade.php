@@ -83,9 +83,9 @@ $title = 'Login';
 
         <title>{{ config('app.name', 'Laravel') }}</title>
         <!-- Styles -->
-        <link rel="stylesheet" type="text/css" href="{{asset('adminto/css/bootstrap.min.css')}}">
-        <link rel="stylesheet" type="text/css" href="{{asset('adminto/css/icons.min.css')}}">
-        <link rel="stylesheet" type="text/css" href="{{asset('adminto/css/app.min.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{asset('adminto/horizontal/css/bootstrap.min.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{asset('adminto/horizontal/css/icons.min.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{asset('adminto/horizontal/css/app.min.css')}}">
 
     </head>
 

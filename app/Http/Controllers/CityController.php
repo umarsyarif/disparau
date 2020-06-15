@@ -6,6 +6,7 @@ use App\City;
 use App\Event;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 
 class CityController extends Controller
@@ -136,6 +137,17 @@ class CityController extends Controller
     public function update(Request $request, City $city)
     {
         //
+    }
+
+    public function changeColor(Request $request, $id)
+    {
+        $city = City::findOrFail($id);
+        $city->update(['color' => $request->color]);
+        $data = [
+            'message' => 'Data berhasil disimpan!',
+            'data' => $this->index()
+        ];
+        return $data;
     }
 
     /**

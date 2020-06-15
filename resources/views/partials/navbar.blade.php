@@ -27,7 +27,7 @@ $cities = Cache::get('cities');
                             <li>
                                 <a href="{{route('cities.show', $row)}}">{{$row->name}}</a>
                             </li>
-                        @endforeach\
+                        @endforeach
                     </ul>
                 </li>
                 <li class="nav-item has-submenu mx-4">
@@ -50,7 +50,7 @@ $cities = Cache::get('cities');
                 @endif
             @else
                 <li class="nav-item has-submenu">
-                    <a class="nav-link" href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a>
+                    <a class="nav-link" href="{{ route('dashboard') }}">{{ __('DASBOARD') }}</a>
                 </li>
             @endguest
         </ul>
