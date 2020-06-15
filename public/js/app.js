@@ -69084,11 +69084,7 @@ var render = function() {
                     {
                       staticClass:
                         "btn btn-purple btn-rounded waves-effect waves-light mt-auto mx-2",
-                      on: {
-                        click: function($event) {
-                          return _vm.detail(row.url)
-                        }
-                      }
+                      attrs: { href: row.url }
                     },
                     [_vm._v("Lihat rincian")]
                   )

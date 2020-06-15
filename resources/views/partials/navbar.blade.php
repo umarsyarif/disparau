@@ -15,7 +15,7 @@
                     <a class="nav-link {{ \Request::is('/') ? 'active' : '' }}" href="{{ route('home') }}"><strong>{{ __('HOME') }}</strong></a>
                 </li>
                 <li class="nav-item mx-4">
-                    <a class="nav-link {{ \Request::is('/event') ? 'active' : '' }}" href="{{ route('login') }}"><strong>{{ __('EVENT') }}</strong></a>
+                    <a class="nav-link {{ \Request::is('/event') ? 'active' : '' }}" href="/event/detail/1"><strong>{{ __('EVENT') }}</strong></a>
                 </li>
                 <li class="nav-item dropdown mx-4">
                     <a class="nav-link dropdown-toggle {{ \Request::is('/city') ? 'active' : '' }}" href="javascript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

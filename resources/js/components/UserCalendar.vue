@@ -213,7 +213,7 @@ export default {
             </div>
             <button
               class="btn btn-purple btn-rounded waves-effect waves-light mt-auto mx-2"
-              @click="detail(row.url)"
+              :href="row.url"
             >Lihat rincian</button>
           </div>
         </div>
