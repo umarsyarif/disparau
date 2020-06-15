@@ -6,13 +6,13 @@
           <div class="card-body">
             <h4 class="heading-text text-center">Kota / Kabupaten</h4>
             <div class="clear-fix">
-              <a
+              <!-- <a
                 href="javascript:void(0)"
                 class="btn btn-purple float-right my-3"
                 @click="showModal(null)"
               >
                 <i class="fa fa-plus mr-1"></i> Kota/Kabupaten Baru
-              </a>
+              </a>-->
             </div>
             <div class="responsive-table-plugin mt-5">
               <div class="table-rep-plugin">
@@ -48,9 +48,9 @@
                           <button @click="showModal(row)" class="btn btn-sm btn-outline-info">
                             <i class="mdi mdi-lead-pencil"></i>
                           </button>
-                          <button @click="deleteData(row.id)" class="btn btn-sm btn-outline-danger">
+                          <!-- <button @click="deleteData(row.id)" class="btn btn-sm btn-outline-danger">
                             <i class="mdi mdi-delete"></i>
-                          </button>
+                          </button>-->
                         </td>
                       </tr>
                     </tbody>

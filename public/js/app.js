@@ -65649,24 +65649,7 @@ var render = function() {
               _vm._v("Kota / Kabupaten")
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "clear-fix" }, [
-              _c(
-                "a",
-                {
-                  staticClass: "btn btn-purple float-right my-3",
-                  attrs: { href: "javascript:void(0)" },
-                  on: {
-                    click: function($event) {
-                      return _vm.showModal(null)
-                    }
-                  }
-                },
-                [
-                  _c("i", { staticClass: "fa fa-plus mr-1" }),
-                  _vm._v(" Kota/Kabupaten Baru\n            ")
-                ]
-              )
-            ]),
+            _c("div", { staticClass: "clear-fix" }),
             _vm._v(" "),
             _c("div", { staticClass: "responsive-table-plugin mt-5" }, [
               _c("div", { staticClass: "table-rep-plugin" }, [
@@ -65756,20 +65739,6 @@ var render = function() {
                                       staticClass: "mdi mdi-lead-pencil"
                                     })
                                   ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass:
-                                      "btn btn-sm btn-outline-danger",
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.deleteData(row.id)
-                                      }
-                                    }
-                                  },
-                                  [_c("i", { staticClass: "mdi mdi-delete" })]
                                 )
                               ])
                             ])
