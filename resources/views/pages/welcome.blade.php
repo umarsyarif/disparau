@@ -8,7 +8,7 @@ $title = 'Home';
 @section('content')
     <user-calendar
     url-get-organizers="{{route('organizer.index')}}"
-    url-get-cities="{{route('event.cities')}}"
+    url-get-cities="{{route('cities.index')}}"
     url-get-event="{{route('event.index')}}"
     url-cities-events="{{route('cities.events')}}"
     url-incoming-events="{{route('event.show.incoming')}}"
