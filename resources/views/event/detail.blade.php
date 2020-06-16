@@ -7,8 +7,9 @@ $title = 'Detail Event';
 
 @section('content')
 <detail-event
-    data-event="{{$event}}"
     data-city="{{$city}}"
+    data-event="{{$event}}"
+    data-wisata="{{$wisata}}"
     data-organizer="{{$organizer}}"
     data-incoming="{{$incoming}}"
 />

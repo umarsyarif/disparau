@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\City;
 use App\Event;
+use App\Wisata;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -94,6 +95,7 @@ class CityController extends Controller
         $citiesEvents = Event::where('city_id', $city->id)->with('organizer')->where(function ($q) use ($year) {
             $q->whereYear('start', $year)->orWhereYear('end', $year);
         })->get();
+        $citiesWisata = Wisata::where('city_id', $city->id)->get();
         $id = $city->id;
         $otherCities = City::where('id', '<>', $id)
             ->inRandomOrder()->limit(3)
@@ -101,9 +103,9 @@ class CityController extends Controller
         $data = [
             'city' => $city,
             'citiesEvents' => $citiesEvents,
+            'citiesWisata' => $citiesWisata,
             'othercities' => $otherCities
         ];
-        // return $data;
         return view('city.detail', $data);
     }
 
