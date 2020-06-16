@@ -95,7 +95,7 @@ class CityController extends Controller
         $citiesEvents = Event::where('city_id', $city->id)->with('organizer')->where(function ($q) use ($year) {
             $q->whereYear('start', $year)->orWhereYear('end', $year);
         })->get();
-        $citiesWisata = Wisata::where('city_id', $city->id)->get();
+        $citiesWisata = Wisata::where('city_id', $city->id)->with('city')->get();
         $id = $city->id;
         $otherCities = City::where('id', '<>', $id)
             ->inRandomOrder()->limit(3)

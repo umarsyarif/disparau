@@ -15766,7 +15766,8 @@ __webpack_require__.r(__webpack_exports__);
     urlWisataShow: String,
     dataCity: String,
     dataOthers: String,
-    dataEvents: String
+    dataEvents: String,
+    dataWisata: String
   },
   data: function data() {
     return {
@@ -15784,23 +15785,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.getData();
-    this.setPosition();
-    this.getWisata();
+    this.setPosition(); // this.getWisata();
   },
   methods: {
     getData: function getData() {
       this.city = JSON.parse(this.dataCity);
       this.others = JSON.parse(this.dataOthers);
       this.events = JSON.parse(this.dataEvents);
-    },
-    getWisata: function getWisata() {
-      var _this = this;
-
-      axios.get(this.urlWisata).then(function (response) {
-        _this.wisata = response.data;
-      })["catch"](function (error) {
-        console.error(error);
-      });
+      this.wisata = JSON.parse(this.dataWisata);
     },
     setPosition: function setPosition() {
       if (this.currentPlace) {
@@ -66195,14 +66187,16 @@ var render = function() {
             _vm._v(" "),
             _vm._m(0),
             _vm._v(" "),
-            _c("h5", { staticClass: "header-title mt-0 float-left" }, [
-              _c("i", { staticClass: "mdi mdi-format-list-bulleted" }),
-              _vm._v(
-                "\n            List Event di " +
-                  _vm._s(_vm._f("kotaSentence")(_vm.city.name)) +
-                  "\n          "
-              )
-            ]),
+            _vm.city
+              ? _c("h5", { staticClass: "header-title mt-0 float-left" }, [
+                  _c("i", { staticClass: "mdi mdi-format-list-bulleted" }),
+                  _vm._v(
+                    "\n            List Event di " +
+                      _vm._s(_vm._f("kotaSentence")(_vm.city.name)) +
+                      "\n          "
+                  )
+                ])
+              : _vm._e(),
             _vm._v(" "),
             _vm.events.length > 0
               ? _c("div", { staticClass: "card-body px-0" }, [
@@ -66359,14 +66353,16 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-box" }, [
-            _c("h5", { staticClass: "header-title mt-0 float-left" }, [
-              _c("i", { staticClass: "mdi mdi-format-list-bulleted" }),
-              _vm._v(
-                "\n            Destinasi Wisata di " +
-                  _vm._s(_vm._f("kotaSentence")(_vm.city.name)) +
-                  "\n          "
-              )
-            ]),
+            _vm.city
+              ? _c("h5", { staticClass: "header-title mt-0 float-left" }, [
+                  _c("i", { staticClass: "mdi mdi-format-list-bulleted" }),
+                  _vm._v(
+                    "\n            Destinasi Wisata di " +
+                      _vm._s(_vm._f("kotaSentence")(_vm.city.name)) +
+                      "\n          "
+                  )
+                ])
+              : _vm._e(),
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
               _c(

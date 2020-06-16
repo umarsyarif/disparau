@@ -20,7 +20,7 @@
             <div class="card-body">
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore est debitis et vel optio, reiciendis, recusandae suscipit eos expedita repellat quidem. Tempora laboriosam molestiae nam vitae quibusdam reprehenderit, suscipit accusamus.</p>
             </div>
-            <h5 class="header-title mt-0 float-left">
+            <h5 class="header-title mt-0 float-left" v-if="city">
               <i class="mdi mdi-format-list-bulleted"></i>
               List Event di {{city.name | kotaSentence}}
             </h5>
@@ -68,7 +68,7 @@
             <p class="text muted text-center" v-else>Tidak ada event</p>
           </div>
           <div class="card-box">
-            <h5 class="header-title mt-0 float-left">
+            <h5 class="header-title mt-0 float-left" v-if="city">
               <i class="mdi mdi-format-list-bulleted"></i>
               Destinasi Wisata di {{city.name | kotaSentence}}
             </h5>
@@ -147,7 +147,8 @@ export default {
     urlWisataShow: String,
     dataCity: String,
     dataOthers: String,
-    dataEvents: String
+    dataEvents: String,
+    dataWisata: String
   },
   data() {
     return {
@@ -163,23 +164,14 @@ export default {
   mounted() {
     this.getData();
     this.setPosition();
-    this.getWisata();
+    // this.getWisata();
   },
   methods: {
     getData() {
       this.city = JSON.parse(this.dataCity);
       this.others = JSON.parse(this.dataOthers);
       this.events = JSON.parse(this.dataEvents);
-    },
-    getWisata() {
-      axios
-        .get(this.urlWisata)
-        .then(response => {
-          this.wisata = response.data;
-        })
-        .catch(error => {
-          console.error(error);
-        });
+      this.wisata = JSON.parse(this.dataWisata);
     },
     setPosition() {
       if (this.currentPlace) {

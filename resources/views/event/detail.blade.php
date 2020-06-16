@@ -9,7 +9,7 @@ $title = 'Detail Event';
 <detail-event
     data-city="{{$city}}"
     data-event="{{$event}}"
-    data-wisata="{{$wisata}}"
+    {{-- data-wisata="{{$wisata}}" --}}
     data-organizer="{{$organizer}}"
     data-incoming="{{$incoming}}"
 />
