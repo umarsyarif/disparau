@@ -183,8 +183,8 @@ class EventController extends Controller
         $monthEvents = Event::whereYear('start', $year)->whereMonth('start', $month)
             ->orWhereYear('end', $year)->whereMonth('end', $month)
             ->orderBy('start')->get();
-        $dayEvents = Event::whereDate('start', '<=', $date)
-            ->whereDate('end', '>', $date)
+        $dayEvents = Event::whereDate('start', '<', $date)
+            ->whereDate('end', '>=', $date)
             ->orderBy('start')->get();
         $incomingEvents = Event::whereDate('start', '>=', $date)
             ->whereDate('end', '>', $date)

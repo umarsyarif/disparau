@@ -277,7 +277,7 @@ export default {
         })
         .then(response => {
           this.isCreate = false;
-          this.wisata = response.data.data;
+          this.wisata = response.data.data.data;
           Toast.fire({
             icon: "success",
             title: response.data.message
@@ -308,7 +308,7 @@ export default {
           axios
             .delete(this.urlWisata + "/" + id)
             .then(response => {
-              this.wisata = response.data.data;
+              this.wisata = response.data.data.data;
               Toast.fire({
                 icon: "success",
                 title: response.data.message

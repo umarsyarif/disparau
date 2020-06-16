@@ -16552,8 +16552,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     "date-picker": vuejs_datepicker__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   mounted: function mounted() {
-    this.loadCities();
     this.loadYears();
+    this.loadCities();
+    this.loadOrganizers();
   },
   data: function data() {
     var _this = this;
@@ -16682,7 +16683,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         }
       }).then(function (response) {
         _this6.isCreate = false;
-        _this6.events = response.data.data;
+        _this6.events = response.data.data.data;
         Toast.fire({
           icon: "success",
           title: response.data.message
@@ -16711,7 +16712,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       }).then(function (result) {
         if (result.value) {
           axios["delete"](_this7.urlEvent + "/" + id).then(function (response) {
-            _this7.events = response.data.data;
+            _this7.events = response.data.data.data;
             Toast.fire({
               icon: "success",
               title: response.data.message
@@ -17288,7 +17289,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         }
       }).then(function (response) {
         _this5.isCreate = false;
-        _this5.wisata = response.data.data;
+        _this5.wisata = response.data.data.data;
         Toast.fire({
           icon: "success",
           title: response.data.message
@@ -17317,7 +17318,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       }).then(function (result) {
         if (result.value) {
           axios["delete"](_this6.urlWisata + "/" + id).then(function (response) {
-            _this6.wisata = response.data.data;
+            _this6.wisata = response.data.data.data;
             Toast.fire({
               icon: "success",
               title: response.data.message

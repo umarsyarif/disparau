@@ -233,8 +233,9 @@ export default {
     "date-picker": Datepicker
   },
   mounted: function() {
-    this.loadCities();
     this.loadYears();
+    this.loadCities();
+    this.loadOrganizers();
   },
   data: function() {
     return {
@@ -348,7 +349,7 @@ export default {
         })
         .then(response => {
           this.isCreate = false;
-          this.events = response.data.data;
+          this.events = response.data.data.data;
           Toast.fire({
             icon: "success",
             title: response.data.message
@@ -379,7 +380,7 @@ export default {
           axios
             .delete(this.urlEvent + "/" + id)
             .then(response => {
-              this.events = response.data.data;
+              this.events = response.data.data.data;
               Toast.fire({
                 icon: "success",
                 title: response.data.message
