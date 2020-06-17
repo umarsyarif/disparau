@@ -31,7 +31,7 @@ $cities = Cache::get('cities');
                     </ul>
                 </li>
                 <li class="nav-item has-submenu mx-4">
-                    <a class="nav-link" href="{{ route('login') }}"><strong>{{ __('TENTANG') }}</strong></a>
+                    <a class="nav-link" href="{{ route('pages', 'tentang') }}"><strong>{{ __('TENTANG') }}</strong></a>
                 </li>
             </ul>
 

@@ -15428,6 +15428,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     urlGetCities: String,
@@ -15618,6 +15623,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
 //
 //
 //
@@ -65923,6 +65931,38 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "description" } }, [
+                      _vm._v("Deskripsi")
+                    ]),
+                    _vm._v(" "),
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.description,
+                          expression: "form.description"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { id: "name" },
+                      domProps: { value: _vm.form.description },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "description", $event.target.value)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("small", { staticClass: "form-text text-muted" }, [
+                      _vm._v("deskripsi kota/kabupaten")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
                     _c("label", { attrs: { for: "color" } }, [_vm._v("Warna")]),
                     _vm._v(" "),
                     _c("input", {
@@ -65998,68 +66038,7 @@ var render = function() {
                             attrs: { src: _vm.fileUrl, width: "250rem" }
                           })
                     ])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "form-group" },
-                    [
-                      _c("label", { attrs: { for: "meta" } }, [
-                        _vm._v("Lokasi")
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "input-group" },
-                        [
-                          _c("gmap-autocomplete", {
-                            staticClass: "form-control col-10 mr-2",
-                            on: { place_changed: _vm.setPlace }
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-primary",
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  return _vm.addMarker($event)
-                                }
-                              }
-                            },
-                            [_vm._v("Add")]
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("small", { staticClass: "form-text text-muted" }, [
-                        _vm._v("lokasi google maps")
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "gmap-map",
-                        {
-                          staticClass: "mt-3",
-                          staticStyle: { width: "100%", height: "400px" },
-                          attrs: { center: _vm.center, zoom: 15 }
-                        },
-                        [
-                          _c("gmap-marker", {
-                            attrs: { position: _vm.marker.position },
-                            on: {
-                              click: function($event) {
-                                _vm.center = _vm.marker.position
-                              }
-                            }
-                          })
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
+                  ])
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-footer" }, [
@@ -66186,7 +66165,15 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _vm._m(0),
+            _c("div", { staticClass: "card-body" }, [
+              !_vm.city.description
+                ? _c("p", [
+                    _vm._v(
+                      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore est debitis et vel optio, reiciendis, recusandae suscipit eos expedita repellat quidem. Tempora laboriosam molestiae nam vitae quibusdam reprehenderit, suscipit accusamus."
+                    )
+                  ])
+                : _c("p", [_vm._v(_vm._s(_vm.city.description))])
+            ]),
             _vm._v(" "),
             _vm.city
               ? _c("h5", { staticClass: "header-title mt-0 float-left" }, [
@@ -66448,7 +66435,7 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "col-lg-4 col-md-12 col-sm-12" }, [
           _c("div", { staticClass: "card-box" }, [
-            _vm._m(1),
+            _vm._m(0),
             _vm._v(" "),
             _c(
               "div",
@@ -66478,7 +66465,7 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-box" }, [
-            _vm._m(2),
+            _vm._m(1),
             _vm._v(" "),
             _c(
               "div",
@@ -66560,18 +66547,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body" }, [
-      _c("p", [
-        _vm._v(
-          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore est debitis et vel optio, reiciendis, recusandae suscipit eos expedita repellat quidem. Tempora laboriosam molestiae nam vitae quibusdam reprehenderit, suscipit accusamus."
-        )
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

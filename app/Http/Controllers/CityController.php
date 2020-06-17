@@ -47,6 +47,7 @@ class CityController extends Controller
         $data = json_decode($request->data);
         $city = City::updateOrCreate(['id' => optional($data)->id], [
             'name' => $data->name,
+            'description' => $data->description,
             'color' => $data->color,
             'meta' => $data->meta ?? null,
         ]);

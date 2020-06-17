@@ -18,7 +18,10 @@
               <strong>{{city.name | kotaSentence}}</strong>
             </h1>
             <div class="card-body">
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore est debitis et vel optio, reiciendis, recusandae suscipit eos expedita repellat quidem. Tempora laboriosam molestiae nam vitae quibusdam reprehenderit, suscipit accusamus.</p>
+              <p
+                v-if="!city.description"
+              >Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore est debitis et vel optio, reiciendis, recusandae suscipit eos expedita repellat quidem. Tempora laboriosam molestiae nam vitae quibusdam reprehenderit, suscipit accusamus.</p>
+              <p v-else>{{city.description}}</p>
             </div>
             <h5 class="header-title mt-0 float-left" v-if="city">
               <i class="mdi mdi-format-list-bulleted"></i>

@@ -94,6 +94,11 @@
                 </small>
               </div>
               <div class="form-group">
+                <label for="description">Deskripsi</label>
+                <textarea class="form-control" v-model="form.description" id="name" />
+                <small class="form-text text-muted">deskripsi kota/kabupaten</small>
+              </div>
+              <div class="form-group">
                 <label for="color">Warna</label>
                 <input type="color" class="form-control" v-model="form.color" id="color" />
                 <small class="form-text text-muted">warna penanda pada calendar event</small>
@@ -120,7 +125,7 @@
                   <img :src="fileUrl" width="250rem" v-else />
                 </div>
               </div>
-              <div class="form-group">
+              <!-- <div class="form-group">
                 <label for="meta">Lokasi</label>
                 <div class="input-group">
                   <gmap-autocomplete class="form-control col-10 mr-2" @place_changed="setPlace"></gmap-autocomplete>
@@ -135,7 +140,7 @@
                 >
                   <gmap-marker :position="marker.position" @click="center=marker.position"></gmap-marker>
                 </gmap-map>
-              </div>
+              </div>-->
             </div>
             <div class="modal-footer">
               <button
