@@ -50,7 +50,7 @@ $cities = Cache::get('cities');
                 @endif
             @else
                 <li class="nav-item has-submenu">
-                    <a class="nav-link" href="{{ route('dashboard') }}">{{ __('DASBOARD') }}</a>
+                    <a class="nav-link" href="{{ route('dashboard') }}">{{ __('DASHBOARD') }}</a>
                 </li>
             @endguest
         </ul>
