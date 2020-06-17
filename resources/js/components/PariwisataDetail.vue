@@ -26,7 +26,7 @@
             <p class="text-muted font-15">
               <i class="mdi mdi-map-marker-radius"></i>
               <span class="ml-2">
-                <strong>{{ city.name | sentence }}</strong>
+                <strong>{{ wisata.address }}</strong>
               </span>
             </p>
             <!-- <p class="text-muted font-15">

@@ -68861,9 +68861,7 @@ var render = function() {
               _c("i", { staticClass: "mdi mdi-map-marker-radius" }),
               _vm._v(" "),
               _c("span", { staticClass: "ml-2" }, [
-                _c("strong", [
-                  _vm._v(_vm._s(_vm._f("sentence")(_vm.city.name)))
-                ])
+                _c("strong", [_vm._v(_vm._s(_vm.wisata.address))])
               ])
             ]),
             _vm._v(" "),
