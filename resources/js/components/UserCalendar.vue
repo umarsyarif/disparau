@@ -307,12 +307,14 @@ export default {
       <div class="row mt-5">
         <div class="col-sm-6 col-md-6 col-lg-3" v-for="row in citiesEvent" :key="row.id">
           <div class="card card-kota" @click="detail(row.id)">
-            <img
-              class="card-img-top img-fluid"
-              :src="[row.header != null ? row.header : '/images/Kuansing-Pacu-Jalur.jpg']"
-              alt="Card image cap"
-            />
-            <div class="card-body">
+            <div style="height :200px">
+              <img
+                class="img-fluid mw-100 h-auto"
+                :src="[row.header != null ? row.header : '/images/Kuansing-Pacu-Jalur.jpg']"
+                alt="Card image cap"
+              />
+            </div>
+            <div class="bg-white px-3 pt-2" style="position: relative">
               <h2 class="card-title">{{row.name | kotaSentence}}</h2>
               <h3 class="mb-0">{{row.events.length}} Event</h3>
             </div>

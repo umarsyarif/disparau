@@ -68847,6 +68847,7 @@ var render = function() {
           ),
           _vm._v(" "),
           _c("div", { staticClass: "card-header bg-white" }, [
+            _vm._v("'\n          "),
             _c("br"),
             _vm._v(" "),
             _c("h2", { staticClass: "text-center" }, [
@@ -68856,7 +68857,7 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "card-body text-left text-muted" }, [
+          _c("div", { staticClass: "card-body text-left tex' t-muted" }, [
             _c("p", { staticClass: "text-muted font-15" }, [
               _c("i", { staticClass: "mdi mdi-map-marker-radius" }),
               _vm._v(" "),
@@ -69524,27 +69525,36 @@ var render = function() {
                     }
                   },
                   [
-                    _c("img", {
-                      staticClass: "card-img-top img-fluid",
-                      attrs: {
-                        src: [
-                          row.header != null
-                            ? row.header
-                            : "/images/Kuansing-Pacu-Jalur.jpg"
-                        ],
-                        alt: "Card image cap"
-                      }
-                    }),
+                    _c("div", { staticStyle: { height: "200px" } }, [
+                      _c("img", {
+                        staticClass: "img-fluid mw-100 h-auto",
+                        attrs: {
+                          src: [
+                            row.header != null
+                              ? row.header
+                              : "/images/Kuansing-Pacu-Jalur.jpg"
+                          ],
+                          alt: "Card image cap"
+                        }
+                      })
+                    ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "card-body" }, [
-                      _c("h2", { staticClass: "card-title" }, [
-                        _vm._v(_vm._s(_vm._f("kotaSentence")(row.name)))
-                      ]),
-                      _vm._v(" "),
-                      _c("h3", { staticClass: "mb-0" }, [
-                        _vm._v(_vm._s(row.events.length) + " Event")
-                      ])
-                    ])
+                    _c(
+                      "div",
+                      {
+                        staticClass: "bg-white px-3 pt-2",
+                        staticStyle: { position: "relative" }
+                      },
+                      [
+                        _c("h2", { staticClass: "card-title" }, [
+                          _vm._v(_vm._s(_vm._f("kotaSentence")(row.name)))
+                        ]),
+                        _vm._v(" "),
+                        _c("h3", { staticClass: "mb-0" }, [
+                          _vm._v(_vm._s(row.events.length) + " Event")
+                        ])
+                      ]
+                    )
                   ]
                 )
               ]
