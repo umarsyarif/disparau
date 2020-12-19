@@ -305,18 +305,23 @@ export default {
       <p class="lead text-center">Kunjungi dan jangan lewatkan, event event yang menarik tahun ini</p>
       <h1 class="text-center">Kota dan Kabupaten di Provinsi Riau</h1>
       <div class="row mt-5">
-        <div class="col-sm-6 col-md-6 col-lg-3" v-for="row in citiesEvent" :key="row.id">
-          <div class="card card-kota" @click="detail(row.id)">
-            <div style="height :200px">
-              <img
-                class="img-fluid mw-100 h-auto"
-                :src="[row.header != null ? row.header : '/images/Kuansing-Pacu-Jalur.jpg']"
-                alt="Card image cap"
-              />
+        <div class="card-event col-sm-6 col-md-6 col-lg-4" v-for="row in citiesEvent" :key="row.id">
+          <div class="text-center card pb-3 shadow" @click="detail(row.id)">
+            <div class="item-img item-img-card bg--gradient-50">
+              <div style="height: 200px">
+                <img
+                  :src="[row.header != null ? row.header : header]"
+                  alt="header-event"
+                  class="img-fluid mw-100 h-auto"
+                  style="opacity: 1"
+                />
+              </div>
             </div>
             <div class="bg-white px-3 pt-2" style="position: relative">
-              <h2 class="card-title">{{row.name | kotaSentence}}</h2>
-              <h3 class="mb-0">{{row.events.length}} Event</h3>
+              <p class="text-dark font-16 mb-0">
+                <strong>{{ row.name | kotaSentence }}</strong>
+              </p>
+              <p class="text-muted">{{ row.events.length }} Event</p>
             </div>
           </div>
         </div>

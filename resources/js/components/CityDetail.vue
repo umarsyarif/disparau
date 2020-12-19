@@ -4,11 +4,11 @@
       class="jumbotron bg-success mb-2"
       :style="{'height': '480px', 'background-image': 'url(' +[city.header != null ? city.header : header] + ')', 'background-size': '1350px', 'background-position': 'center', 'opacity': '0.8'}"
     >
-      <div class="container">
+      <!-- <div class="container">
         <a href="javascript:void(0)" class="btn btn-purple btn-back float-left" @click="back">
           <i class="mdi mdi-arrow-left logo-back"></i>
         </a>
-      </div>
+      </div> -->
     </div>
     <div class="col-12">
       <div class="row">

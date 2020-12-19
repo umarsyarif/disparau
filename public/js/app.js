@@ -16241,13 +16241,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "GoogleMap",
   props: {
@@ -66125,35 +66118,19 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c(
-      "div",
-      {
-        staticClass: "jumbotron bg-success mb-2",
-        style: {
-          height: "480px",
-          "background-image":
-            "url(" +
-            [_vm.city.header != null ? _vm.city.header : _vm.header] +
-            ")",
-          "background-size": "1350px",
-          "background-position": "center",
-          opacity: "0.8"
-        }
-      },
-      [
-        _c("div", { staticClass: "container" }, [
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-purple btn-back float-left",
-              attrs: { href: "javascript:void(0)" },
-              on: { click: _vm.back }
-            },
-            [_c("i", { staticClass: "mdi mdi-arrow-left logo-back" })]
-          )
-        ])
-      ]
-    ),
+    _c("div", {
+      staticClass: "jumbotron bg-success mb-2",
+      style: {
+        height: "480px",
+        "background-image":
+          "url(" +
+          [_vm.city.header != null ? _vm.city.header : _vm.header] +
+          ")",
+        "background-size": "1350px",
+        "background-position": "center",
+        opacity: "0.8"
+      }
+    }),
     _vm._v(" "),
     _c("div", { staticClass: "col-12" }, [
       _c("div", { staticClass: "row" }, [
@@ -67101,16 +67078,6 @@ var render = function() {
       _c("div", { staticClass: "col-12" }, [
         _c("div", { staticClass: "card-box card-height mb-6" }, [
           _c(
-            "a",
-            {
-              staticClass: "btn btn-purple btn-back float-left ml-2 mt-2",
-              attrs: { href: "javascript:void(0)" },
-              on: { click: _vm.back }
-            },
-            [_c("i", { staticClass: "mdi mdi-arrow-left logo-back" })]
-          ),
-          _vm._v(" "),
-          _c(
             "div",
             {
               staticClass: "jumbotron jumbotron-fluid py-2",
@@ -67163,10 +67130,12 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _c("span", {
-              staticClass: "text-muted font-13",
-              domProps: { innerHTML: _vm._s(_vm.event.description) }
-            }),
+            _c("div", { staticClass: "col-sm-8 mt-5 mx-auto" }, [
+              _c("span", {
+                staticClass: "text-dark text-justify font-16",
+                domProps: { innerHTML: _vm._s(_vm.event.description) }
+              })
+            ]),
             _vm._v(" "),
             _c(
               "div",
@@ -68847,7 +68816,6 @@ var render = function() {
           ),
           _vm._v(" "),
           _c("div", { staticClass: "card-header bg-white" }, [
-            _vm._v("'\n          "),
             _c("br"),
             _vm._v(" "),
             _c("h2", { staticClass: "text-center" }, [
@@ -68857,7 +68825,7 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "card-body text-left tex' t-muted" }, [
+          _c("div", { staticClass: "card-body text-left text-muted" }, [
             _c("p", { staticClass: "text-muted font-15" }, [
               _c("i", { staticClass: "mdi mdi-map-marker-radius" }),
               _vm._v(" "),
@@ -69512,12 +69480,15 @@ var render = function() {
           _vm._l(_vm.citiesEvent, function(row) {
             return _c(
               "div",
-              { key: row.id, staticClass: "col-sm-6 col-md-6 col-lg-3" },
+              {
+                key: row.id,
+                staticClass: "card-event col-sm-6 col-md-6 col-lg-4"
+              },
               [
                 _c(
                   "div",
                   {
-                    staticClass: "card card-kota",
+                    staticClass: "text-center card pb-3 shadow",
                     on: {
                       click: function($event) {
                         return _vm.detail(row.id)
@@ -69525,19 +69496,24 @@ var render = function() {
                     }
                   },
                   [
-                    _c("div", { staticStyle: { height: "200px" } }, [
-                      _c("img", {
-                        staticClass: "img-fluid mw-100 h-auto",
-                        attrs: {
-                          src: [
-                            row.header != null
-                              ? row.header
-                              : "/images/Kuansing-Pacu-Jalur.jpg"
-                          ],
-                          alt: "Card image cap"
-                        }
-                      })
-                    ]),
+                    _c(
+                      "div",
+                      { staticClass: "item-img item-img-card bg--gradient-50" },
+                      [
+                        _c("div", { staticStyle: { height: "200px" } }, [
+                          _c("img", {
+                            staticClass: "img-fluid mw-100 h-auto",
+                            staticStyle: { opacity: "1" },
+                            attrs: {
+                              src: [
+                                row.header != null ? row.header : _vm.header
+                              ],
+                              alt: "header-event"
+                            }
+                          })
+                        ])
+                      ]
+                    ),
                     _vm._v(" "),
                     _c(
                       "div",
@@ -69546,11 +69522,13 @@ var render = function() {
                         staticStyle: { position: "relative" }
                       },
                       [
-                        _c("h2", { staticClass: "card-title" }, [
-                          _vm._v(_vm._s(_vm._f("kotaSentence")(row.name)))
+                        _c("p", { staticClass: "text-dark font-16 mb-0" }, [
+                          _c("strong", [
+                            _vm._v(_vm._s(_vm._f("kotaSentence")(row.name)))
+                          ])
                         ]),
                         _vm._v(" "),
-                        _c("h3", { staticClass: "mb-0" }, [
+                        _c("p", { staticClass: "text-muted" }, [
                           _vm._v(_vm._s(row.events.length) + " Event")
                         ])
                       ]
@@ -88781,8 +88759,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\disparau\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\disparau\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\WebDev\disparau\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\WebDev\disparau\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

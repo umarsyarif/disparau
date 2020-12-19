@@ -3,13 +3,6 @@
     <div class="row">
       <div class="col-12">
         <div class="card-box card-height mb-6">
-          <a
-            href="javascript:void(0)"
-            class="btn btn-purple btn-back float-left ml-2 mt-2"
-            @click="back"
-          >
-            <i class="mdi mdi-arrow-left logo-back"></i>
-          </a>
           <div
             class="jumbotron jumbotron-fluid py-2"
             :style="{'background-image': 'url(' + [event.header != null ? event.header : header] + ')', 'background-size': 'cover', 'min-height': '22.5rem', 'width': '100%', 'background-position': 'center'}"
@@ -35,9 +28,9 @@
                 <strong>{{ event.start | start }} - {{ event.end | end }}</strong>
               </span>
             </p>
-            <!-- <p class="text-muted font-13 ml-4"> -->
-            <span class="text-muted font-13" v-html="event.description"></span>
-            <!-- </p> -->
+            <div class="col-sm-8 mt-5 mx-auto">
+              <span class="text-dark text-justify font-16" v-html="event.description"></span>
+            </div>
             <div class="col-12 mt-5">
               <gmap-map :center="center" :zoom="15" style="width:100%;  height: 400px;">
                 <gmap-marker :position="marker.position" @click="center=marker.position"></gmap-marker>
