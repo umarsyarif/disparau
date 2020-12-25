@@ -50,6 +50,7 @@ class CityController extends Controller
             'description' => $data->description,
             'color' => $data->color,
             'meta' => $data->meta ?? null,
+            'video' => $data->video ?? null
         ]);
         if (!!$file) {
             $path = $this->strorageStore($file, $city);

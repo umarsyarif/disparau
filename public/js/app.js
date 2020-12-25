@@ -15271,6 +15271,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ckeditor/ckeditor5-build-classic */ "./node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js");
+/* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0__);
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 //
@@ -15433,6 +15435,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 //
 //
 //
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     urlGetCities: String,
@@ -15444,6 +15448,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   },
   data: function data() {
     return {
+      editor: _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0___default.a,
+      editorConfig: {
+        extraPlugins: [this.uploader]
+      },
       cities: {},
       form: {},
       marker: {},
@@ -15595,6 +15603,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           });
         }
       });
+    },
+    uploader: function uploader(editor) {
+      editor.plugins.get("FileRepository").createUploadAdapter = function (loader) {
+        return new UploadAdapter(loader);
+      };
     }
   },
   computed: {
@@ -65944,36 +65957,60 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group" }, [
-                    _c("label", { attrs: { for: "description" } }, [
-                      _vm._v("Deskripsi")
+                    _c("label", { attrs: { for: "video" } }, [
+                      _vm._v("Vidoe url")
                     ]),
                     _vm._v(" "),
-                    _c("textarea", {
+                    _c("input", {
                       directives: [
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.form.description,
-                          expression: "form.description"
+                          value: _vm.form.video,
+                          expression: "form.video"
                         }
                       ],
                       staticClass: "form-control",
-                      attrs: { id: "name" },
-                      domProps: { value: _vm.form.description },
+                      attrs: { type: "text", id: "video" },
+                      domProps: { value: _vm.form.video },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(_vm.form, "description", $event.target.value)
+                          _vm.$set(_vm.form, "video", $event.target.value)
                         }
                       }
                     }),
                     _vm._v(" "),
-                    _c("small", { staticClass: "form-text text-muted" }, [
-                      _vm._v("deskripsi kota/kabupaten")
-                    ])
+                    _vm._m(2)
                   ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    [
+                      _c("label", { attrs: { for: "description" } }, [
+                        _vm._v("Deskripsi")
+                      ]),
+                      _vm._v(" "),
+                      _c("ckeditor", {
+                        attrs: { editor: _vm.editor, config: _vm.editorConfig },
+                        model: {
+                          value: _vm.form.description,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "description", $$v)
+                          },
+                          expression: "form.description"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("small", { staticClass: "form-text text-muted" }, [
+                        _vm._v("deskripsi kota/kabupaten")
+                      ])
+                    ],
+                    1
+                  ),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group" }, [
                     _c("label", { attrs: { for: "color" } }, [_vm._v("Warna")]),
@@ -66113,6 +66150,17 @@ var staticRenderFns = [
       _c("strong", [_vm._v("[Kabupaten/Kota] [nama]")]),
       _vm._v(", cth:\n                "),
       _c("strong", [_vm._v("Kota Pekanbaru")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("small", { staticClass: "form-text text-muted" }, [
+      _vm._v(
+        "\n                url embed video youtube. cth:\n                "
+      ),
+      _c("strong", [_vm._v("https://youtu.be/embed/QnVzL8e8XxA")])
     ])
   }
 ]

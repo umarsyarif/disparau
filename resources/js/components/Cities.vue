@@ -5,15 +5,7 @@
         <div class="card">
           <div class="card-body">
             <h4 class="heading-text text-center">Kota / Kabupaten</h4>
-            <div class="clear-fix">
-              <!-- <a
-                href="javascript:void(0)"
-                class="btn btn-purple float-right my-3"
-                @click="showModal(null)"
-              >
-                <i class="fa fa-plus mr-1"></i> Kota/Kabupaten Baru
-              </a>-->
-            </div>
+            <div class="clear-fix"></div>
             <div class="responsive-table-plugin mt-5">
               <div class="table-rep-plugin">
                 <div class="table-responsive" data-pattern="priority-columns">
@@ -94,8 +86,17 @@
                 </small>
               </div>
               <div class="form-group">
+                <label for="video">Vidoe url</label>
+                <input type="text" class="form-control" v-model="form.video" id="video" />
+                <small class="form-text text-muted">
+                  url embed video youtube. cth:
+                  <strong>https://youtu.be/embed/QnVzL8e8XxA</strong>
+                </small>
+              </div>
+              <div class="form-group">
                 <label for="description">Deskripsi</label>
-                <textarea class="form-control" v-model="form.description" id="name" />
+                <!-- <textarea class="form-control" v-model="form.description" id="name" rows="10" /> -->
+                <ckeditor :editor="editor" v-model="form.description" :config="editorConfig"></ckeditor>
                 <small class="form-text text-muted">deskripsi kota/kabupaten</small>
               </div>
               <div class="form-group">
@@ -159,6 +160,8 @@
 </template>
 
 <script>
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+
 export default {
   props: {
     urlGetCities: String,
@@ -170,6 +173,10 @@ export default {
   },
   data: function() {
     return {
+      editor: ClassicEditor,
+      editorConfig: {
+        extraPlugins: [this.uploader]
+      },
       cities: {},
       form: {},
       marker: {},
@@ -303,6 +310,11 @@ export default {
             });
         }
       });
+    },
+    uploader(editor) {
+      editor.plugins.get("FileRepository").createUploadAdapter = loader => {
+        return new UploadAdapter(loader);
+      };
     }
   },
   computed: {
