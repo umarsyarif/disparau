@@ -66219,7 +66219,7 @@ var render = function() {
                   ])
                 : _c("span", {
                     staticClass: "text-dark text-justify font-16",
-                    domProps: { innerHTML: _vm._s(_vm.event.description) }
+                    domProps: { innerHTML: _vm._s(_vm.city.description) }
                   }),
               _vm._v(" "),
               _vm.city.video
