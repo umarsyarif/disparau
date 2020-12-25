@@ -100,7 +100,7 @@
             <div class="card-body">
               <div class="row">
                 <div class="card-event col-lg-6 col-md-6 py-2" v-for="row in wisata" :key="row.id">
-                  <div class="text-center card pb-3 shadow h-100">
+                  <div class="text-center card pb-3 shadow">
                     <div class="item-img item-img-card bg--gradient-50">
                       <div style="height: 200px">
                         <img
@@ -127,38 +127,6 @@
             </div>
           </div>
         </div>
-        <!-- <div class="col-lg-4 col-md-12 col-sm-12">
-          <div class="card-box">
-            <h5 class="header-title mt-0 float-left">
-              <i class="mdi mdi-google-maps"></i> G-Maps
-            </h5>
-            <div class="col-12 mt-4 px-0">
-              <gmap-map :center="center" :zoom="15" style="width:100%;  height: 300px;">
-                <gmap-marker :position="marker.position" @click="center=marker.position"></gmap-marker>
-              </gmap-map>
-            </div>
-          </div>
-          <div class="card-box">
-            <h5 class="header-title mt-0 float-left">
-              <i class="mdi mdi-map-search"></i> Kota/Kabupaten Lainnya
-            </h5>
-            <div class="card-body pl-0">
-              <ul class="list-group mb-0" v-for="(row) in others" :key="row.id">
-                <li class="list-group-item text-left" v-if="row.id">
-                  <a href="javascript:void(0)" class="user-list-item row">
-                    <div style="background-position: center; background-size: cover;">
-                      <img :src="[row.header != null ? row.header : header]" alt class="w-100" />
-                    </div>
-                    <div class="user-desc col-md-10 col-10">
-                      <h5 class="name mt-0 mb-1">{{ row.name | kotaSentence }}</h5>
-                      <p class="desc text-muted mb-0 font-12">{{ row.events.length }} event</p>
-                    </div>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>-->
       </div>
     </div>
   </div>

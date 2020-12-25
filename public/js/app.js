@@ -15769,38 +15769,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     urlWisata: String,
@@ -66472,7 +66440,7 @@ var render = function() {
                     [
                       _c(
                         "div",
-                        { staticClass: "text-center card pb-3 shadow h-100" },
+                        { staticClass: "text-center card pb-3 shadow" },
                         [
                           _c(
                             "div",
