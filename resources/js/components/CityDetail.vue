@@ -3,25 +3,42 @@
     <div
       class="jumbotron bg-success mb-2"
       :style="{'height': '480px', 'background-image': 'url(' +[city.header != null ? city.header : header] + ')', 'background-size': '1350px', 'background-position': 'center', 'opacity': '0.8'}"
-    >
-      <!-- <div class="container">
-        <a href="javascript:void(0)" class="btn btn-purple btn-back float-left" @click="back">
-          <i class="mdi mdi-arrow-left logo-back"></i>
-        </a>
-      </div> -->
-    </div>
+    ></div>
     <div class="col-12">
       <div class="row">
-        <div class="col-lg-8 col-md-12 col-sm-12">
-          <div class="card-box">
-            <h1 class="display-6 text-center mb-5">
+        <div class="col-lg-10 col-md-12 col-sm-12 mx-auto">
+          <div class="card-box px-5">
+            <h1 class="display-6 text-center mb-4">
               <strong>{{city.name | kotaSentence}}</strong>
             </h1>
             <div class="card-body">
               <p
                 v-if="!city.description"
+                class="text-dark"
               >Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore est debitis et vel optio, reiciendis, recusandae suscipit eos expedita repellat quidem. Tempora laboriosam molestiae nam vitae quibusdam reprehenderit, suscipit accusamus.</p>
-              <p v-else>{{city.description}}</p>
+              <p v-else class="text-dark mb-2" align="justify">{{city.description}}</p>
+              <div class="mt-2" v-if="city.video">
+                <center>
+                  <iframe
+                    width="727"
+                    height="409"
+                    :src="city.video"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                  ></iframe>
+                </center>
+              </div>
+              <div class="card mt-5 mb-3">
+                <h5 class="header-title mt-0 float-left">
+                  <i class="mdi mdi-google-maps"></i> G-Maps
+                </h5>
+                <div class="col-12 mt-4 px-0">
+                  <gmap-map :center="center" :zoom="15" style="width:100%;  height: 300px;">
+                    <gmap-marker :position="marker.position" @click="center=marker.position"></gmap-marker>
+                  </gmap-map>
+                </div>
+              </div>
             </div>
             <h5 class="header-title mt-0 float-left" v-if="city">
               <i class="mdi mdi-format-list-bulleted"></i>
@@ -29,19 +46,23 @@
             </h5>
             <div class="card-body px-0" v-if="events.length > 0">
               <div class="row">
-                <div class="col-lg-6 col-md-6 py-2" v-for="row in events" :key="row.id">
-                  <div class="text-center card h-100 pb-3 shadow">
+                <div class="card-event col-lg-6 col-md-6 py-2" v-for="row in events" :key="row.id">
+                  <div class="text-center card pb-3 shadow">
                     <div class="item-img item-img-card bg--gradient-50">
-                      <div style="background-position: center; background-size: cover;">
-                        <img :src="[row.header != null ? row.header : header]" alt class="w-100" />
+                      <div style="height: 200px">
+                        <img
+                          :src="[row.header != null ? row.header : header]"
+                          alt="header-event"
+                          class="img-fluid mw-100 h-auto"
+                          style="opacity: 1"
+                        />
                       </div>
                     </div>
-                    <div class="px-3 pt-2">
-                      <p class="text-muted font-13 mb-3">
+                    <div class="bg-white px-3 pt-2" style="position: relative">
+                      <p class="text-dark font-15 mb-0">
                         <strong>{{ row.title }}</strong>
                       </p>
-
-                      <div class="text-left">
+                      <div class="text-left mt-2">
                         <p class="text-muted font-13">
                           <i class="mdi mdi-map-marker-radius"></i>
                           <span class="ml-2">{{ city.name | sentence }}</span>
@@ -105,7 +126,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-4 col-md-12 col-sm-12">
+        <!-- <div class="col-lg-4 col-md-12 col-sm-12">
           <div class="card-box">
             <h5 class="header-title mt-0 float-left">
               <i class="mdi mdi-google-maps"></i> G-Maps
@@ -124,7 +145,6 @@
               <ul class="list-group mb-0" v-for="(row) in others" :key="row.id">
                 <li class="list-group-item text-left" v-if="row.id">
                   <a href="javascript:void(0)" class="user-list-item row">
-                    <!-- <img :src="row.header" alt="city header" /> -->
                     <div style="background-position: center; background-size: cover;">
                       <img :src="[row.header != null ? row.header : header]" alt class="w-100" />
                     </div>
@@ -137,7 +157,7 @@
               </ul>
             </div>
           </div>
-        </div>
+        </div>-->
       </div>
     </div>
   </div>

@@ -15768,6 +15768,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     urlWisata: String,
@@ -66134,9 +66154,9 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "col-12" }, [
       _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-lg-8 col-md-12 col-sm-12" }, [
-          _c("div", { staticClass: "card-box" }, [
-            _c("h1", { staticClass: "display-6 text-center mb-5" }, [
+        _c("div", { staticClass: "col-lg-10 col-md-12 col-sm-12 mx-auto" }, [
+          _c("div", { staticClass: "card-box px-5" }, [
+            _c("h1", { staticClass: "display-6 text-center mb-4" }, [
               _c("strong", [
                 _vm._v(_vm._s(_vm._f("kotaSentence")(_vm.city.name)))
               ])
@@ -66144,12 +66164,72 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
               !_vm.city.description
-                ? _c("p", [
+                ? _c("p", { staticClass: "text-dark" }, [
                     _vm._v(
                       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore est debitis et vel optio, reiciendis, recusandae suscipit eos expedita repellat quidem. Tempora laboriosam molestiae nam vitae quibusdam reprehenderit, suscipit accusamus."
                     )
                   ])
-                : _c("p", [_vm._v(_vm._s(_vm.city.description))])
+                : _c(
+                    "p",
+                    {
+                      staticClass: "text-dark mb-2",
+                      attrs: { align: "justify" }
+                    },
+                    [_vm._v(_vm._s(_vm.city.description))]
+                  ),
+              _vm._v(" "),
+              _vm.city.video
+                ? _c(
+                    "div",
+                    { staticClass: "mt-2" },
+                    [
+                      _c("center", [
+                        _c("iframe", {
+                          attrs: {
+                            width: "727",
+                            height: "409",
+                            src: _vm.city.video,
+                            frameborder: "0",
+                            allow:
+                              "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
+                            allowfullscreen: ""
+                          }
+                        })
+                      ])
+                    ],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _c("div", { staticClass: "card mt-5 mb-3" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "col-12 mt-4 px-0" },
+                  [
+                    _c(
+                      "gmap-map",
+                      {
+                        staticStyle: { width: "100%", height: "300px" },
+                        attrs: { center: _vm.center, zoom: 15 }
+                      },
+                      [
+                        _c("gmap-marker", {
+                          attrs: { position: _vm.marker.position },
+                          on: {
+                            click: function($event) {
+                              _vm.center = _vm.marker.position
+                            }
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ])
             ]),
             _vm._v(" "),
             _vm.city
@@ -66171,13 +66251,14 @@ var render = function() {
                     _vm._l(_vm.events, function(row) {
                       return _c(
                         "div",
-                        { key: row.id, staticClass: "col-lg-6 col-md-6 py-2" },
+                        {
+                          key: row.id,
+                          staticClass: "card-event col-lg-6 col-md-6 py-2"
+                        },
                         [
                           _c(
                             "div",
-                            {
-                              staticClass: "text-center card h-100 pb-3 shadow"
-                            },
+                            { staticClass: "text-center card pb-3 shadow" },
                             [
                               _c(
                                 "div",
@@ -66188,22 +66269,18 @@ var render = function() {
                                 [
                                   _c(
                                     "div",
-                                    {
-                                      staticStyle: {
-                                        "background-position": "center",
-                                        "background-size": "cover"
-                                      }
-                                    },
+                                    { staticStyle: { height: "200px" } },
                                     [
                                       _c("img", {
-                                        staticClass: "w-100",
+                                        staticClass: "img-fluid mw-100 h-auto",
+                                        staticStyle: { opacity: "1" },
                                         attrs: {
                                           src: [
                                             row.header != null
                                               ? row.header
                                               : _vm.header
                                           ],
-                                          alt: ""
+                                          alt: "header-event"
                                         }
                                       })
                                     ]
@@ -66211,85 +66288,93 @@ var render = function() {
                                 ]
                               ),
                               _vm._v(" "),
-                              _c("div", { staticClass: "px-3 pt-2" }, [
-                                _c(
-                                  "p",
-                                  { staticClass: "text-muted font-13 mb-3" },
-                                  [_c("strong", [_vm._v(_vm._s(row.title))])]
-                                ),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "text-left" }, [
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "bg-white px-3 pt-2",
+                                  staticStyle: { position: "relative" }
+                                },
+                                [
                                   _c(
                                     "p",
-                                    { staticClass: "text-muted font-13" },
-                                    [
-                                      _c("i", {
-                                        staticClass: "mdi mdi-map-marker-radius"
-                                      }),
-                                      _vm._v(" "),
-                                      _c("span", { staticClass: "ml-2" }, [
-                                        _vm._v(
-                                          _vm._s(
-                                            _vm._f("sentence")(_vm.city.name)
-                                          )
-                                        )
-                                      ])
-                                    ]
+                                    { staticClass: "text-dark font-15 mb-0" },
+                                    [_c("strong", [_vm._v(_vm._s(row.title))])]
                                   ),
                                   _vm._v(" "),
-                                  _c(
-                                    "p",
-                                    { staticClass: "text-muted font-13" },
-                                    [
-                                      _c("i", {
-                                        staticClass: "mdi mdi-calendar"
-                                      }),
-                                      _vm._v(" "),
-                                      _c("span", { staticClass: "ml-2" }, [
-                                        _vm._v(
-                                          _vm._s(_vm._f("start")(row.start)) +
-                                            " - " +
-                                            _vm._s(_vm._f("end")(row.end))
-                                        )
-                                      ])
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "p",
-                                    { staticClass: "text-muted font-13" },
-                                    [
-                                      _c("i", {
-                                        staticClass: "mdi mdi-account"
-                                      }),
-                                      _vm._v(" "),
-                                      _c("span", { staticClass: "ml-2" }, [
-                                        _vm._v(
-                                          _vm._s(
-                                            _vm._f("sentence")(
-                                              row.organizer.name
+                                  _c("div", { staticClass: "text-left mt-2" }, [
+                                    _c(
+                                      "p",
+                                      { staticClass: "text-muted font-13" },
+                                      [
+                                        _c("i", {
+                                          staticClass:
+                                            "mdi mdi-map-marker-radius"
+                                        }),
+                                        _vm._v(" "),
+                                        _c("span", { staticClass: "ml-2" }, [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm._f("sentence")(_vm.city.name)
                                             )
                                           )
-                                        )
-                                      ])
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "p",
-                                    { staticClass: "text-muted font-13" },
-                                    [
-                                      _c("i", {
-                                        staticClass: "mdi mdi-map-search"
-                                      }),
-                                      _vm._v(" "),
-                                      _c("span", { staticClass: "ml-2" }, [
-                                        _vm._v(_vm._s(row.address))
-                                      ])
-                                    ]
-                                  )
-                                ])
-                              ]),
+                                        ])
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "p",
+                                      { staticClass: "text-muted font-13" },
+                                      [
+                                        _c("i", {
+                                          staticClass: "mdi mdi-calendar"
+                                        }),
+                                        _vm._v(" "),
+                                        _c("span", { staticClass: "ml-2" }, [
+                                          _vm._v(
+                                            _vm._s(_vm._f("start")(row.start)) +
+                                              " - " +
+                                              _vm._s(_vm._f("end")(row.end))
+                                          )
+                                        ])
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "p",
+                                      { staticClass: "text-muted font-13" },
+                                      [
+                                        _c("i", {
+                                          staticClass: "mdi mdi-account"
+                                        }),
+                                        _vm._v(" "),
+                                        _c("span", { staticClass: "ml-2" }, [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm._f("sentence")(
+                                                row.organizer.name
+                                              )
+                                            )
+                                          )
+                                        ])
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "p",
+                                      { staticClass: "text-muted font-13" },
+                                      [
+                                        _c("i", {
+                                          staticClass: "mdi mdi-map-search"
+                                        }),
+                                        _vm._v(" "),
+                                        _c("span", { staticClass: "ml-2" }, [
+                                          _vm._v(_vm._s(row.address))
+                                        ])
+                                      ]
+                                    )
+                                  ])
+                                ]
+                              ),
                               _vm._v(" "),
                               _c(
                                 "button",
@@ -66408,116 +66493,6 @@ var render = function() {
               )
             ])
           ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-lg-4 col-md-12 col-sm-12" }, [
-          _c("div", { staticClass: "card-box" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "col-12 mt-4 px-0" },
-              [
-                _c(
-                  "gmap-map",
-                  {
-                    staticStyle: { width: "100%", height: "300px" },
-                    attrs: { center: _vm.center, zoom: 15 }
-                  },
-                  [
-                    _c("gmap-marker", {
-                      attrs: { position: _vm.marker.position },
-                      on: {
-                        click: function($event) {
-                          _vm.center = _vm.marker.position
-                        }
-                      }
-                    })
-                  ],
-                  1
-                )
-              ],
-              1
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-box" }, [
-            _vm._m(1),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "card-body pl-0" },
-              _vm._l(_vm.others, function(row) {
-                return _c(
-                  "ul",
-                  { key: row.id, staticClass: "list-group mb-0" },
-                  [
-                    row.id
-                      ? _c("li", { staticClass: "list-group-item text-left" }, [
-                          _c(
-                            "a",
-                            {
-                              staticClass: "user-list-item row",
-                              attrs: { href: "javascript:void(0)" }
-                            },
-                            [
-                              _c(
-                                "div",
-                                {
-                                  staticStyle: {
-                                    "background-position": "center",
-                                    "background-size": "cover"
-                                  }
-                                },
-                                [
-                                  _c("img", {
-                                    staticClass: "w-100",
-                                    attrs: {
-                                      src: [
-                                        row.header != null
-                                          ? row.header
-                                          : _vm.header
-                                      ],
-                                      alt: ""
-                                    }
-                                  })
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                { staticClass: "user-desc col-md-10 col-10" },
-                                [
-                                  _c("h5", { staticClass: "name mt-0 mb-1" }, [
-                                    _vm._v(
-                                      _vm._s(_vm._f("kotaSentence")(row.name))
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c(
-                                    "p",
-                                    {
-                                      staticClass:
-                                        "desc text-muted mb-0 font-12"
-                                    },
-                                    [
-                                      _vm._v(
-                                        _vm._s(row.events.length) + " event"
-                                      )
-                                    ]
-                                  )
-                                ]
-                              )
-                            ]
-                          )
-                        ])
-                      : _vm._e()
-                  ]
-                )
-              }),
-              0
-            )
-          ])
         ])
       ])
     ])
@@ -66530,16 +66505,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("h5", { staticClass: "header-title mt-0 float-left" }, [
       _c("i", { staticClass: "mdi mdi-google-maps" }),
-      _vm._v(" G-Maps\n          ")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("h5", { staticClass: "header-title mt-0 float-left" }, [
-      _c("i", { staticClass: "mdi mdi-map-search" }),
-      _vm._v(" Kota/Kabupaten Lainnya\n          ")
+      _vm._v(" G-Maps\n              ")
     ])
   }
 ]
@@ -67106,31 +67072,31 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body text-left text-muted" }, [
-            _c("p", { staticClass: "text-muted font-15" }, [
-              _c("i", { staticClass: "mdi mdi-map-marker-radius" }),
-              _vm._v(" "),
-              _c("span", { staticClass: "ml-2" }, [
-                _c("strong", [
-                  _vm._v(_vm._s(_vm._f("sentence")(_vm.city.name)))
+            _c("div", { staticClass: "col-sm-9 mt-3 mx-auto" }, [
+              _c("p", { staticClass: "font-15" }, [
+                _c("i", { staticClass: "mdi mdi-map-marker-radius" }),
+                _vm._v(" "),
+                _c("span", { staticClass: "ml-2" }, [
+                  _c("strong", [
+                    _vm._v(_vm._s(_vm._f("sentence")(_vm.city.name)))
+                  ])
                 ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "text-muted font-15" }, [
-              _c("i", { staticClass: "mdi mdi-calendar" }),
+              ]),
               _vm._v(" "),
-              _c("span", { staticClass: "ml-2" }, [
-                _c("strong", [
-                  _vm._v(
-                    _vm._s(_vm._f("start")(_vm.event.start)) +
-                      " - " +
-                      _vm._s(_vm._f("end")(_vm.event.end))
-                  )
+              _c("p", { staticClass: "text-muted font-15 mb-3" }, [
+                _c("i", { staticClass: "mdi mdi-calendar" }),
+                _vm._v(" "),
+                _c("span", { staticClass: "ml-2" }, [
+                  _c("strong", [
+                    _vm._v(
+                      _vm._s(_vm._f("start")(_vm.event.start)) +
+                        " - " +
+                        _vm._s(_vm._f("end")(_vm.event.end))
+                    )
+                  ])
                 ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-8 mt-5 mx-auto" }, [
+              ]),
+              _vm._v(" "),
               _c("span", {
                 staticClass: "text-dark text-justify font-16",
                 domProps: { innerHTML: _vm._s(_vm.event.description) }

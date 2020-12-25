@@ -16,19 +16,19 @@
             </h2>
           </div>
           <div class="card-body text-left text-muted">
-            <p class="text-muted font-15">
-              <i class="mdi mdi-map-marker-radius"></i>
-              <span class="ml-2">
-                <strong>{{ city.name | sentence }}</strong>
-              </span>
-            </p>
-            <p class="text-muted font-15">
-              <i class="mdi mdi-calendar"></i>
-              <span class="ml-2">
-                <strong>{{ event.start | start }} - {{ event.end | end }}</strong>
-              </span>
-            </p>
-            <div class="col-sm-8 mt-5 mx-auto">
+            <div class="col-sm-9 mt-3 mx-auto">
+              <p class="font-15">
+                <i class="mdi mdi-map-marker-radius"></i>
+                <span class="ml-2">
+                  <strong>{{ city.name | sentence }}</strong>
+                </span>
+              </p>
+              <p class="text-muted font-15 mb-3">
+                <i class="mdi mdi-calendar"></i>
+                <span class="ml-2">
+                  <strong>{{ event.start | start }} - {{ event.end | end }}</strong>
+                </span>
+              </p>
               <span class="text-dark text-justify font-16" v-html="event.description"></span>
             </div>
             <div class="col-12 mt-5">
