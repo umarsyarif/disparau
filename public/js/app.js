@@ -15435,7 +15435,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -66160,7 +66159,7 @@ var staticRenderFns = [
       _vm._v(
         "\n                url embed video youtube. cth:\n                "
       ),
-      _c("strong", [_vm._v("https://youtu.be/embed/QnVzL8e8XxA")])
+      _c("strong", [_vm._v("https://www.youtube.com/embed/QnVzL8e8XxA")])
     ])
   }
 ]

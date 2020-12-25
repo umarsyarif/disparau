@@ -90,12 +90,11 @@
                 <input type="text" class="form-control" v-model="form.video" id="video" />
                 <small class="form-text text-muted">
                   url embed video youtube. cth:
-                  <strong>https://youtu.be/embed/QnVzL8e8XxA</strong>
+                  <strong>https://www.youtube.com/embed/QnVzL8e8XxA</strong>
                 </small>
               </div>
               <div class="form-group">
                 <label for="description">Deskripsi</label>
-                <!-- <textarea class="form-control" v-model="form.description" id="name" rows="10" /> -->
                 <ckeditor :editor="editor" v-model="form.description" :config="editorConfig"></ckeditor>
                 <small class="form-text text-muted">deskripsi kota/kabupaten</small>
               </div>
