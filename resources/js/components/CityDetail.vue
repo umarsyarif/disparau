@@ -16,7 +16,8 @@
                 v-if="!city.description"
                 class="text-dark"
               >Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore est debitis et vel optio, reiciendis, recusandae suscipit eos expedita repellat quidem. Tempora laboriosam molestiae nam vitae quibusdam reprehenderit, suscipit accusamus.</p>
-              <p v-else class="text-dark mb-2" align="justify">{{city.description}}</p>
+              <!-- <p v-else class="text-dark mb-2" align="justify">{{city.description}}</p> -->
+              <span v-else class="text-dark text-justify font-16" v-html="event.description"></span>
               <div class="mt-2" v-if="city.video">
                 <center>
                   <iframe

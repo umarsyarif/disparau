@@ -15800,6 +15800,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     urlWisata: String,
@@ -66216,14 +66217,10 @@ var render = function() {
                       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore est debitis et vel optio, reiciendis, recusandae suscipit eos expedita repellat quidem. Tempora laboriosam molestiae nam vitae quibusdam reprehenderit, suscipit accusamus."
                     )
                   ])
-                : _c(
-                    "p",
-                    {
-                      staticClass: "text-dark mb-2",
-                      attrs: { align: "justify" }
-                    },
-                    [_vm._v(_vm._s(_vm.city.description))]
-                  ),
+                : _c("span", {
+                    staticClass: "text-dark text-justify font-16",
+                    domProps: { innerHTML: _vm._s(_vm.event.description) }
+                  }),
               _vm._v(" "),
               _vm.city.video
                 ? _c(
