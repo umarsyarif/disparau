@@ -17779,27 +17779,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     handleEventClick: function handleEventClick(url) {
       window.location = url;
-    } // dayRender: function(info) {
-    //   var element = info.el;
-    //   var date = new Date(info.date);
-    //   date.setDate(date.getDate() + 1);
-    //   var currentDate = date.toISOString().substring(0, 10);
-    //   var hoverDivs = '<div class="fc-day-hover-container">' + "</div>";
-    //   // Change background of a date cell upon hover and add a centralized "+" icon
-    //   $("td")
-    //     .find('[data-date="' + currentDate + '"]')
-    //     .hover(
-    //       function() {
-    //         $('td [data-date="' + currentDate + '"]').addClass("fc-day-hover"); // Monthly view
-    //         $(element).append(hoverDivs);
-    //       },
-    //       function() {
-    //         $('[data-date="' + currentDate + '"]').removeClass("fc-day-hover");
-    //         $(".fc-day-hover-container").remove();
-    //       }
-    //     );
-    // }
-
+    }
   }
 });
 

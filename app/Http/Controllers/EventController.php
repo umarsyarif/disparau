@@ -24,7 +24,9 @@ class EventController extends Controller
      */
     public function index()
     {
-        return Event::with('city', 'organizer')->orderBy('start')->paginate(15);
+        return Event::with('city', 'organizer')
+            ->orderBy('start')
+            ->paginate(15);
     }
 
     /**
@@ -109,9 +111,11 @@ class EventController extends Controller
     {
         $date = date('Y-m-d');
         $event = Event::find($event->id);
+        $event->makeVisible('description');
         $incomingEvents = Event::whereDate('start', '>=', $date)
             ->whereDate('end', '>', $date)
-            ->orderBy('start')->limit(3)->with('city', 'organizer')->get();
+            ->orderBy('start')->limit(3)->with('city', 'organizer')
+            ->get();
         $data = [
             'event' => $event,
             'city' => $event->city,
@@ -157,6 +161,7 @@ class EventController extends Controller
                 ->orWhereYear('end', $year)
                 ->orderBy('start')->paginate(15);
         }
+        $yearEvents->makeVisible('description');
         return $yearEvents;
     }
 
