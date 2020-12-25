@@ -171,9 +171,9 @@ class EventController extends Controller
         $incomingEvents = Event::whereDate('start', '>=', $date)
             ->whereDate('end', '>', $date)
             ->orderBy('start')->limit(6)->with('city', 'organizer')->get();
-        if ($incomingEvents->isEmpty()) {
-            $incomingEvents = Event::orderBy('start')->with('city', 'organizer')->limit(6)->get();
-        }
+        // if ($incomingEvents->isEmpty()) {
+        //     $incomingEvents = Event::orderBy('start')->with('city', 'organizer')->limit(6)->get();
+        // }
         return $incomingEvents;
     }
 

@@ -69166,68 +69166,79 @@ var render = function() {
         _c(
           "div",
           { staticClass: "row mt-5" },
-          _vm._l(_vm.incomingEvents, function(row) {
-            return _c(
-              "div",
-              { key: row.id, staticClass: "card-event col-lg-4 col-md-6 py-2" },
-              [
-                _c("div", { staticClass: "text-center card pb-3 shadow" }, [
-                  _c(
-                    "div",
-                    { staticClass: "item-img item-img-card bg--gradient-50" },
-                    [
-                      _c("div", { staticStyle: { height: "200px" } }, [
-                        _c("img", {
-                          staticClass: "img-fluid mw-100 h-auto",
-                          staticStyle: { opacity: "1" },
-                          attrs: {
-                            src: [row.header != null ? row.header : _vm.header],
-                            alt: "header-event"
-                          }
-                        })
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "bg-white px-3 pt-2",
-                      staticStyle: { position: "relative" }
-                    },
-                    [
-                      _c("p", { staticClass: "text-dark font-15 mb-0" }, [
-                        _c("strong", [_vm._v(_vm._s(row.title))])
-                      ]),
-                      _vm._v(" "),
-                      _c("h6", { staticClass: "font-13 mb-0" }, [
-                        _vm._v(
-                          _vm._s(_vm._f("start")(row.start)) +
-                            " - " +
-                            _vm._s(_vm._f("end")(row.end))
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "text-muted" }, [
-                        _vm._v(_vm._s(_vm._f("sentence")(row.city.name)))
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass:
-                        "btn btn-purple btn-rounded waves-effect waves-light mt-auto mx-2",
-                      attrs: { href: row.url }
-                    },
-                    [_vm._v("Lihat rincian")]
-                  )
-                ])
-              ]
-            )
-          }),
-          0
+          [
+            _vm._l(_vm.incomingEvents, function(row) {
+              return _c(
+                "div",
+                {
+                  key: row.id,
+                  staticClass: "card-event col-lg-4 col-md-6 py-2"
+                },
+                [
+                  _c("div", { staticClass: "text-center card pb-3 shadow" }, [
+                    _c(
+                      "div",
+                      { staticClass: "item-img item-img-card bg--gradient-50" },
+                      [
+                        _c("div", { staticStyle: { height: "200px" } }, [
+                          _c("img", {
+                            staticClass: "img-fluid mw-100 h-auto",
+                            staticStyle: { opacity: "1" },
+                            attrs: {
+                              src: [
+                                row.header != null ? row.header : _vm.header
+                              ],
+                              alt: "header-event"
+                            }
+                          })
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "bg-white px-3 pt-2",
+                        staticStyle: { position: "relative" }
+                      },
+                      [
+                        _c("p", { staticClass: "text-dark font-15 mb-0" }, [
+                          _c("strong", [_vm._v(_vm._s(row.title))])
+                        ]),
+                        _vm._v(" "),
+                        _c("h6", { staticClass: "font-13 mb-0" }, [
+                          _vm._v(
+                            _vm._s(_vm._f("start")(row.start)) +
+                              " - " +
+                              _vm._s(_vm._f("end")(row.end))
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "text-muted" }, [
+                          _vm._v(_vm._s(_vm._f("sentence")(row.city.name)))
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      {
+                        staticClass:
+                          "btn btn-purple btn-rounded waves-effect waves-light mt-auto mx-2",
+                        attrs: { href: row.url }
+                      },
+                      [_vm._v("Lihat rincian")]
+                    )
+                  ])
+                ]
+              )
+            }),
+            _vm._v(" "),
+            _c("p", { staticClass: "text-muted mx-auto" }, [
+              _vm._v("Tidak ada event yang akan datang")
+            ])
+          ],
+          2
         )
       ]),
       _vm._v(" "),

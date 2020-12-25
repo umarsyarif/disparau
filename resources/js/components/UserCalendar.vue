@@ -196,6 +196,7 @@ export default {
             >Lihat rincian</a>
           </div>
         </div>
+        <p class="text-muted mx-auto">Tidak ada event yang akan datang</p>
       </div>
     </div>
     <div class="container-fluid mt-5 pb-4 px-4">
