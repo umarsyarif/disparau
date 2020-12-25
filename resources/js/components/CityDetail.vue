@@ -20,8 +20,8 @@
               <div class="mt-2" v-if="city.video">
                 <center>
                   <iframe
-                    width="727"
-                    height="409"
+                    width="520"
+                    height="300"
                     :src="city.video"
                     frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

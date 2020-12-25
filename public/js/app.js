@@ -66233,8 +66233,8 @@ var render = function() {
                       _c("center", [
                         _c("iframe", {
                           attrs: {
-                            width: "727",
-                            height: "409",
+                            width: "520",
+                            height: "300",
                             src: _vm.city.video,
                             frameborder: "0",
                             allow:
