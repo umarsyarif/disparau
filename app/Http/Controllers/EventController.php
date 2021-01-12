@@ -65,7 +65,7 @@ class EventController extends Controller
             'address' => $data->address,
             'start' => $start,
             'end' => $end,
-            'meta' => $data->meta
+            'meta' => optional($data)->meta
         ]);
         $file = $request->file;
         if (!!$file) {

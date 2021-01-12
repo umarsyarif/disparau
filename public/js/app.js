@@ -16537,6 +16537,59 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -16746,7 +16799,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     prev: function prev() {
       var _this9 = this;
 
-      axios.post(this.rawData.prev_page_url).then(function (response) {
+      var form = {
+        year: this.currentYear
+      };
+      axios.post(this.rawData.prev_page_url, form).then(function (response) {
         _this9.rawData = response.data;
         _this9.events = response.data.data;
       });
@@ -16754,7 +16810,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     next: function next() {
       var _this10 = this;
 
-      axios.post(this.rawData.next_page_url).then(function (response) {
+      var form = {
+        year: this.currentYear
+      };
+      axios.post(this.rawData.next_page_url, form).then(function (response) {
         _this10.rawData = response.data;
         _this10.events = response.data.data;
       });
@@ -67302,7 +67361,13 @@ var render = function() {
                             return _c(
                               "option",
                               { key: row, domProps: { value: row } },
-                              [_vm._v(_vm._s(row))]
+                              [
+                                _vm._v(
+                                  "\n                  " +
+                                    _vm._s(row) +
+                                    "\n                "
+                                )
+                              ]
                             )
                           })
                         ],
@@ -67444,7 +67509,7 @@ var render = function() {
                                         _vm._s(_vm.rawData.from) +
                                         "-" +
                                         _vm._s(_vm.rawData.to) +
-                                        " dari " +
+                                        " dari\n                        " +
                                         _vm._s(_vm.rawData.total)
                                     )
                                   ])
@@ -67552,7 +67617,13 @@ var render = function() {
                         return _c(
                           "option",
                           { key: row.id, domProps: { value: row.id } },
-                          [_vm._v(_vm._s(row.name))]
+                          [
+                            _vm._v(
+                              "\n                " +
+                                _vm._s(row.name) +
+                                "\n              "
+                            )
+                          ]
                         )
                       })
                     ],
@@ -67711,7 +67782,13 @@ var render = function() {
                         return _c(
                           "option",
                           { key: row.id, domProps: { value: row.id } },
-                          [_vm._v(_vm._s(row.name))]
+                          [
+                            _vm._v(
+                              "\n                " +
+                                _vm._s(row.name) +
+                                "\n              "
+                            )
+                          ]
                         )
                       })
                     ],
@@ -67733,7 +67810,7 @@ var render = function() {
                           staticClass: "btn btn-primary btn-sm mb-2",
                           on: { click: _vm.changePhoto }
                         },
-                        [_vm._v("Ubah Foto")]
+                        [_vm._v("\n              Ubah Foto\n            ")]
                       )
                     : _vm._e(),
                   _vm._v(" "),
@@ -67813,7 +67890,7 @@ var render = function() {
                               }
                             }
                           },
-                          [_vm._v("Add")]
+                          [_vm._v("\n                Add\n              ")]
                         )
                       ],
                       1
@@ -67852,7 +67929,7 @@ var render = function() {
                     attrs: { id: "store", disabled: _vm.isLoading },
                     on: { click: _vm.storeData }
                   },
-                  [_vm._v("Simpan")]
+                  [_vm._v("\n            Simpan\n          ")]
                 )
               ])
             ])

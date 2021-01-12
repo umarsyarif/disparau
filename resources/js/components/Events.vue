@@ -16,7 +16,9 @@
                   @change="changeYear"
                 >
                   <option value>All</option>
-                  <option v-for="row in years" :key="row" :value="row">{{row}}</option>
+                  <option v-for="row in years" :key="row" :value="row">
+                    {{ row }}
+                  </option>
                 </select>
               </div>
               <a
@@ -45,22 +47,30 @@
                     </thead>
                     <tbody>
                       <tr v-for="(row, index) in events" :key="row.id">
-                        <td>{{index+1}}</td>
-                        <td>{{row.title}}</td>
-                        <td>{{row.city.name | sentence}}</td>
+                        <td>{{ index + 1 }}</td>
+                        <td>{{ row.title }}</td>
+                        <td>{{ row.city.name | sentence }}</td>
                         <td>
-                          {{row.start | date}}
+                          {{ row.start | date }}
                           <br />
-                          <small class="text-muted">s.d {{row.end | end}}</small>
+                          <small class="text-muted"
+                            >s.d {{ row.end | end }}</small
+                          >
                         </td>
                         <td>
                           <a :href="row.url" class="btn btn-sm btn-success">
                             <i class="mdi mdi-information-outline"></i> Detail
                           </a>
-                          <button @click="editData(row)" class="btn btn-sm btn-outline-info">
+                          <button
+                            @click="editData(row)"
+                            class="btn btn-sm btn-outline-info"
+                          >
                             <i class="mdi mdi-lead-pencil"></i>
                           </button>
-                          <button @click="deleteData(row.id)" class="btn btn-sm btn-outline-danger">
+                          <button
+                            @click="deleteData(row.id)"
+                            class="btn btn-sm btn-outline-danger"
+                          >
                             <i class="mdi mdi-delete"></i>
                           </button>
                         </td>
@@ -70,7 +80,10 @@
                   <div class="clear-fix">
                     <div class="float-left">
                       <span v-if="rawData">
-                        <em>Menampilkan {{rawData.from}}-{{rawData.to}} dari {{rawData.total}}</em>
+                        <em
+                          >Menampilkan {{ rawData.from }}-{{ rawData.to }} dari
+                          {{ rawData.total }}</em
+                        >
                       </span>
                     </div>
                     <div class="float-right">
@@ -80,11 +93,8 @@
                             <i class="mdi mdi-chevron-left"></i>
                           </h4>
                         </button>
-                        {{rawData.current_page}}
-                        <button
-                          @click="next"
-                          class="btn"
-                        >
+                        {{ rawData.current_page }}
+                        <button @click="next" class="btn">
                           <h4 class="text-muted">
                             <i class="mdi mdi-chevron-right"></i>
                           </h4>
@@ -100,7 +110,11 @@
       </div>
       <div class="col-12" v-if="isCreate">
         <div class="card-box">
-          <a href="javascript:void(0)" class="close text-muted" @click="createData">
+          <a
+            href="javascript:void(0)"
+            class="close text-muted"
+            @click="createData"
+          >
             <i class="mdi mdi-close float-right"></i>
           </a>
           <div class="card-header bg-white text-center">
@@ -116,13 +130,20 @@
                 id="organizer_id"
               >
                 <option value>Pilih Penyelenggara</option>
-                <option v-for="row in organizers" :key="row.id" :value="row.id">{{ row.name }}</option>
+                <option v-for="row in organizers" :key="row.id" :value="row.id">
+                  {{ row.name }}
+                </option>
               </select>
               <small class="form-text text-muted">Penyelenggara event</small>
             </div>
             <div class="form-group">
               <label for="title">Judul</label>
-              <input type="text" class="form-control" v-model="form.title" id="title" />
+              <input
+                type="text"
+                class="form-control"
+                v-model="form.title"
+                id="title"
+              />
               <small class="form-text text-muted">Judul event</small>
             </div>
             <div class="form-group">
@@ -154,9 +175,16 @@
               />
             </div>
             <div class="form-group">
-              <select type="text" class="form-control" v-model="form.city_id" id="city_id">
+              <select
+                type="text"
+                class="form-control"
+                v-model="form.city_id"
+                id="city_id"
+              >
                 <option value>Pilih Kota / Kabupaten</option>
-                <option v-for="row in cities" :key="row.id" :value="row.id">{{ row.name }}</option>
+                <option v-for="row in cities" :key="row.id" :value="row.id">
+                  {{ row.name }}
+                </option>
               </select>
             </div>
             <div class="form-group mt-3">
@@ -166,23 +194,34 @@
                 class="btn btn-primary btn-sm mb-2"
                 @click="changePhoto"
                 v-if="form.header != '' && form.header != null"
-              >Ubah Foto</button>
+              >
+                Ubah Foto
+              </button>
               <div>
-                <div class="custom-file" v-if="form.header == '' || form.header == null">
+                <div
+                  class="custom-file"
+                  v-if="form.header == '' || form.header == null"
+                >
                   <input
                     type="file"
                     id="file_input"
                     class="custom-file-input"
                     @change="handleFileChange"
                   />
-                  <label class="custom-file-label" for="customFile">Pilih foto...</label>
+                  <label class="custom-file-label" for="customFile"
+                    >Pilih foto...</label
+                  >
                 </div>
                 <img :src="fileUrl" width="250rem" v-else />
               </div>
             </div>
             <div class="form-group mt-3">
               <label for="description">Deskripsi</label>
-              <ckeditor :editor="editor" v-model="form.description" :config="editorConfig"></ckeditor>
+              <ckeditor
+                :editor="editor"
+                v-model="form.description"
+                :config="editorConfig"
+              ></ckeditor>
               <small class="form-text text-muted">Deskripsi event</small>
             </div>
             <div class="form-group mt-3">
@@ -191,12 +230,24 @@
                 <small class="text-muted">(Optional)</small>
               </label>
               <div class="input-group">
-                <gmap-autocomplete class="form-control col-12 mr-2" @place_changed="setPlace"></gmap-autocomplete>
-                <button class="btn btn-primary" @click.prevent="addMarker">Add</button>
+                <gmap-autocomplete
+                  class="form-control col-12 mr-2"
+                  @place_changed="setPlace"
+                ></gmap-autocomplete>
+                <button class="btn btn-primary" @click.prevent="addMarker">
+                  Add
+                </button>
               </div>
               <br />
-              <gmap-map :center="center" :zoom="15" style="width:100%;  height: 400px;">
-                <gmap-marker :position="marker.position" @click="center=marker.position"></gmap-marker>
+              <gmap-map
+                :center="center"
+                :zoom="15"
+                style="width: 100%; height: 400px"
+              >
+                <gmap-marker
+                  :position="marker.position"
+                  @click="center = marker.position"
+                ></gmap-marker>
               </gmap-map>
             </div>
           </div>
@@ -206,7 +257,9 @@
               id="store"
               @click="storeData"
               :disabled="isLoading"
-            >Simpan</button>
+            >
+              Simpan
+            </button>
           </div>
         </div>
       </div>
@@ -227,21 +280,21 @@ export default {
     urlGetCities: String,
     urlGetEvents: String,
     urlGetYears: String,
-    urlEvent: String
+    urlEvent: String,
   },
   components: {
-    "date-picker": Datepicker
+    "date-picker": Datepicker,
   },
-  mounted: function() {
+  mounted: function () {
     this.loadYears();
     this.loadCities();
     this.loadOrganizers();
   },
-  data: function() {
+  data: function () {
     return {
       editor: ClassicEditor,
       editorConfig: {
-        extraPlugins: [this.uploader]
+        extraPlugins: [this.uploader],
       },
       rawData: null,
       events: {},
@@ -257,50 +310,50 @@ export default {
       isLoading: false,
       currentPlace: null,
       disabledDates: {
-        customPredictor: date => {
+        customPredictor: (date) => {
           if (date < this.form.start) {
             return true;
           }
-        }
-      }
+        },
+      },
     };
   },
   methods: {
     loadData() {
       axios
         .get(this.urlGetEvents)
-        .then(response => {
+        .then((response) => {
           this.events = response.data;
         })
-        .catch(error => console.error(error));
+        .catch((error) => console.error(error));
     },
     loadYears() {
       axios
         .get(this.urlGetYears)
-        .then(response => {
+        .then((response) => {
           this.years = response.data;
           this.currentYear = new Date().getFullYear();
           this.changeYear();
         })
-        .catch(error => console.error(error));
+        .catch((error) => console.error(error));
     },
     loadOrganizers() {
       axios
         .get(this.urlGetOrganizers)
-        .then(response => {
+        .then((response) => {
           this.organizers = response.data;
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(error);
         });
     },
     loadCities() {
       axios
         .get(this.urlGetCities)
-        .then(response => {
+        .then((response) => {
           this.cities = response.data;
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(error);
         });
     },
@@ -311,7 +364,7 @@ export default {
         start: new Date(),
         end: new Date(),
         header: "",
-        city: { name: "" }
+        city: { name: "" },
       };
       this.isCreate = !this.isCreate;
       this.center = { lat: 0.5070677, lng: 101.4477793 };
@@ -336,7 +389,7 @@ export default {
       if (file == "") {
         Toast.fire({
           icon: "warning",
-          title: "Header tidak boleh kosong!"
+          title: "Header tidak boleh kosong!",
         });
         return;
       }
@@ -344,22 +397,22 @@ export default {
       axios
         .post(this.urlEvent, form, {
           headers: {
-            "Content-Type": "multipart/form-data"
-          }
+            "Content-Type": "multipart/form-data",
+          },
         })
-        .then(response => {
+        .then((response) => {
           this.isCreate = false;
           this.events = response.data.data.data;
           Toast.fire({
             icon: "success",
-            title: response.data.message
+            title: response.data.message,
           });
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(error);
           Toast.fire({
             icon: "warning",
-            title: error
+            title: error,
           });
         })
         .then(() => {
@@ -374,19 +427,19 @@ export default {
         showCancelButton: true,
         cancelButtonColor: "#3085d6",
         confirmButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
-      }).then(result => {
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
         if (result.value) {
           axios
             .delete(this.urlEvent + "/" + id)
-            .then(response => {
+            .then((response) => {
               this.events = response.data.data.data;
               Toast.fire({
                 icon: "success",
-                title: response.data.message
+                title: response.data.message,
               });
             })
-            .catch(error => {
+            .catch((error) => {
               console.error(error);
             });
         }
@@ -401,24 +454,30 @@ export default {
     changeYear() {
       axios
         .post(this.urlGetYears, {
-          year: this.currentYear
+          year: this.currentYear,
         })
-        .then(response => {
+        .then((response) => {
           this.rawData = response.data;
           this.events = response.data.data;
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(error);
         });
     },
     prev() {
-      axios.post(this.rawData.prev_page_url).then(response => {
+      const form = {
+        year: this.currentYear,
+      };
+      axios.post(this.rawData.prev_page_url, form).then((response) => {
         this.rawData = response.data;
         this.events = response.data.data;
       });
     },
     next() {
-      axios.post(this.rawData.next_page_url).then(response => {
+      const form = {
+        year: this.currentYear,
+      };
+      axios.post(this.rawData.next_page_url, form).then((response) => {
         this.rawData = response.data;
         this.events = response.data.data;
       });
@@ -430,14 +489,14 @@ export default {
       if (this.currentPlace) {
         const marker = {
           lat: this.currentPlace.geometry.location.lat(),
-          lng: this.currentPlace.geometry.location.lng()
+          lng: this.currentPlace.geometry.location.lng(),
         };
         this.marker = { position: marker };
         this.center = marker;
         this.form.meta = JSON.stringify(marker);
       }
     },
-    geolocate: function() {
+    geolocate: function () {
       if (this.form.meta) {
         const marker = JSON.parse(this.form.meta);
         this.marker = { position: marker };
@@ -446,10 +505,10 @@ export default {
       this.marker;
     },
     uploader(editor) {
-      editor.plugins.get("FileRepository").createUploadAdapter = loader => {
+      editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
         return new UploadAdapter(loader);
       };
-    }
+    },
   },
   computed: {
     fileUrl() {
@@ -460,7 +519,7 @@ export default {
       } else {
         return file;
       }
-    }
-  }
+    },
+  },
 };
 </script>
